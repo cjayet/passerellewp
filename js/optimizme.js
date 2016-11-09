@@ -2,7 +2,7 @@
     $(document).ready(function(){
 
         // site where to push data
-        var urlCible = 'http://localhost/wordpress/';
+        var urlWordpress = $('#url_wordpress').val();
 
         /////////////////////////////////////////////////
         //  push title
@@ -11,7 +11,7 @@
         $(document).on('click', '#push_title', function(){
             $.ajax({
                 method: "POST",
-                url: urlCible,
+                url: urlWordpress,
                 cache: false,
                 dataType: "json",
                 data: { action: "set_title",
@@ -34,7 +34,7 @@
         $(document).on('click', '#push_content', function(){
             $.ajax({
                 method: "POST",
-                url: urlCible,
+                url: urlWordpress,
                 cache: false,
                 dataType: "json",
                 data: { action: "set_content",
@@ -59,7 +59,7 @@
         $(document).on('click', '#push_img_alt', function(){
             $.ajax({
                 method: "POST",
-                url: urlCible,
+                url: urlWordpress,
                 cache: false,
                 dataType: "json",
                 data: { action: "set_img_alt",
@@ -73,6 +73,31 @@
                 $('#result_update_img').html(msg.message)
             });
         })
+
+
+        /////////////////////////////////////////////////
+        //  push title
+        /////////////////////////////////////////////////
+
+
+        $(document).on('click', '#push_meta_description', function(){
+            $.ajax({
+                method: "POST",
+                url: urlWordpress,
+                cache: false,
+                dataType: "json",
+                data: { action: "set_meta_description",
+                    url: $('#url_cible').val(),
+                    content: $('#new_content').val()
+                }
+            })
+                .done(function( msg ) {
+                    $('#result_update_content').removeClass().addClass('alert alert-'+msg.result)
+                    $('#result_update_content').html(msg.message)
+                });
+        })
+
+
 
     })
 })(jQuery)
