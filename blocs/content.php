@@ -3,16 +3,13 @@
 
     <div class="form-group">
         <label for="new_title">Nouveau contenu</label>
-        <textarea class="form-control" id="new_content" placeholder="Contenu" value=""></textarea>
+        <textarea class="form-control" data-id="new_content" placeholder="Contenu" value=""></textarea>
     </div>
 
-    <input type="hidden" name="action" value="set_title" />
-    <button type="button" id="push_content" class="btn btn-default">Envoyer</button>
+    <button type="button" data-id="action" value="set_content" class="btn btn-default push_wp">Envoyer</button>
 </form>
 
 <div class="form-group">
     <div id="result_update_content" class=""></div>
 </div>
-<br />
-<hr />
-<br />
+<br /><hr /><br />

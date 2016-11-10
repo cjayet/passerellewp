@@ -37,6 +37,7 @@
                     <label for="new_title">URL wordpress</label>
                     <input type="text" class="form-control" id="url_wordpress" placeholder="URL" value="http://localhost/wordpress/" />
                 </div>
+                <br /><hr /><br />
 
                 <?php include('blocs/title.php') ?>
                 <?php include('blocs/content.php') ?>

@@ -2,102 +2,51 @@
     $(document).ready(function(){
 
         // site where to push data
-        var urlWordpress = $('#url_wordpress').val();
+        var urlArticleCible = $('#url_cible').val();
 
-        /////////////////////////////////////////////////
-        //  push title
-        /////////////////////////////////////////////////
+        /**
+         * PUSH DATA - Générique
+         *
+         * pousse l'ensemble des données du formulaire en ajax
+         *  - chaque field doit avoir un champ data-id de spécifié (key)
+         *  - chaque field doit avoir un champ value de spécifié (value)
+         */
+        $(document).on('click', '.push_wp', function(){
 
-        $(document).on('click', '#push_title', function(){
-            $.ajax({
-                method: "POST",
-                url: urlWordpress,
-                cache: false,
-                dataType: "json",
-                data: { action: "set_title",
-                        url: $('#url_cible').val(),
-                        content: $('#new_title').val()
-                }
-            })
-            .done(function( msg ) {
-                $('#result_update_title').removeClass().addClass('alert alert-'+msg.result)
-                $('#result_update_title').html(msg.message)
-            });
-        })
+            // récupération des éléments input du form (input, select, textarea)
+            var form = $(this).parent();
+            var containerMsg = form.next();
 
+            form.each(function(){
+                var elements = $(this).find(':input');
 
-        /////////////////////////////////////////////////
-        //  push title
-        /////////////////////////////////////////////////
-
-
-        $(document).on('click', '#push_content', function(){
-            $.ajax({
-                method: "POST",
-                url: urlWordpress,
-                cache: false,
-                dataType: "json",
-                data: { action: "set_content",
-                    url: $('#url_cible').val(),
-                    content: $('#new_content').val()
-                }
-            })
-            .done(function( msg ) {
-                $('#result_update_content').removeClass().addClass('alert alert-'+msg.result)
-                $('#result_update_content').html(msg.message)
-            });
-        })
-
-
-
-
-        /////////////////////////////////////////////////
-        //  push image
-        /////////////////////////////////////////////////
-
-
-        $(document).on('click', '#push_img_alt', function(){
-            $.ajax({
-                method: "POST",
-                url: urlWordpress,
-                cache: false,
-                dataType: "json",
-                data: { action: "set_img_alt",
-                        url: $('#url_cible').val(),
-                        url_image: $('#url_image').val(),
-                        content: $('#update_image').val()
-                }
-            })
-            .done(function( msg ) {
-                $('#result_update_img').removeClass().addClass('alert alert-'+msg.result)
-                $('#result_update_img').html(msg.message)
-            });
-        })
-
-
-        /////////////////////////////////////////////////
-        //  push title
-        /////////////////////////////////////////////////
-
-
-        $(document).on('click', '#push_meta_description', function(){
-            $.ajax({
-                method: "POST",
-                url: urlWordpress,
-                cache: false,
-                dataType: "json",
-                data: { action: "set_meta_description",
-                    url: $('#url_cible').val(),
-                    content: $('#new_content').val()
-                }
-            })
-                .done(function( msg ) {
-                    $('#result_update_content').removeClass().addClass('alert alert-'+msg.result)
-                    $('#result_update_content').html(msg.message)
+                // tableau des données à envoyer
+                var tabData = {url_cible: urlArticleCible};
+                elements.each(function(){
+                    tabData[$(this).attr('data-id')] = $(this).val();
                 });
-        })
+                var json_data = JSON.stringify(tabData, null, 2);
 
+                // cache les éventuels messages présents avant
+                containerMsg.removeClass().html('');
+
+                // appel ajax
+                $.ajax({
+                    method: "POST",
+                    url: urlArticleCible,
+                    cache: false,
+                    dataType: "json",
+                    data: { data_optme: json_data }
+                })
+                .done(function( msg ) {
+
+                    containerMsg.removeClass().addClass('alert alert-'+msg.result);
+                    containerMsg.html(msg.message);
+                });
+
+            });
+        })
 
 
     })
-})(jQuery)
+})(jQuery);

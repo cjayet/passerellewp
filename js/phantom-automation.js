@@ -9,7 +9,7 @@ var pluginSlug = 'redirection';
 var formLogin = args[1];
 var formPassword = args[2];
 var urlAccesBackoffice = args[3];
-var urlDownloadPlugin = urlAccesBackoffice + '/plugin-install.php?tab=plugin-information&plugin=redirection';
+var urlDownloadPlugin = urlAccesBackoffice + '/plugin-install.php?tab=plugin-information&plugin='+pluginSlug;
 var urlPluginsInactifs = urlAccesBackoffice+"/plugins.php?plugin_status=inactive";
 var boolGenerateImage = 0;      // bool : génération ou non d'images pour le debug
 var boolFinish = 0;             // bool : arrêt des traitements si une anomalie est levée
@@ -102,13 +102,13 @@ var steps = [
 
         boolFinish = page.evaluate(function() {
             if (document.getElementById("login_error")){
-                console.log('Invalid login and/or password')
+                console.log('Invalid login and/or password');
                 return 1
             }
             else {
                 return 0;
             }
-        })
+        });
         if (boolFinish == 1)        phantom.exit();
 
         page.open(urlDownloadPlugin);
@@ -123,7 +123,7 @@ var steps = [
             if (document.getElementById("error-page"))
             {
                 // user don't have rights to install plugins
-                console.log("Can't install plugin: incorrect user rights?")
+                console.log("Can't install plugin: incorrect user rights?");
                 return 1;
             }
             else
@@ -135,7 +135,7 @@ var steps = [
                 }
                 else {
                     // button not show: plugin already installated
-                    console.log('Plugin already installed')
+                    console.log('Plugin already installed');
                     return 0;
                 }
             }
@@ -153,12 +153,11 @@ var steps = [
 
     function(){
         // 7 - activate plugin
-        if (boolGenerateImage == 1)     page.render('debut7.png')
+        if (boolGenerateImage == 1)     page.render('debut7.png');
 
         // clic pour activer le plugin
         boolFinish = page.evaluate(function(pluginSlug) {
             var trPluginsInactive = document.getElementsByClassName('inactive');
-            var i = 0;
             var pluginFound = 0;
             for (i=0; i < trPluginsInactive.length; i++){
                 if (trPluginsInactive[i].getAttribute('data-slug') == pluginSlug)
@@ -168,7 +167,7 @@ var steps = [
                     trPluginsInactive[i].querySelector('.activate').firstChild.click();
                     var lienActivatePlugin = trPluginsInactive[i].querySelector('.activate').firstChild;
                     if (lienActivatePlugin){
-                        lienActivatePlugin.click()
+                        lienActivatePlugin.click();
                         return 1;
                     }
                 }
