@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="js/jquery-3.1.1.min.js" ></script>
     <script src="js/optimizme.js" ></script>
+
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 </head>
 
 <body>
@@ -43,6 +45,7 @@
                 <?php include('blocs/content.php') ?>
                 <?php include('blocs/image_alt.php') ?>
                 <?php include('blocs/meta_description.php') ?>
+                <?php include('blocs/permalink.php') ?>
             </div>
 
 
@@ -54,6 +57,7 @@
                          <li class=""><a href="#bloc_content">Content</a></li>
                          <li class=""><a href="#bloc_image">Image alt</a></li>
                          <li class=""><a href="#bloc_meta_description">Meta description</a></li>
+                         <li class=""><a href="#bloc_permalink">Permalink</a></li>
                      </ul>
                  </nav>
             </div>

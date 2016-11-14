@@ -1,9 +1,6 @@
 (function($){
     $(document).ready(function(){
 
-        // site where to push data
-        var urlArticleCible = $('#url_cible').val();
-
         /**
          * PUSH DATA - Générique
          *
@@ -16,6 +13,7 @@
             // récupération des éléments input du form (input, select, textarea)
             var form = $(this).parent();
             var containerMsg = form.next();
+            var urlArticleCible = $('#url_cible').val();       // site where to push data
 
             form.each(function(){
                 var elements = $(this).find(':input');
@@ -45,8 +43,23 @@
                 });
 
             });
-        })
+        });
 
+
+        /**
+         * Load TinyMCE
+         */
+        tinymce.init({
+            selector: 'textarea',
+            height: 100,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table contextmenu paste code'
+            ],
+            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            content_css: '//www.tinymce.com/css/codepen.min.css'
+        });
 
     })
 })(jQuery);

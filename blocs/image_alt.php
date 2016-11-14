@@ -16,6 +16,6 @@
 </form>
 
 <div class="form-group">
-    <div id="result_update_img" class=""></div>
+    <div class=""></div>
 </div>
 <br /><hr /><br />
