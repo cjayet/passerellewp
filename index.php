@@ -19,6 +19,9 @@
 
             <h2>Push content</h2>
            <a href="push_content.php">Push content</a>
+
+            <h2>Easycontent editor</h2>
+            <a href="easycontent-editor.php">Easycontent editor</a>
         </div>
     </div>
 </div>

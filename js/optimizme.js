@@ -23,6 +23,13 @@
                 elements.each(function(){
                     tabData[$(this).attr('data-id')] = $(this).val();
                 });
+
+                // editor?
+                if ($('#myGrid').length){
+                    tabData['new_content'] = $('#myGrid').gridEditor('getHtml');
+                }
+
+                // to JSON
                 var json_data = JSON.stringify(tabData, null, 2);
 
                 // cache les éventuels messages présents avant
@@ -37,7 +44,6 @@
                     data: { data_optme: json_data }
                 })
                 .done(function( msg ) {
-
                     containerMsg.removeClass().addClass('alert alert-'+msg.result);
                     containerMsg.html(msg.message);
                 });
@@ -47,8 +53,9 @@
 
 
         /**
-         * Load TinyMCE
+         * Load TinyMCE - on textarea
          */
+        /*
         tinymce.init({
             selector: 'textarea',
             height: 100,
@@ -60,6 +67,7 @@
             toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
             content_css: '//www.tinymce.com/css/codepen.min.css'
         });
+        */
 
     })
 })(jQuery);
