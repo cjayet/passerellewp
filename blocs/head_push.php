@@ -7,8 +7,9 @@
     <input type="text" class="form-control" id="url_cible" placeholder="URL" value="http://localhost/wordpress/article-de-test/" />
 </div>
 
+<!--
 <div class="form-group">
     <label for="new_title">URL wordpress</label>
     <input type="text" class="form-control" id="url_wordpress" placeholder="URL" value="http://localhost/wordpress/" />
 </div>
-<br /><hr /><br />
+-->

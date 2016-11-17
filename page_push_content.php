@@ -27,6 +27,7 @@
             <div class="col-md-9">
 
                 <?php include('blocs/head_push.php') ?>
+                <br /><hr /><br />
 
                 <?php include('blocs/title.php') ?>
                 <?php include('blocs/content.php') ?>
