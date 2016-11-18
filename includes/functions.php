@@ -29,3 +29,16 @@ function executeInstall(){
     $response = exec($pathBinary .' '.  $pathScript .' '. $login .' '. $password .' '. $urlBackoffice);
     return $response;
 }
+
+
+/**
+ * @param $s
+ * @return string
+ */
+function getRelatedContentFromText($s){
+    // TODO vraierecherche
+
+    $nbParagraphes = rand(2,4);
+    $content = file_get_contents('http://loripsum.net/api/'.$nbParagraphes.'/short/decorate/');
+    return $content;
+}

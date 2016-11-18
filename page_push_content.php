@@ -15,7 +15,9 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="js/jquery-3.1.1.min.js" ></script>
-    <script src="js/optimizme.js" ></script>
+
+    <script src="js/optimizme/utils.js" ></script>
+    <script src="js/optimizme/passerelle.js" ></script>
 
     <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 </head>
@@ -26,14 +28,14 @@
 
             <div class="col-md-9">
 
-                <?php include('blocs/head_push.php') ?>
+                <?php include('includes/blocs/head_push.php') ?>
                 <br /><hr /><br />
 
-                <?php include('blocs/title.php') ?>
-                <?php include('blocs/content.php') ?>
-                <?php include('blocs/image_alt.php') ?>
-                <?php include('blocs/meta_description.php') ?>
-                <?php include('blocs/permalink.php') ?>
+                <?php include('includes/blocs/title.php') ?>
+                <?php include('includes/blocs/content.php') ?>
+                <?php include('includes/blocs/image_alt.php') ?>
+                <?php include('includes/blocs/meta_description.php') ?>
+                <?php include('includes/blocs/permalink.php') ?>
             </div>
 
 
