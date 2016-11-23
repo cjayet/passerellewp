@@ -22,7 +22,7 @@
     -webkit-animation-name: animationAddRow; /* Safari 4.0 - 8.0 */
     -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
     animation-name: animationAddRow;
-    animation-duration: 2s;
+    animation-duration: 4s;
 }
 
 @keyframes animationAddRow {

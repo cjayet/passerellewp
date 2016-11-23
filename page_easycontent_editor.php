@@ -1,43 +1,7 @@
 <?php
-session_start();
-$_SESSION['id_optimizme_user'] = 3; // TODO vraie gestion de session utilisateur
+// header: scripts + navigation bar
+include('includes/blocs/header.php');
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Easycontent editor</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
-    <!-- CSS dependencies -->
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
-
-    <!-- Javascript dependencies -->
-    <script src="https://code.jquery.com/jquery-1.11.2.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <script src="js/tinymce/tinymce.min.js"></script>
-    <script src="js/tinymce/jquery.tinymce.min.js"></script>
-
-    <!-- prettyLoader -->
-    <script src="js/jquery.prettyLoader.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/prettyLoader.css" />
-
-    <!-- Grid editor -->
-    <script src="js/jquery.grideditor.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/grideditor.css" />
-
-    <!-- jquery tmpl -->
-    <script src="js/jquery.tmpl.min.js"></script>
-
-    <!-- optimiz.me -->
-    <link rel="stylesheet" type="text/css" href="css/optimizme.css" />
-    <script src="js/optimizme/utils.js" ></script>
-    <script src="js/optimizme/passerelle.js" ></script>
-    <script src="js/optimizme/editor.js" ></script>
-
-</head>
-<body>
 
 <div class="container">
     <div class="row">
@@ -79,16 +43,80 @@ $_SESSION['id_optimizme_user'] = 3; // TODO vraie gestion de session utilisateur
 
                 <div class="form-group">
                     <form>
+                        <label for="easycontent-canonical-url">URL canonique</label>
+                        <input type="text" name="easycontent-canonical-url" id="easycontent-canonical-url" data-id="canonical_url" class="form-control" />
+                        <button type="button" data-id="action" value="set_canonical_url" class="btn btn-primary push_wp">Envoyer</button>
+                    </form>
+                    <div class="form-group"><div class=""></div></div>
+                </div>
+
+                <div class="form-group">
+                    <form>
                         <label for="easycontent-permalink">Meta description</label>
                         <input type="text" name="easycontent-meta-description" id="easycontent-meta-description" data-id="meta_description" class="form-control" />
                         <button type="button" data-id="action" value="set_meta_description" class="btn btn-primary push_wp">Envoyer</button>
                     </form>
                     <div class="form-group"><div class=""></div></div>
                 </div>
+
+                <div class="form-group">
+                    <form>
+                        <label for="noindex">Meta robots</label>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" data-id="noindex" id="easycontent-noindex" name="noindex" value="1"> noindex
+                            </label>
+                            <label>
+                                <input type="checkbox" data-id="nofollow" id="easycontent-nofollow" name="nofollow" value="1"> nofollow
+                            </label>
+                        </div>
+                        <button type="button" data-id="action" value="set_meta_robots" class="btn btn-primary push_wp">Envoyer</button>
+                    </form>
+                    <div class="form-group"><div class=""></div></div>
+                </div>
+
+                <div class="form-group">
+                    <form>
+                        <label for="noindex">Contenu publié</label>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" data-id="is_publish" id="easycontent-publish" name="is_publish" value="1"> Publier la page
+                            </label>
+                        </div>
+                        <button type="button" data-id="action" value="set_post_status" class="btn btn-primary push_wp">Envoyer</button>
+                    </form>
+                    <div class="form-group"><div class=""></div></div>
+                </div>
+
+                <br /><hr /><br />
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Optimisation des images présentes dans le contenu</h2>
+                <div id="image-list" class="list-unstyled"></div>
+                <br /><hr /><br />
             </div>
         </div>
 
         <div class="row">
+            <div class="col-md-12">
+                <h2>Optimisation des liens présents dans le contenu</h2>
+                <div id="href-list"></div>
+                <br /><hr /><br />
+            </div>
+        </div>
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Editor</h2>
+            </div>
             <div class="col-md-2">
                 <aside id="page_builder">
                     <div id="list_block_page_builder" class="page-header">BLOCKS</div>
@@ -133,9 +161,6 @@ $_SESSION['id_optimizme_user'] = 3; // TODO vraie gestion de session utilisateur
             <div class="col-md-12 h200">&nbsp;</div>
         </div>
     </div>
-
-
-
 </div> <!-- /.container -->
 
 <script type="text/javascript">

@@ -25,14 +25,27 @@
                 // tableau des données à envoyer
                 var tabData = {url_cible: urlArticleCible};
                 elements.each(function(){
-                    console.log('data : ' + $(this).attr('data-id') +' => ' + $(this).val());
-                    tabData[$(this).attr('data-id')] = $(this).val();
-                });
+                    if ( $(this).attr('type') == 'radio' || $(this).attr('type') == 'checkbox' ){
+                        console.log('checkbox')
+                        if ($(this).prop('checked')){
+                            console.log('checked')
+                            tabData[$(this).attr('data-id')] = $(this).val();
+                        }
+                    }
+                    else if ($(this).attr('type') == 'select'){
+                        if ($(this).prop('selected')){
+                            tabData[$(this).attr('data-id')] = $(this).find(":selected").val();
+                        }
+                    }
+                    else {
+                        tabData[$(this).attr('data-id')] = $(this).val();
 
-                // editor?
-                if ($('#easycontent-grid').length){
-                    tabData['new_content'] = $('#easycontent-grid').gridEditor('getHtml');
-                }
+                        if ( $(this).attr('data-id') == 'action' && $(this).val() == 'set_content'){
+                            // cas particulier : on rajoute le contenu de grid editor
+                            tabData['new_content'] = $('#easycontent-grid').gridEditor('getHtml');
+                        }
+                    }
+                });
 
                 // to JSON
                 var json_data = JSON.stringify(tabData, null, 2);
@@ -152,9 +165,6 @@
 
                     // add content with simple bootstrap form
                     alert(msg.preview);
-
-
-
 
                 }
 

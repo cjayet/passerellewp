@@ -1,32 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: clement
- * Date: 07/11/2016
- * Time: 14:58
- */
+// header: scripts + navigation bar
+include('includes/blocs/header.php');
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Example push</title>
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-1.11.2.js"></script>
-
-    <!-- prettyLoader -->
-    <script src="js/jquery.prettyLoader.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/prettyLoader.css" />
-
-    <script src="js/optimizme/utils.js" ></script>
-    <script src="js/optimizme/passerelle.js" ></script>
-
-    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-</head>
-
-<body>
     <div class="container">
         <div class="row">
 

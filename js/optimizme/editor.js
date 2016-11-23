@@ -29,6 +29,16 @@
                     $('#easycontent-title').val(msg.title);
                     $('#easycontent-permalink').val(msg.permalink);
                     $('#easycontent-meta-description').val(msg.meta_description);
+                    $('#easycontent-canonical-url').val(msg.url_canonical);
+
+                    if (msg.noindex == 1)           $('#easycontent-noindex').prop('checked', true);
+                    else                            $('#easycontent-noindex').prop('checked', false);
+
+                    if (msg.nofollow == 1)          $('#easycontent-nofollow').prop('checked', true);
+                    else                            $('#easycontent-nofollow').prop('checked', false);
+
+                    if (msg.publish == 'publish')   $('#easycontent-publish').prop('checked', true);
+                    else                            $('#easycontent-publish').prop('checked', false);
 
                     // initialisation de la grille de l'éditeur
                     easycontentGridInit( msg.content, false);
@@ -45,6 +55,81 @@
 
                 }
             })
+
+
+
+
+            // préparation requête ajax pour les images
+            var tabData = {url_cible: urlArticleCible};
+            tabData['action'] = 'load_images_post';
+            var json_data = JSON.stringify(tabData, null, 2);
+
+            // exécution ajax
+            getAjaxResponse(urlArticleCible, json_data, function(msg){
+                $('#image-list').empty();
+
+                if (msg.result == 'success')
+                {
+                    if (msg.images.length > 0){
+
+                        $.each(msg.images, function(idx, objImage) {
+                            $.get("includes/blocs/easycontent_editor/js-tmpl/li_image_detail_contenu.html", function(data){
+                                data =  $.tmpl( data, {
+                                    'url_image' : objImage.src,
+                                    'alt_image' : objImage.alt,
+                                    'title_image' : objImage.title
+                                }).html()
+
+                                $('#image-list').append(data);
+                            });
+                        })
+                    }
+                    else
+                    {
+                        $('#image-list').append('<li>Aucune image trouvée.</li>');
+                    }
+                }
+
+            })
+
+
+
+
+            // préparation requête ajax pour les liens
+            var tabData = {url_cible: urlArticleCible};
+            tabData['action'] = 'load_href_post';
+            var json_data = JSON.stringify(tabData, null, 2);
+
+            // exécution ajax
+            getAjaxResponse(urlArticleCible, json_data, function(msg){
+                $('#href-list').empty();
+
+                if (msg.result == 'success')
+                {
+                    if (msg.liens.length > 0){
+                        $.each(msg.liens, function(idx, objLien) {
+                            $.get("includes/blocs/easycontent_editor/js-tmpl/li_href_detail_contenu.html", function(data){
+                                data =  $.tmpl( data, {
+                                    'href_lien' : objLien.href,
+                                    'rel_lien' : objLien.rel,
+                                    'target_lien' : objLien.target
+                                }).html()
+
+                                $('#href-list').append(data);
+                            });
+                        })
+                    }
+                    else
+                    {
+                        $('#href-list').append('<li>Aucun lien trouvé.</li>');
+                    }
+                }
+
+            })
+
+
+
+
         })
 
 
@@ -190,7 +275,7 @@
                 var posX = parseInt(e.pageX +30);
                 var posY = parseInt(e.pageY -15);
 
-                $.get("includes/blocs/easycontent_editor/toolbar.html", function(data){
+                $.get("includes/blocs/easycontent_editor/js-tmpl/toolbar.html", function(data){
 
                     // random id for toolbar
                     var rand = Math.floor(Math.random() * (Math.pow(10,7))) + 1;
@@ -259,14 +344,22 @@
                     $('#content-grid').html('<div id="easycontent-grid">'+contenuInitial+'</div>');
 
                     // ajout des rows placeholder pour insérer du contenu
-                    console.log($('.ui-droppable').length);
-                    $('.ui-droppable').each(function(i){
-                        if (i == 0){
-                            // ajoute une row au tout début
-                            $(this).before('<div class="row placeholderdrop"><div class="col-md-12 col-sm-12 col-xs-12 column">&nbsp;</div></div>');
-                        }
-                        $(this).after('<div class="row placeholderdrop"><div class="col-md-12 col-sm-12 col-xs-12 column">&nbsp;</div></div>');
-                    });
+                    if ($('.ui-droppable').length == 0)
+                    {
+                        // editeur vide: ajoute une première ligne
+                        $('#easycontent-grid').append('<div class="row placeholderdrop"><div class="col-md-12 col-sm-12 col-xs-12 column">&nbsp;</div></div>')
+                    }
+                    else
+                    {
+                        $('.ui-droppable').each(function(i){
+                            if (i == 0){
+                                // ajoute une row au tout début
+                                $(this).before('<div class="row placeholderdrop"><div class="col-md-12 col-sm-12 col-xs-12 column">&nbsp;</div></div>');
+                            }
+                            $(this).after('<div class="row placeholderdrop"><div class="col-md-12 col-sm-12 col-xs-12 column">&nbsp;</div></div>');
+                        });
+                    }
+
 
                     // reinit droppable car rows ajoutées juste avant
                     initDroppablePlaceholder();

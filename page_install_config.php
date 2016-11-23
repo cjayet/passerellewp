@@ -1,16 +1,11 @@
-<?php require_once('includes/functions.php') ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>INDEX</title>
+<?php
+// fonctions
+require_once('includes/functions.php');
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="js/jquery-3.1.1.min.js" ></script>
-</head>
+// header: scripts + navigation bar
+include('includes/blocs/header.php');
+?>
 
-<body>
 <div class="container">
     <div class="row">
 
