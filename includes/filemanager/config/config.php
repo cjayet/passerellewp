@@ -81,7 +81,7 @@ $config = array(
 	| with start and final /
 	|
 	*/
-	'upload_dir' => '/passerelle/filemanager/images/uploads/'. $_SESSION['id_optimizme_user'] .'/',
+	'upload_dir' => '/passerelle/images/filemanager/uploads/'. $_SESSION['id_optimizme_user'] .'/',
 	/*
 	|--------------------------------------------------------------------------
 	| relative path from filemanager folder to upload folder
@@ -90,7 +90,7 @@ $config = array(
 	| with final /
 	|
 	*/
-	'current_path' => '../../filemanager/images/uploads/'. $_SESSION['id_optimizme_user'] .'/',
+	'current_path' => '../../images/filemanager/uploads/'. $_SESSION['id_optimizme_user'] .'/',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -101,7 +101,7 @@ $config = array(
 	| DO NOT put inside upload folder
 	|
 	*/
-	'thumbs_base_path' => '../../filemanager/images/thumbs/'. $_SESSION['id_optimizme_user'] .'/',
+	'thumbs_base_path' => '../../images/filemanager/uploads/thumbs/'. $_SESSION['id_optimizme_user'] .'/',
 
 
 	/*
@@ -453,6 +453,7 @@ $config = array(
 // fin folder doesn't exist: create
 $path_upload = $config['path_base'] . $config['upload_dir'];
 if (!is_dir($path_upload)){
+    echo $path_upload;
 	mkdir($path_upload);
 	chmod($path_upload, 0755);
     echo "create"; die;

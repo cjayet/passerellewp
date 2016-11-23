@@ -1,6 +1,6 @@
 .confirmAction, .pointer { cursor: pointer; }
 
-/** easycontent editor - toolbar **/
+/** EASYCONTENT EDITOR - toolbar **/
 .toolbar-editor {
     position: absolute;
     border: 1px solid black;
@@ -8,4 +8,28 @@
     padding: 5px 20px;
 }
 
+/** EASYCONTENT EDITOR **/
 .toolbar-editor span { cursor: pointer; }
+.ui-droppable-active { background-color: #c0c0c0; }
+.placeholderdrop { height: 50px; border: 2px dashed #c0c0c0; }
+.placeholderActive { display: block!important; }
+.placeholderdrop.mtop { margin: 10px 0px; }
+.placeholderdrop:hover { background-color: #c9e2b3;}
+.placeholderdrop > div { height: 100%; }
+
+/** EASYCONTENT EDITOR - Ajout d'une ligne **/
+.addRow {
+    -webkit-animation-name: animationAddRow; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+    animation-name: animationAddRow;
+    animation-duration: 2s;
+}
+
+@keyframes animationAddRow {
+    from {background-color: #c9e2b3;}
+    to {background-color: #D2E4EE;}
+}
+
+/** divers **/
+.h200 { height: 200px; }
+.empty { border: 2px dashed #c0c0c0; height: 50px;}

@@ -725,6 +725,6 @@ $.fn.gridEditor.RTEs = {};
             });
         },
 
-        initialContent: '<p>Lorem ipsum dolores2</p>',
+        initialContent: '<p>Type your content</p>',
     };
 })();

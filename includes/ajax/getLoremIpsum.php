@@ -7,6 +7,6 @@ $content = file_get_contents('http://loripsum.net/api/'.$nbParagraphes.'/short/d
 echo json_encode(
     array(
         'result' => 'success',
-        'lorem' => $content,
-        )
+        'lorem' => $content
+    )
 );

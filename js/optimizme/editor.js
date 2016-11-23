@@ -1,10 +1,8 @@
 (function($){
+
     $(document).ready(function(){
 
         var grid;
-
-        // draggable
-        $( ".ui-draggable" ).draggable();
 
         /**
          * load "GridEditor"
@@ -29,11 +27,13 @@
 
                     // set content
                     $('#easycontent-title').val(msg.title);
-                    $('#easycontent-permalink').val('Permal');
-                    $('#easycontent-meta-description').val('Metadesc');
+                    $('#easycontent-permalink').val(msg.permalink);
+                    $('#easycontent-meta-description').val(msg.meta_description);
 
                     // initialisation de la grille de l'éditeur
                     easycontentGridInit( msg.content, false);
+                    //easycontentGridInit( '', false);
+
                 }
                 else {
                     // erreur lors de la requête ajax pour récupération de contenu
@@ -72,10 +72,7 @@
                 }
 
             })
-        })
-
-
-
+        });
 
 
         /**
@@ -90,10 +87,14 @@
             // vide le contenu affichant la grid
             $('#content-grid').html('<div id="easycontent-grid">'+contenuInitial+newContentGrid+'</div>');
 
-            grid = $('#easycontent-grid').gridEditor({
-                new_row_layouts: [[12], [6,6], [9,3], [3,9], [8,4], [4,8]],
-                content_types: ['tinymce'],
+            // init droppable
+            initDraggableDroppable();
 
+            // grid editor
+            grid = $('#easycontent-grid').gridEditor({
+                //new_row_layouts: [[12], [6,6], [9,3], [3,9], [8,4], [4,8]],
+                new_row_layouts: [],
+                content_types: ['tinymce'],
                 tinymce: {
                     config: {
                         inline: true,
@@ -103,9 +104,7 @@
                             "insertdatetime media table contextmenu responsivefilemanager paste"
                         ],
                         toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link responsivefilemanager image insertfile",
-
                         image_advtab: true ,
-
                         external_filemanager_path: "includes/filemanager/",
                         filemanager_title: "Filemanager" ,
                         external_plugins: { "filemanager" : "http://localhost/passerelle/includes/filemanager/plugin.min.js"},   // TODO configuration en dur
@@ -113,11 +112,61 @@
                     }
                 },
             });
+        }
 
+        /**
+         * Insert content in grid editor
+         * @param element
+         * @param action
+         */
+        function dropAction(element, action){
 
+            element.removeClass('placeholderdrop');
+
+            var generateContent = '';
+            if (action == 'h1'){
+                generateContent = '<h1>Title h1</h1>';
+                injectDropContent(element, generateContent);
+            }
+            if (action == 'h2'){
+                generateContent = '<h2>Title h2</h2>';
+                injectDropContent(element, generateContent);
+            }
+            if (action == 'h3'){
+                generateContent = '<h3>Title h3</h3>';
+                injectDropContent(element, generateContent);
+            }
+            if (action == 'image'){
+                generateContent = '<img src="http://placehold.it/550x150" alt="Alt à ajouter" />';
+                injectDropContent(element, generateContent);
+            }
+            if (action == 'content'){
+                generateContent = '';
+                getAjaxResponse('includes/ajax/getLoremIpsum.php', $(this).attr('data-select'), function(msg) {
+                    if(msg.result == 'success'){
+                        generateContent = msg.lorem;
+                        injectDropContent(element, generateContent);
+                    }
+                })
+            }
         }
 
 
+        /**
+         * @param element
+         * @param generateContent
+         */
+        function injectDropContent(element, generateContent){
+
+            // inject content in the current row
+            element.html('<div class="col-md-12 col-sm-12 col-xs-12 column addRow">'+ generateContent +'</div>')
+
+            // supprime les row qui traineraient
+            removeRowsPlaceholder();
+
+            // remet l'éditeur
+            easycontentGridInit('', true);
+        }
 
 
 
@@ -151,8 +200,8 @@
                     }).html()
 
                     $('body').append(data);
-                    $('#toolbar-easycontent'+rand).css({ 'left': posX, 'top': posY });
-                    $('#toolbar-easycontent'+rand).find('.glyphicon-search').attr('data-select', selection.toString())
+                    $('#toolbar-easycontent-'+rand).css({ 'left': posX, 'top': posY });
+                    $('#toolbar-easycontent-'+rand).find('.glyphicon-search').attr('data-select', selection.toString())
                 });
             }
         });
@@ -178,7 +227,85 @@
 
                 })
             }
-        })
+        });
 
-    })
+
+
+
+
+        /**
+         * Initialisation draggable & droppable
+         */
+        function initDraggableDroppable(){
+
+            /**
+             * DRAGGABLE BUTTONS
+             */
+            $( ".ui-draggable" ).draggable({
+                helper:"clone",
+                cursor:"move",
+                revertDuration:0,
+                revert: true,
+                refreshPositions: false,
+
+                start: function(event, ui) {
+                    ui.helper.data('dropped', false);
+                    removeClassEverywhere('addRow');
+
+                    // disable editor but keep content
+                    var contenuInitial = $('#easycontent-grid').gridEditor('getHtml');
+
+                    // vide le contenu affichant la grid
+                    $('#content-grid').html('<div id="easycontent-grid">'+contenuInitial+'</div>');
+
+                    // ajout des rows placeholder pour insérer du contenu
+                    console.log($('.ui-droppable').length);
+                    $('.ui-droppable').each(function(i){
+                        if (i == 0){
+                            // ajoute une row au tout début
+                            $(this).before('<div class="row placeholderdrop"><div class="col-md-12 col-sm-12 col-xs-12 column">&nbsp;</div></div>');
+                        }
+                        $(this).after('<div class="row placeholderdrop"><div class="col-md-12 col-sm-12 col-xs-12 column">&nbsp;</div></div>');
+                    });
+
+                    // reinit droppable car rows ajoutées juste avant
+                    initDroppablePlaceholder();
+                },
+
+                stop: function(event, ui){
+                    if (ui.helper.data('dropped') == false){
+                        // drop dans une zone non acceptée : nettoie les rows placeholder ajoutées dynamiquement
+                        removeRowsPlaceholder();
+                    }
+                }
+            });
+        };
+
+
+        /**
+         * Droppable sur les rows placeholder temporaires
+         */
+        function initDroppablePlaceholder(){
+            $( '.placeholderdrop' ).droppable({
+                accept: ".ui-draggable",
+                hoverClass: "placeholderdropHover",
+                drop: function (event, ui) {
+                    ui.helper.data('dropped', true);
+                    var action = $(ui.draggable).attr('data-action');
+                    dropAction($(this), action);
+                }
+            })
+        };
+
+
+        /**
+         * Nettoie le code en supprimant les rows temporaires
+         */
+        function removeRowsPlaceholder(){
+            $('.placeholderdrop').each(function(){
+                $(this).remove();
+            })
+        }
+
+    });
 })(jQuery)

@@ -1,6 +1,8 @@
 (function($){
     $(document).ready(function(){
 
+        $.prettyLoader();
+
         /**
          * PUSH DATA - Générique
          *
@@ -11,7 +13,8 @@
         $(document).on('click', '.push_wp', function(){
 
             // récupération des éléments input du form (input, select, textarea)
-            var form = $(this).parent();
+            //var form = $(this).parent();
+            var form = $(this).closest('form');
             var containerMsg = form.next();
             containerMsg.removeClass().html('');
             var urlArticleCible = $('#url_cible').val();        // site where to push data
@@ -22,6 +25,7 @@
                 // tableau des données à envoyer
                 var tabData = {url_cible: urlArticleCible};
                 elements.each(function(){
+                    console.log('data : ' + $(this).attr('data-id') +' => ' + $(this).val());
                     tabData[$(this).attr('data-id')] = $(this).val();
                 });
 
@@ -32,6 +36,7 @@
 
                 // to JSON
                 var json_data = JSON.stringify(tabData, null, 2);
+
 
                 // exécution ajax
                 getAjaxResponse(urlArticleCible, json_data, function(msg){
@@ -125,9 +130,38 @@
 
 
 
-        $(document).on('blur', '#easycontent-title', function(){
+
+
+
+        /**
+         * easycontent editor: append de contenu
+         */
+        $(document).on('click', '.preview_content', function(){
+
+
+            var urlArticleCible = $('#url_cible').val();        // site where to push data
+
+            // préparation requête ajax
+            var tabData = {url_cible: urlArticleCible};
+            tabData['action'] = 'load_full_preview_post';
+            var json_data = JSON.stringify(tabData, null, 2);
+
+            // exécution ajax
+            getAjaxResponse(urlArticleCible, json_data, function(msg){
+                if (msg.result == 'success'){
+
+                    // add content with simple bootstrap form
+                    alert(msg.preview);
+
+
+
+
+                }
+
+            })
 
         })
+
 
     })
 })(jQuery);
