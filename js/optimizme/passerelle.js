@@ -132,25 +132,13 @@
          */
         $(document).on('click', '.preview_content', function(){
 
-
             var urlArticleCible = $('#url_cible').val();        // site where to push data
+            var form = $(this).closest('form');
 
-            // préparation requête ajax
-            var tabData = {url_cible: urlArticleCible};
-            tabData['action'] = 'load_full_preview_post';
-            var json_data = JSON.stringify(tabData, null, 2);
-
-            // exécution ajax
-            getAjaxResponse(urlArticleCible, json_data, function(msg){
-                if (msg.result == 'success'){
-
-                    // add content with simple bootstrap form
-                    alert(msg.preview);
-
-                }
-
-            })
-
+            var contenuEditeur = $('#easycontent-grid').gridEditor('getHtml');
+            $('#preview_content').attr('value', contenuEditeur);
+            form.attr('action', urlArticleCible );
+            form.submit();
         })
 
 

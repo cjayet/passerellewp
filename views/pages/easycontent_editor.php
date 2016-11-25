@@ -68,11 +68,15 @@ OptimizmeUtils::LoadBloc('header');
             </div>
 
             <div class="col-md-10">
-                <form action="" method="POST">
-                    <div class="page-header">CONTENT</div><br />
 
-                    <div class="btn btn-default preview_content">Preview in Wordpress TODO</div>
+                <div class="page-header">CONTENT</div><br />
 
+                <form target="_blank" action="" method="POST">
+                    <input type="hidden" id="preview_content" name="preview_content" value=""/>
+                    <button type="button" class="btn btn-default preview_content" >Preview in Wordpress</button>
+                </form>
+
+                <form>
                     <div id="content-grid" class="form-group">
                         <div id="easycontent-grid"></div>
                     </div>
