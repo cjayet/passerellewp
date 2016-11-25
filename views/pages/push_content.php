@@ -1,6 +1,6 @@
 <?php
 // header: scripts + navigation bar
-include('includes/blocs/header.php');
+OptimizmeUtils::LoadBloc('header');
 ?>
 
     <div class="container">
@@ -8,14 +8,14 @@ include('includes/blocs/header.php');
 
             <div class="col-md-9">
 
-                <?php include('includes/blocs/head_push.php') ?>
+                <?php OptimizmeUtils::LoadBloc('head_push'); ?>
                 <br /><hr /><br />
 
-                <?php include('includes/blocs/title.php') ?>
-                <?php include('includes/blocs/content.php') ?>
-                <?php include('includes/blocs/image_alt.php') ?>
-                <?php include('includes/blocs/meta_description.php') ?>
-                <?php include('includes/blocs/permalink.php') ?>
+                <?php OptimizmeUtils::LoadBloc('form-push/title'); ?>
+                <?php OptimizmeUtils::LoadBloc('deprecated/content'); ?>
+                <?php OptimizmeUtils::LoadBloc('deprecated/image_alt'); ?>
+                <?php OptimizmeUtils::LoadBloc('form-push/meta_description'); ?>
+                <?php OptimizmeUtils::LoadBloc('form-push/permalink'); ?>
             </div>
 
 

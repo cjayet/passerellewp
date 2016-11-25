@@ -1,8 +1,5 @@
 (function($){
-
     $(document).ready(function(){
-
-        var grid;
 
         /**
          * load "GridEditor"
@@ -41,9 +38,9 @@
                     else                            $('#easycontent-publish').prop('checked', false);
 
                     // initialisation de la grille de l'éditeur
+                    //alert(msg.content)
+                    //easycontentGridInit( '<h1>Essai !</h1>', false);
                     easycontentGridInit( msg.content, false);
-                    //easycontentGridInit( '', false);
-
                 }
                 else {
                     // erreur lors de la requête ajax pour récupération de contenu
@@ -52,83 +49,16 @@
                     // show error
                     containerMsg.removeClass().addClass('alert alert-'+msg.result);
                     containerMsg.html(msg.message);
-
                 }
             })
 
 
 
+            // load images in post
+            refreshImagesListInPost();
 
-            // préparation requête ajax pour les images
-            var tabData = {url_cible: urlArticleCible};
-            tabData['action'] = 'load_images_post';
-            var json_data = JSON.stringify(tabData, null, 2);
-
-            // exécution ajax
-            getAjaxResponse(urlArticleCible, json_data, function(msg){
-                $('#image-list').empty();
-
-                if (msg.result == 'success')
-                {
-                    if (msg.images.length > 0){
-
-                        $.each(msg.images, function(idx, objImage) {
-                            $.get("includes/blocs/easycontent_editor/js-tmpl/li_image_detail_contenu.html", function(data){
-                                data =  $.tmpl( data, {
-                                    'url_image' : objImage.src,
-                                    'alt_image' : objImage.alt,
-                                    'title_image' : objImage.title
-                                }).html()
-
-                                $('#image-list').append(data);
-                            });
-                        })
-                    }
-                    else
-                    {
-                        $('#image-list').append('<li>Aucune image trouvée.</li>');
-                    }
-                }
-
-            })
-
-
-
-
-            // préparation requête ajax pour les liens
-            var tabData = {url_cible: urlArticleCible};
-            tabData['action'] = 'load_href_post';
-            var json_data = JSON.stringify(tabData, null, 2);
-
-            // exécution ajax
-            getAjaxResponse(urlArticleCible, json_data, function(msg){
-                $('#href-list').empty();
-
-                if (msg.result == 'success')
-                {
-                    if (msg.liens.length > 0){
-                        $.each(msg.liens, function(idx, objLien) {
-                            $.get("includes/blocs/easycontent_editor/js-tmpl/li_href_detail_contenu.html", function(data){
-                                data =  $.tmpl( data, {
-                                    'href_lien' : objLien.href,
-                                    'rel_lien' : objLien.rel,
-                                    'target_lien' : objLien.target
-                                }).html()
-
-                                $('#href-list').append(data);
-                            });
-                        })
-                    }
-                    else
-                    {
-                        $('#href-list').append('<li>Aucun lien trouvé.</li>');
-                    }
-                }
-
-            })
-
-
-
+            // load links in post
+            refreshLiensListInPost();
 
         })
 
@@ -176,9 +106,10 @@
             initDraggableDroppable();
 
             // grid editor
-            grid = $('#easycontent-grid').gridEditor({
+            $('#easycontent-grid').gridEditor({
                 //new_row_layouts: [[12], [6,6], [9,3], [3,9], [8,4], [4,8]],
                 new_row_layouts: [],
+
                 content_types: ['tinymce'],
                 tinymce: {
                     config: {
@@ -195,8 +126,13 @@
                         external_plugins: { "filemanager" : "http://localhost/passerelle/includes/filemanager/plugin.min.js"},   // TODO configuration en dur
                         relative_urls:false
                     }
-                },
+                }
+
             });
+
+            // maj des listes d'images / liens
+            refreshImagesListInPost();
+            refreshLiensListInPost();
         }
 
         /**
@@ -204,7 +140,7 @@
          * @param element
          * @param action
          */
-        function dropAction(element, action){
+        function dropAction(element, action, url){
 
             element.removeClass('placeholderdrop');
 
@@ -222,12 +158,14 @@
                 injectDropContent(element, generateContent);
             }
             if (action == 'image'){
-                generateContent = '<img src="http://placehold.it/550x150" alt="Alt à ajouter" />';
+                if (url != '' && url !== undefined)     var urlImage = url;
+                else                                    var urlImage  = 'http://placehold.it/550x150';
+                generateContent = '<img src="'+ urlImage +'" alt="" style="max-width:100%; height:auto;" />';
                 injectDropContent(element, generateContent);
             }
             if (action == 'content'){
                 generateContent = '';
-                getAjaxResponse('includes/ajax/getLoremIpsum.php', $(this).attr('data-select'), function(msg) {
+                getAjaxResponse('index.php?ajax=getLoremIpsum', $(this).attr('data-select'), function(msg) {
                     if(msg.result == 'success'){
                         generateContent = msg.lorem;
                         injectDropContent(element, generateContent);
@@ -251,6 +189,7 @@
 
             // remet l'éditeur
             easycontentGridInit('', true);
+
         }
 
 
@@ -275,7 +214,7 @@
                 var posX = parseInt(e.pageX +30);
                 var posY = parseInt(e.pageY -15);
 
-                $.get("includes/blocs/easycontent_editor/js-tmpl/toolbar.html", function(data){
+                $.get("views/blocs/js-tmpl/toolbar.html", function(data){
 
                     // random id for toolbar
                     var rand = Math.floor(Math.random() * (Math.pow(10,7))) + 1;
@@ -304,12 +243,12 @@
             else if (action == 'search'){
                 // get content and inject in suggest
 
-                getAjaxResponse('includes/ajax/getLoremIpsum.php', $(this).attr('data-select'), function(msg) {
+                getAjaxResponse('index.php?ajax=getLoremIpsum', $(this).attr('data-select'), function(msg) {
                     if(msg.result == 'success'){
                         alert(msg.lorem)
+                        // TODO ajouter le contenu en dessous et pouvoir l'injecter dans le grid editor
                         //$('#toolbar-easycontent-')
                     }
-
                 })
             }
         });
@@ -336,6 +275,7 @@
                 start: function(event, ui) {
                     ui.helper.data('dropped', false);
                     removeClassEverywhere('addRow');
+                    var htmlRowPlaceholder = '<div class="row placeholderdrop"><div class="col-md-12 col-sm-12 col-xs-12 column">&nbsp;</div></div>';
 
                     // disable editor but keep content
                     var contenuInitial = $('#easycontent-grid').gridEditor('getHtml');
@@ -347,19 +287,16 @@
                     if ($('.ui-droppable').length == 0)
                     {
                         // editeur vide: ajoute une première ligne
-                        $('#easycontent-grid').append('<div class="row placeholderdrop"><div class="col-md-12 col-sm-12 col-xs-12 column">&nbsp;</div></div>')
+                        $('#easycontent-grid').append(htmlRowPlaceholder);
                     }
                     else
                     {
                         $('.ui-droppable').each(function(i){
-                            if (i == 0){
-                                // ajoute une row au tout début
-                                $(this).before('<div class="row placeholderdrop"><div class="col-md-12 col-sm-12 col-xs-12 column">&nbsp;</div></div>');
-                            }
-                            $(this).after('<div class="row placeholderdrop"><div class="col-md-12 col-sm-12 col-xs-12 column">&nbsp;</div></div>');
+                            // ajoute une row au tout début
+                            if (i == 0)         $(this).before(htmlRowPlaceholder);
+                            $(this).after(htmlRowPlaceholder);
                         });
                     }
-
 
                     // reinit droppable car rows ajoutées juste avant
                     initDroppablePlaceholder();
@@ -385,7 +322,8 @@
                 drop: function (event, ui) {
                     ui.helper.data('dropped', true);
                     var action = $(ui.draggable).attr('data-action');
-                    dropAction($(this), action);
+                    var url = $(ui.draggable).attr('src');
+                    dropAction($(this), action, url);
                 }
             })
         };
@@ -399,6 +337,114 @@
                 $(this).remove();
             })
         }
+
+        /**
+         *
+         */
+        function refreshImagesListInPost(){
+
+            // préparation requête ajax pour les images
+            var contenuEditor = $('#easycontent-grid').gridEditor('getHtml');
+            var tabData = {grideditor_content: contenuEditor};
+            var json_data = JSON.stringify(tabData, null, 2);
+
+            // exécution ajax
+            getAjaxResponse('index.php?ajax=getImagesInGridEditor', json_data, function(msg) {
+                $('#image-list').empty();
+                if (msg.result == 'success')
+                {
+                    if (msg.images.length > 0){
+
+                        $.each(msg.images, function(idx, objImage) {
+                            $.get("views/blocs/js-tmpl/image_detail_contenu.html", function(data){
+                                data =  $.tmpl( data, {
+                                    'url_image' : objImage.src,
+                                    'alt_image' : objImage.alt,
+                                    'title_image' : objImage.title
+                                }).html()
+
+                                $('#image-list').append(data);
+                            });
+                        })
+                    }
+                    else{
+                        $('#image-list').append('<li>Aucune image trouvée.</li>');
+                    }
+                }
+            })
+        }
+
+
+        /**
+         *
+         */
+        function refreshLiensListInPost(){
+
+            // préparation requête ajax pour les images
+            var contenuEditor = $('#easycontent-grid').gridEditor('getHtml');
+            var tabData = {grideditor_content: contenuEditor};
+            var json_data = JSON.stringify(tabData, null, 2);
+
+            // exécution ajax
+            getAjaxResponse('index.php?ajax=getLiensInGridEditor', json_data, function(msg) {
+                $('#href-list').empty();
+                if (msg.result == 'success')
+                {
+                    if (msg.liens.length > 0){
+                        $.each(msg.liens, function(idx, objLien) {
+                            $.get("views/blocs/js-tmpl/href_detail_contenu.html", function(data){
+                                data =  $.tmpl( data, {
+                                    'href_lien' : objLien.href,
+                                    'rel_lien' : objLien.rel,
+                                    'target_lien' : objLien.target
+                                }).html()
+
+                                $('#href-list').append(data);
+                            });
+                        })
+                    }
+                    else{
+                        $('#href-list').append('<li>Aucun lien trouvé.</li>');
+                    }
+                }
+            })
+        }
+
+        /**
+         * Refresh image list
+         */
+        $(document).on('click', '.refresh_images', function(){
+            refreshImagesListInPost();
+        })
+
+        /**
+         * Refresh links list
+         */
+        $(document).on('click', '.refresh_links', function(){
+            refreshLiensListInPost();
+        })
+
+
+        /**
+         * Load random dummy image
+         */
+        $(document).on('click', '.load_random_images', function(){
+            //getAjaxResponse('includes/ajax/getRandomDummyImage.php', $(this).attr('data-select'), function(msg) {
+            getAjaxResponse('index.php?ajax=getRandomDummyImage', $(this).attr('data-select'), function(msg) {
+                if (msg.result == 'success'){
+
+                    $('#draggable-random-images').empty();
+                    if (msg.images.length > 0){
+                        $.each(msg.images, function(idx, urlImage){
+                            $('#draggable-random-images').append('<img src="'+ urlImage +'"  data-action="image" width="100%" class="btn btn-default ui-draggable ui-draggable-handle ui-sortable" />')
+                        })
+
+                        // reinit draggable car nouveau éléments
+                        initDraggableDroppable();
+                    }
+                }
+            })
+        })
 
     });
 })(jQuery)

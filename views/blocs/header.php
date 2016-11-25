@@ -2,8 +2,6 @@
 /**
  * Head - load all scripts
  */
-session_start();
-$_SESSION['id_optimizme_user'] = 3; // TODO vraie gestion de session utilisateur
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,15 +21,15 @@ $_SESSION['id_optimizme_user'] = 3; // TODO vraie gestion de session utilisateur
     <script src="js/tinymce/jquery.tinymce.min.js"></script>
 
     <!-- prettyLoader -->
-    <script src="js/jquery.prettyLoader.js"></script>
+    <script src="js/jquery/jquery.prettyLoader.js"></script>
     <link rel="stylesheet" type="text/css" href="css/prettyLoader.css" />
 
     <!-- Grid editor -->
-    <script src="js/jquery.grideditor.js"></script>
+    <script src="js/jquery/jquery.grideditor.js"></script>
     <link rel="stylesheet" type="text/css" href="css/grideditor.css" />
 
     <!-- jquery tmpl -->
-    <script src="js/jquery.tmpl.min.js"></script>
+    <script src="js/jquery/jquery.tmpl.min.js"></script>
 
     <!-- optimiz.me -->
     <link rel="stylesheet" type="text/css" href="css/optimizme.css" />
@@ -51,15 +49,16 @@ $_SESSION['id_optimizme_user'] = 3; // TODO vraie gestion de session utilisateur
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://localhost/passerelle">Passerelle</a>
+                <a class="navbar-brand" href="<?php OptimizmeUtils::LinkToPage('home') ?>">Passerelle</a>
             </div>
 
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="http://localhost/passerelle/page_easycontent_editor.php">Easycontent Editor</a></li>
-                    <li><a href="http://localhost/passerelle/page_install_config.php">Install WP plugin</a></li>
-                    <li><a href="http://localhost/passerelle/page_push_content.php">Push</a></li>
-                    <li><a href="http://localhost/passerelle/page_create_post.php">Create post/page</a></li>
+                    <li><a href="<?php OptimizmeUtils::LinkToPage('easycontent_editor') ?>">Easycontent Editor</a></li>
+                    <li><a href="<?php OptimizmeUtils::LinkToPage('install_config') ?>">Install WP plugin</a></li>
+                    <li><a href="<?php OptimizmeUtils::LinkToPage('push_content') ?>">Push</a></li>
+                    <li><a href="<?php OptimizmeUtils::LinkToPage('redirections') ?>">Redirections</a></li>
+                    <li><a href="<?php OptimizmeUtils::LinkToPage('create_post') ?>">Create post/page</a></li>
 
                     <!--<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>

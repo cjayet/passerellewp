@@ -1,6 +1,6 @@
 <?php
 // header: scripts + navigation bar
-include('includes/blocs/header.php');
+OptimizmeUtils::LoadBloc('header');
 ?>
 
 <body id="page-redirections">
@@ -8,7 +8,7 @@ include('includes/blocs/header.php');
     <div class="row">
 
         <div class="col-md-12">
-            <?php include('includes/blocs/head_push.php') ?>
+            <?php OptimizmeUtils::LoadBloc('head_push') ?>
             <table class="table table-striped table-hover" id="table-redirections">
                 <thead>
                     <tr>
@@ -18,7 +18,9 @@ include('includes/blocs/header.php');
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody id="tbody-redirections">
+                    <?php OptimizmeUtils::LoadBloc('js-tmpl/redirection-ligne', 'html') ?>
+                </tbody>
             </table>
         </div>
 

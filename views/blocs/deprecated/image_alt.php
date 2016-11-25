@@ -1,6 +1,5 @@
 <h2 id="bloc_image">PUSH image </h2>
-<form action="" method="POST">
-
+<form>
 
     <div class="form-group">
         <label for="new_title">URL image</label>
@@ -12,10 +11,9 @@
         <input type="text" class="form-control" data-id="update_image_alt" placeholder="Image alt" value="" />
     </div>
 
-    <button type="button" data-id="action" class="btn btn-default push_wp" value="set_img_alt">Envoyer</button>
+    <button type="button" data-id="action" class="btn btn-default push_cms" value="set_img_alt">Envoyer</button>
+
+    <div class="form-group result_push_cms"><div class=""></div></div>
 </form>
 
-<div class="form-group">
-    <div class=""></div>
-</div>
 <br /><hr /><br />

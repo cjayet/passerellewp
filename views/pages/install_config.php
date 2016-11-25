@@ -1,9 +1,6 @@
 <?php
-// fonctions
-require_once('includes/functions.php');
-
 // header: scripts + navigation bar
-include('includes/blocs/header.php');
+OptimizmeUtils::LoadBloc('header');
 ?>
 
 <div class="container">
@@ -13,7 +10,7 @@ include('includes/blocs/header.php');
             <h2>Informations</h2>
 
             <?php if (isset($_POST['send_install']) && $_POST['send_install'] == 1) : ?>
-                <?php $responseInstall = executeInstall(); ?>
+                <?php $responseInstall = OptimizmeUtils::executeInstall(); ?>
                 <div class="alert alert-warning" role="alert"><?php echo $responseInstall ?></div>
             <?php endif; ?>
 

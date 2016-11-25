@@ -6,7 +6,7 @@
         <textarea class="form-control" data-id="new_content" placeholder="Contenu"></textarea>
     </div>
 
-    <button type="button" data-id="action" value="set_content" class="btn btn-default push_wp">Envoyer</button>
+    <button type="button" data-id="action" value="set_content" class="btn btn-default push_cms">Envoyer</button>
 </form>
 
 <div class="form-group">

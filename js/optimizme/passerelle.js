@@ -10,12 +10,12 @@
          *  - chaque field doit avoir un champ data-id de spécifié (key)
          *  - chaque field doit avoir un champ value de spécifié (value)
          */
-        $(document).on('click', '.push_wp', function(){
+        $(document).on('click', '.push_cms', function(){
 
             // récupération des éléments input du form (input, select, textarea)
-            //var form = $(this).parent();
+            var btnClick = $(this);
             var form = $(this).closest('form');
-            var containerMsg = form.next();
+            var containerMsg = form.find('.result_push_cms').children(0);
             containerMsg.removeClass().html('');
             var urlArticleCible = $('#url_cible').val();        // site where to push data
 
@@ -26,14 +26,13 @@
                 var tabData = {url_cible: urlArticleCible};
                 elements.each(function(){
                     if ( $(this).attr('type') == 'radio' || $(this).attr('type') == 'checkbox' ){
-                        console.log('checkbox')
                         if ($(this).prop('checked')){
-                            console.log('checked')
                             tabData[$(this).attr('data-id')] = $(this).val();
                         }
                     }
                     else if ($(this).attr('type') == 'select'){
                         if ($(this).prop('selected')){
+                            // TODO à tester si bien ok
                             tabData[$(this).attr('data-id')] = $(this).find(":selected").val();
                         }
                     }
@@ -78,26 +77,8 @@
                 if (msg.result == 'success'){
                     if (msg.redirections.length > 0)
                     {
-                        $.each(msg.redirections, function(idx, obj) {
-
-                            if (obj.is_disabled == 0)       var classTr = 'success';
-                            else                            var classTr = 'danger';
-
-                            // TODO à faire vec jquery tmpl
-                            $('#page-redirections tbody').append(
-                                '<tr id="redirection-'+ obj.id +'" class="'+ classTr +'">' +
-                                '<td>'+ obj.id +'</td>' +
-                                '<td><a href="'+ obj.url_base +'" target="_blank">'+ obj.url_base +'</a></td>' +
-                                '<td><a href="'+ obj.url_redirect +'" target="_blank">'+ obj.url_redirect +'</a></td>' +
-                                '<td>' +
-                                '<span class="glyphicon glyphicon-ok confirmAction" data-action="enable_redirection" data-id="'+ obj.id +'" aria-hidden="true"></span> ' +
-                                '<span class="glyphicon glyphicon-remove confirmAction" data-action="disable_redirection" data-id="'+ obj.id +'" aria-hidden="true"></span> ' +
-                                '<span class="glyphicon glyphicon-trash confirmAction" data-action="delete_redirection" data-id="'+ obj.id +'" aria-hidden="true"></span> ' +
-                                '</td>' +
-                                '</tr>'
-                            );
-
-                        });
+                        // ajout de la liste des redirections
+                        $("#redirection-table-ligne").tmpl(msg).appendTo("#table-redirections tbody");
                     }
 
                 }
