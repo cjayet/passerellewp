@@ -13,6 +13,7 @@ function loadGridEditor(){
         // préparation requête ajax
         var tabData = {url_cible: urlArticleCible};
         tabData['action'] = 'load_post_content';
+        tabData['id_post'] = $('#select_arborescence').val();
         var json_data = JSON.stringify(tabData, null, 2);
 
         $('#container-easycontent').css('display', 'none');
@@ -396,7 +397,7 @@ function refreshLiensListInPost(){
                             'href_lien' : objLien.href,
                             'rel_lien' : objLien.rel,
                             'target_lien' : objLien.target
-                        }).html()
+                        }).html();
 
                         $('#href-list').append(data);
                     });
@@ -430,4 +431,69 @@ function loadRandomDummyImage(){
             }
         }
     })
+}
+
+
+/**
+ *
+ */
+function loadAllPostsPages(){
+
+    ////////////////////////////////////////
+    // RECUPERATION LISTE DES PAGES
+    ////////////////////////////////////////
+
+    var urlWordpressCible = $('#url_cible').val();
+    $('#container-easycontent').css('display', 'none');
+
+    // add loading to form
+    $('body').loading();
+
+    // préparation requête ajax
+    var tabData = {url_cible: urlWordpressCible};
+    tabData['action'] = 'load_posts_pages';
+    var json_data = JSON.stringify(tabData, null, 2);
+
+    // vide le selecteur
+    $('#select_arborescence').empty();
+
+    getAjaxResponse(urlWordpressCible, json_data, function(msg){
+
+        $('body').loading('stop');
+
+        if (msg.result == 'success'){
+
+            if (msg.arborescence.posts.length > 0){
+                var dataPosts = '<optgroup label="Posts">'
+                $.each(msg.arborescence.posts, function(idx, post){
+                    dataPosts += '<option value="'+ post.ID +'">'+ post.post_title +'</option>';
+                })
+                dataPosts += '</optgroup>';
+                $('#select_arborescence').append(dataPosts);
+            }
+
+            if (msg.arborescence.pages.length > 0){
+                var dataPosts = '<optgroup label="Pages">'
+                $.each(msg.arborescence.pages, function(idx, page){
+                    dataPosts += '<option value="'+ page.ID +'">'+ page.post_title +'</option>';
+                })
+                dataPosts += '</optgroup>';
+                $('#select_arborescence').append(dataPosts);
+            }
+        }
+        else {
+            alert('error')
+        }
+
+    })
+
+
+    // affiche ou non l'arborescence des pages (non pour post, oui pour page)
+    $(document).on('change', '.post_type', function(){
+        var type = ( $('input[name=post_type]:checked').val());
+        if (type == 'page')     $('#liste-pages').slideDown();
+        else                    $('#liste-pages').slideUp();
+    })
+
+
 }

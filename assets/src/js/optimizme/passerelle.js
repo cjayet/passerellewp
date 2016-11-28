@@ -13,9 +13,6 @@
             // récupération des éléments input du form (input, select, textarea)
             var btnClick = $(this);
             var form = $(this).closest('form');
-            $('.result_push_cms').each(function(){
-                $(this).remove();
-            })
 
             var urlArticleCible = $('#url_cible').val();        // where to push data
 

@@ -53,7 +53,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="<?php OptimizmeUtils::LinkToPage('easycontent_editor') ?>">Easycontent Editor</a></li>
                     <li><a href="<?php OptimizmeUtils::LinkToPage('install_config') ?>">Install WP plugin</a></li>
-                    <li><a href="<?php OptimizmeUtils::LinkToPage('push_content') ?>">Push</a></li>
+                    <!-- <li><a href="<?php OptimizmeUtils::LinkToPage('push_content') ?>">Push</a></li> -->
                     <li><a href="<?php OptimizmeUtils::LinkToPage('redirections') ?>">Redirections</a></li>
                     <li><a href="<?php OptimizmeUtils::LinkToPage('create_post') ?>">Create post/page</a></li>
 

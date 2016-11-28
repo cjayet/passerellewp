@@ -8,6 +8,14 @@
            loadGridEditor();
        })
 
+       /**
+        * load arborescence
+        */
+       $(document).on('click', '.load_arborescence', function(){
+           loadAllPostsPages();
+       })
+
+
        $(document).on('click', '.inject_easycontent_content', function(){
            injectEasycontentContent();
        })

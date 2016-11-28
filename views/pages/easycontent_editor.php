@@ -6,12 +6,17 @@ OptimizmeUtils::LoadBloc('header');
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <?php // OptimizmeUtils::LoadBloc('head_push'); ?>
-            <?php OptimizmeUtils::LoadBloc('easycontent/select_page_arborescence'); ?>
+            <?php OptimizmeUtils::LoadBloc('head_push'); ?>
 
+            <form action="" method="POST">
+                <button type="button" data-id="action" class="btn btn-primary load_arborescence">Load arbo</button>
+            </form>
+
+            <?php OptimizmeUtils::LoadBloc('easycontent/select_page_arborescence'); ?>
             <form action="" method="POST">
                 <button id="btn-load-grideditor" type="button" data-id="action" value="load_post_content" class="btn btn-primary load_grid_editor" data-target="#easycontent-grid">Load content</button>
             </form>
+
             <div class="form-group">
                 <div class=""></div>
             </div>
@@ -63,8 +68,8 @@ OptimizmeUtils::LoadBloc('header');
                     <div data-action="h3" class="btn btn-default ui-draggable ui-draggable-handle ui-sortable">DRAG H3</div>
                     <div data-action="content" class="btn btn-default ui-draggable ui-draggable-handle ui-sortable">DRAG Content</div>
                     <div data-action="image" class="btn btn-default ui-draggable ui-draggable-handle ui-sortable">DRAG Image</div>
-                    <div id="draggable-random-images"></div>
                     <div class="btn btn-default load_random_images">Load random images</div>
+                    <div id="draggable-random-images"></div>
                 </aside>
             </div>
 
@@ -125,8 +130,9 @@ OptimizmeUtils::LoadBloc('header');
     (function($){
         $(document).ready(function(){
             // load au chargement de la page
-            $('.load_grid_editor').trigger('click');
-            //$('.load_random_images').trigger('click');
+            //$('.load_grid_editor').trigger('click');
+
+            loadAllPostsPages();
         })
     })(jQuery)
 </script>

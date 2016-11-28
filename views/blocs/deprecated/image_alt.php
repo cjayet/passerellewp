@@ -11,7 +11,7 @@
         <input type="text" class="form-control" data-id="update_image_alt" placeholder="Image alt" value="" />
     </div>
 
-    <button type="button" data-id="action" class="btn btn-default push_cms" value="set_img_alt">Envoyer</button>
+    <button type="button" data-id="action" class="btn btn-default push_cms" value="set_img_alt">Envoyer DEPRECATED</button>
 </form>
 
 <br /><hr /><br />
