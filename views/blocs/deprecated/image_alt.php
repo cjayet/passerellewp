@@ -12,8 +12,6 @@
     </div>
 
     <button type="button" data-id="action" class="btn btn-default push_cms" value="set_img_alt">Envoyer</button>
-
-    <div class="form-group result_push_cms"><div class=""></div></div>
 </form>
 
 <br /><hr /><br />

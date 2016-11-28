@@ -452,11 +452,11 @@ $config = array(
 
 // fin folder doesn't exist: create
 $path_upload = $config['path_base'] . $config['upload_dir'];
+
 if (!is_dir($path_upload)){
     echo $path_upload;
 	mkdir($path_upload);
 	chmod($path_upload, 0755);
-    echo "create"; die;
 }
 
 //////////////////////////////////////

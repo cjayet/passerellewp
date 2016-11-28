@@ -12,5 +12,4 @@
             <button type="button" data-id="action" value="set_post_status" class="btn btn-default t25 push_cms">Envoyer</button>
         </div>
     </div>
-    <div class="form-group result_push_cms"><div class=""></div></div>
 </form>

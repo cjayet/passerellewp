@@ -20,9 +20,9 @@
     <script src="bower_components/tinymce/tinymce.min.js"></script>
     <script src="bower_components/tinymce/jquery.tinymce.min.js"></script>
 
-    <!-- Ajax Loader -->
-    <script src="bower_components/AjaxLoader/jquery.ajaxloader.1.5.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="bower_components/AjaxLoader/ajaxloader/ajaxloader.css" />
+    <!-- jquery loading -->
+    <script src="bower_components/jquery-loading/dist/jquery.loading.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="bower_components/jquery-loading/dist/jquery.loading.min.css" />
 
     <!-- Grid editor -->
     <script src="bower_components/grid-editor/dist/jquery.grideditor.min.js"></script>
@@ -32,11 +32,8 @@
     <script src="bower_components/jquery-tmpl/jquery.tmpl.min.js"></script>
 
     <!-- optimiz.me -->
-    <link rel="stylesheet" type="text/css" href="css/optimizme.css" />
-    <script src="js/optimizme/utils.js" ></script>
-    <script src="js/optimizme/passerelle.js" ></script>
-    <script src="js/optimizme/editor.js" ></script>
-
+    <link rel="stylesheet" type="text/css" href="assets/dist/css/optimizme.min.css" />
+    <script src="assets/dist/js/optimizme.min.js" ></script>
 </head>
 <body>
 

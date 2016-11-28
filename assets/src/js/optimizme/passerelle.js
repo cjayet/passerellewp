@@ -1,8 +1,6 @@
 (function($){
     $(document).ready(function(){
 
-        //$.prettyLoader();
-
         /**
          * PUSH DATA - Générique
          *
@@ -15,10 +13,16 @@
             // récupération des éléments input du form (input, select, textarea)
             var btnClick = $(this);
             var form = $(this).closest('form');
-            var containerMsg = form.find('.result_push_cms').children(0);
-            containerMsg.removeClass().html('');
-            var urlArticleCible = $('#url_cible').val();        // site where to push data
+            $('.result_push_cms').each(function(){
+                $(this).remove();
+            })
 
+            var urlArticleCible = $('#url_cible').val();        // where to push data
+
+            // add loading to form
+            form.loading();
+
+            // get inputs in form
             form.each(function(){
                 var elements = $(this).find(':input');
 
@@ -32,7 +36,6 @@
                     }
                     else if ($(this).attr('type') == 'select'){
                         if ($(this).prop('selected')){
-                            // TODO à tester si bien ok
                             tabData[$(this).attr('data-id')] = $(this).find(":selected").val();
                         }
                     }
@@ -52,9 +55,12 @@
 
                 // exécution ajax
                 getAjaxResponse(urlArticleCible, json_data, function(msg){
-                    // show results below
-                    containerMsg.addClass('alert alert-'+msg.result);
-                    containerMsg.html(msg.message);
+
+                    // stop loading
+                    form.loading('stop');
+
+                    // add message under form
+                    form.append('<div class="form-group result_push_cms"><div class="alert alert-'+ msg.result +'">'+ msg.message +'</div></div>');
                 })
 
             });
@@ -62,7 +68,7 @@
 
 
         /**
-         *
+         *  Affichage des redirections présentes en base dans la page "Redirections"
          */
         if ($('#page-redirections').length > 0){
             var urlArticleCible = $('#url_cible').val();        // site where to push data
@@ -90,7 +96,7 @@
 
 
         /**
-         *  Redirections table: actions
+         *  Redirections table: actions (active/désacrive/supprime)
          */
         $(document).on('click', '.confirmAction', function(){
             if (confirm('Please confirm your action')){
@@ -128,7 +134,7 @@
 
 
         /**
-         * easycontent editor: append de contenu
+         * easycontent editor: affichage du preview du post (article/page) dans wordpress
          */
         $(document).on('click', '.preview_content', function(){
 

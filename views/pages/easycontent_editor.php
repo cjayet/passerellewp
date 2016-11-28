@@ -6,7 +6,8 @@ OptimizmeUtils::LoadBloc('header');
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <?php OptimizmeUtils::LoadBloc('head_push'); ?>
+            <?php // OptimizmeUtils::LoadBloc('head_push'); ?>
+            <?php OptimizmeUtils::LoadBloc('easycontent/select_page_arborescence'); ?>
 
             <form action="" method="POST">
                 <button id="btn-load-grideditor" type="button" data-id="action" value="load_post_content" class="btn btn-primary load_grid_editor" data-target="#easycontent-grid">Load content</button>
@@ -73,7 +74,10 @@ OptimizmeUtils::LoadBloc('header');
 
                 <form target="_blank" action="" method="POST">
                     <input type="hidden" id="preview_content" name="preview_content" value=""/>
-                    <button type="button" class="btn btn-default preview_content" >Preview in Wordpress</button>
+                    <button type="button" class="btn btn-default preview_content">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                        Preview in Wordpress
+                    </button>
                 </form>
 
                 <form>
@@ -82,7 +86,6 @@ OptimizmeUtils::LoadBloc('header');
                     </div>
 
                     <button type="button" data-id="action" value="set_content" class="btn btn-primary push_cms">Envoyer</button>
-                    <div class="form-group result_push_cms"><div class=""></div></div>
                 </form>
 
                 <div class="form-group">
@@ -123,7 +126,7 @@ OptimizmeUtils::LoadBloc('header');
         $(document).ready(function(){
             // load au chargement de la page
             $('.load_grid_editor').trigger('click');
-            $('.load_random_images').trigger('click');
+            //$('.load_random_images').trigger('click');
         })
     })(jQuery)
 </script>

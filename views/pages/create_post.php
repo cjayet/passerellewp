@@ -30,18 +30,15 @@ OptimizmeUtils::LoadBloc('header');
                 </div>
 
                 <div id="liste-pages" class="form-group" style="display: none">
-                    <label for="title">Type de contenu</label>
-                    <select id="select_post_parent" name="post_parent" class="form-control">
+                    <label for="title">Page parente</label>
+                    <select id="select_post_parent" data-id="parent" name="parent" class="form-control">
                         <option value="0">No parent</option>
                         <option value="1">Test1</option>
                         <option value="1">Test2</option>
                     </select>
                 </div>
 
-
                 <button type="button" data-id="action" value="set_create_post" class="btn btn-primary push_cms">Ajouter</button>
-                <div class="form-group result_push_cms"><div class=""></div></div>
-
             </form>
         </div>
 
@@ -66,10 +63,11 @@ OptimizmeUtils::LoadBloc('header');
 
             getAjaxResponse(urlArticleCible, json_data, function(msg){
                 if (msg.result == 'success'){
-                    $('#liste-pages').empty();
+                    $('#select_post_parent').empty();
+                    $('#select_post_parent').append('<option value="0">-- No parent --</option>');
                     if (msg.arborescence.pages.length > 0){
                         $.each(msg.arborescence.pages, function(idx, page){
-                            $('#select_post_parent').append('<option value=""></option>');
+                            $('#select_post_parent').append('<option value="'+ page.ID +'">'+ page.post_title +'</option>');
                         })
                     }
                 }
