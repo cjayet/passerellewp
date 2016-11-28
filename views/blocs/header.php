@@ -10,26 +10,26 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
     <!-- CSS dependencies -->
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css" />
 
     <!-- Javascript dependencies -->
-    <script src="https://code.jquery.com/jquery-1.11.2.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <script src="js/tinymce/tinymce.min.js"></script>
-    <script src="js/tinymce/jquery.tinymce.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/tinymce/tinymce.min.js"></script>
+    <script src="bower_components/tinymce/jquery.tinymce.min.js"></script>
 
-    <!-- prettyLoader -->
-    <script src="js/jquery/jquery.prettyLoader.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/prettyLoader.css" />
+    <!-- Ajax Loader -->
+    <script src="bower_components/AjaxLoader/jquery.ajaxloader.1.5.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="bower_components/AjaxLoader/ajaxloader/ajaxloader.css" />
 
     <!-- Grid editor -->
-    <script src="js/jquery/jquery.grideditor.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/grideditor.css" />
+    <script src="bower_components/grid-editor/dist/jquery.grideditor.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="bower_components/grid-editor/dist/grideditor.css" />
 
     <!-- jquery tmpl -->
-    <script src="js/jquery/jquery.tmpl.min.js"></script>
+    <script src="bower_components/jquery-tmpl/jquery.tmpl.min.js"></script>
 
     <!-- optimiz.me -->
     <link rel="stylesheet" type="text/css" href="css/optimizme.css" />

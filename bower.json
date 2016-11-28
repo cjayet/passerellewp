@@ -1,0 +1,17 @@
+{
+  "name": "passerelle",
+  "homepage": "https://github.com/cjayet/passerellewp",
+  "authors": [
+    "cjayet <c.jayet@optimiz.me>"
+  ],
+  "description": "Passerelle vers CMS",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

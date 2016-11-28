@@ -1,7 +1,7 @@
 (function($){
     $(document).ready(function(){
 
-        $.prettyLoader();
+        //$.prettyLoader();
 
         /**
          * PUSH DATA - Générique
