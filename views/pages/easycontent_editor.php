@@ -129,7 +129,7 @@ OptimizmeUtils::LoadBloc('header');
     (function($){
         $(document).ready(function(){
             // load au chargement de la page
-            loadAllPostsPages();
+            //loadAllPostsPages();
         })
     })(jQuery)
 </script>

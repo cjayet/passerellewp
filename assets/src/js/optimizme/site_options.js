@@ -7,27 +7,32 @@ $(document).ready(function(){
         $('#easycontent-url').val(urlArticleCible);
         form = $(this).closest('form');
 
-        // préparation requête ajax
-        var tabData = {url_cible: urlArticleCible};
-        tabData['action'] = 'load_site_options';
-        var json_data = JSON.stringify(tabData, null, 2);
+        // site selected?
+        if (urlArticleCible != '')
+        {
+            // préparation requête ajax
+            var tabData = {url_cible: urlArticleCible};
+            tabData['action'] = 'load_site_options';
+            var json_data = JSON.stringify(tabData, null, 2);
 
-        $('body').loading();
+            $('body').loading();
 
-        // exécution ajax
-        getAjaxResponse(urlArticleCible, json_data, function(msg){
+            // exécution ajax
+            getAjaxResponse(urlArticleCible, json_data, function(msg){
 
-            if (msg.result == 'success'){
-                $('#easycontent_site_title').val(msg.site_title);
-                $('#easycontent_site_description').val(msg.site_description);
+                if (msg.result == 'success'){
+                    $('#easycontent_site_title').val(msg.site_title);
+                    $('#easycontent_site_description').val(msg.site_description);
 
-                if (msg.site_is_public == "1")      $('#nosearchengine').prop('checked', false);
-                else                                $('#nosearchengine').prop('checked', true);
-            }
+                    if (msg.site_is_public == "1")      $('#nosearchengine').prop('checked', false);
+                    else                                $('#nosearchengine').prop('checked', true);
+                }
 
-            // stop loading
-            $('body').loading('stop');
-        })
+                // stop loading
+                $('body').loading('stop');
+            })
+        }
+
     })
 
 
