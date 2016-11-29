@@ -10,11 +10,6 @@ OptimizmeUtils::LoadBloc('header');
             <h2>Install</h2>
             <a href="<?php OptimizmeUtils::LinkToPage('install_config'); ?>">Install plugin</a>
 
-            <!--
-            <h2>Push content</h2>
-            <a href="<?php OptimizmeUtils::LinkToPage('push_content'); ?>">Push content</a>
-            -->
-
             <h2>Easycontent editor</h2>
             <a href="<?php OptimizmeUtils::LinkToPage('easycontent_editor'); ?>">Easycontent editor</a>
 
@@ -23,6 +18,10 @@ OptimizmeUtils::LoadBloc('header');
 
             <h2>Create post / page</h2>
             <a href="<?php OptimizmeUtils::LinkToPage('create_post'); ?>">Create post / page</a>
+
+            <h2>Site options</h2>
+            <a href="<?php OptimizmeUtils::LinkToPage('site_options'); ?>">Site options</a>
+
         </div>
     </div>
 </div>

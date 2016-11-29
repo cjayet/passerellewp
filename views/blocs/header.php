@@ -33,7 +33,7 @@
 
     <!-- optimiz.me -->
     <link rel="stylesheet" type="text/css" href="assets/dist/css/optimizme.min.css" />
-    <script src="assets/dist/js/optimizme.min.js" ></script>
+    <script src="assets/dist/js/optimizme-debug.min.js" ></script>
 </head>
 <body>
 
@@ -56,6 +56,7 @@
                     <!-- <li><a href="<?php OptimizmeUtils::LinkToPage('push_content') ?>">Push</a></li> -->
                     <li><a href="<?php OptimizmeUtils::LinkToPage('redirections') ?>">Redirections</a></li>
                     <li><a href="<?php OptimizmeUtils::LinkToPage('create_post') ?>">Create post/page</a></li>
+                    <li><a href="<?php OptimizmeUtils::LinkToPage('site_options') ?>">Site options</a></li>
 
                     <!--<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>

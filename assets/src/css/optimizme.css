@@ -10,7 +10,7 @@
 
 /** EASYCONTENT EDITOR **/
 .toolbar-editor span { cursor: pointer; }
-.ui-droppable-active { background-color: #c0c0c0; }
+.ui-droppable-active { background-color: #f0f0f0; }
 .placeholderdrop { height: 50px; border: 2px dashed #c0c0c0; }
 .placeholderActive { display: block!important; }
 .placeholderdrop.mtop { margin: 10px 0px; }

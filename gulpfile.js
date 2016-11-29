@@ -8,6 +8,7 @@ var minify = require('gulp-minify');
 
 // Variables de chemins
 var source = './assets/src';        // dossier de travail
+var sourceJS = source +'/js/optimizme';
 var destination = './assets/dist';  // dossier à livrer
 
 
@@ -24,7 +25,14 @@ gulp.task('minifycss', function () {
 
 // Tâche "minifyjss" = concatenation + minify => dossier source
 gulp.task('minifyjs', function () {
-    return gulp.src([source+'/js/optimizme/utils.js', source+'/js/optimizme/passerelle.js', source+'/js/optimizme/editor.js', source+'/js/optimizme/editor-trigger.js'])
+    return gulp.src([
+        sourceJS +'/utils.js',
+        sourceJS +'/easycontenteditor.js',
+        sourceJS +'/passerelle.js',
+        sourceJS +'/easycontenteditor-trigger.js',
+        sourceJS +'/redirections.js',
+        sourceJS +'/site_options.js'
+    ])
         .pipe(concat('optimizme.js'))
         .pipe(minify({
             ext:{
@@ -44,7 +52,11 @@ gulp.task('minifyjs', function () {
 gulp.task('prod', ['minifycss', 'minifyjs']);
 
 
+
+/////////////////////////
 // Tâche par défaut
+/////////////////////////
+
 gulp.task('default', ['prod'], function(){
     // watch pour des changements dans le dossier source (js + css)
     gulp.watch(source + '/**/*', ['prod']);

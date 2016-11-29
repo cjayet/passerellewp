@@ -9,6 +9,8 @@ OptimizmeUtils::LoadBloc('header');
 
         <div class="col-md-12">
             <?php OptimizmeUtils::LoadBloc('head_push') ?>
+            <hr /><br />
+
             <table class="table table-striped table-hover" id="table-redirections">
                 <thead>
                     <tr>

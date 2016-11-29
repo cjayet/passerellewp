@@ -5,7 +5,7 @@
             <input type="text" name="easycontent-canonical-url" id="easycontent-canonical-url" data-id="canonical_url" class="form-control" />
         </div>
         <div class="col-md-4">
-            <button type="button" data-id="action" value="set_canonical_url" class="btn btn-default t25 push_cms">Envoyer</button>
+            <button type="button" data-id="action" value="set_post_canonicalurl" class="btn btn-default t25 push_cms">Envoyer</button>
         </div>
     </div>
 </form>

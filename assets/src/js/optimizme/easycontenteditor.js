@@ -3,7 +3,10 @@
  */
 function loadGridEditor(){
 
-    var form = $(this).parent();
+    // remove all blocks
+    removeNodeEverywhere('.result_push_cms');
+
+    var form = $('#form_load_grideditor');
     var containerMsg = form.next();
     containerMsg.removeClass().html('');
     var urlArticleCible = $('#url_cible').val();
@@ -17,45 +20,61 @@ function loadGridEditor(){
         var json_data = JSON.stringify(tabData, null, 2);
 
         $('#container-easycontent').css('display', 'none');
-        $('body').loading();
 
-        // exécution ajax
-        getAjaxResponse(urlArticleCible, json_data, function(msg){
+        if (tabData['id_post'] != ''){
 
-            $('body').loading('stop');
+            $('body').loading();
 
-            if (msg.result == 'success'){
+            // exécution ajax
+            getAjaxResponse(urlArticleCible, json_data, function(msg){
 
-                $('#container-easycontent').slideDown();
+                $('body').loading('stop');
 
-                // set content
-                $('#easycontent-title').val(msg.title);
-                $('#easycontent-permalink').val(msg.permalink);
-                $('#easycontent-meta-description').val(msg.meta_description);
-                $('#easycontent-canonical-url').val(msg.url_canonical);
+                if (msg.result == 'success'){
 
-                if (msg.noindex == 1)           $('#easycontent-noindex').prop('checked', true);
-                else                            $('#easycontent-noindex').prop('checked', false);
+                    $('#container-easycontent').slideDown();
 
-                if (msg.nofollow == 1)          $('#easycontent-nofollow').prop('checked', true);
-                else                            $('#easycontent-nofollow').prop('checked', false);
+                    // set content
+                    $('#easycontent-title').val(msg.title);
+                    $('#easycontent-slug').val(msg.slug);
+                    $('#easycontent-meta-description').val(msg.meta_description);
+                    $('#easycontent-canonical-url').val(msg.url_canonical);
+                    $('#easycontent-url').val(msg.url);
+                    $('#easycontent-cms-link').attr('href', msg.url);
 
-                if (msg.publish == 'publish')   $('#easycontent-publish').prop('checked', true);
-                else                            $('#easycontent-publish').prop('checked', false);
+                    if (msg.blog_public == 0){
+                        // moteurs de recherche bloquées dans les réglages de Wordpress
+                        setMetaRobotsIfSearchEngineDisabled(0);
+                    }
+                    else {
+                        // moteurs de recherche autorisés : choix possible
+                        $('#alert_no_search_engines').css('display', 'none');
 
-                // initialisation de la grille de l'éditeur
-                //easycontentGridInit( '<h1>Essai !</h1>', false);
-                easycontentGridInit( msg.content, false);
-            }
-            else {
-                // erreur lors de la requête ajax pour récupération de contenu
-                $('#container-easycontent').slideUp();
+                        if (msg.noindex == 1)           $('#easycontent-noindex').prop('checked', true);
+                        else                            $('#easycontent-noindex').prop('checked', false);
 
-                // show error
-                containerMsg.removeClass().addClass('alert alert-'+msg.result);
-                containerMsg.html(msg.message);
-            }
-        })
+                        if (msg.nofollow == 1)          $('#easycontent-nofollow').prop('checked', true);
+                        else                            $('#easycontent-nofollow').prop('checked', false);
+                    }
+
+                    if (msg.publish == 'publish')   $('#easycontent-publish').prop('checked', true);
+                    else                            $('#easycontent-publish').prop('checked', false);
+
+                    // initialisation de la grille de l'éditeur
+                    //easycontentGridInit( '<h1>Essai !</h1>', false);
+                    easycontentGridInit( msg.content, false);
+                }
+                else {
+                    // show error
+                    form.append('<div class="form-group result_push_cms"><div class="alert alert-danger">'+ msg.message +'</div></div>');
+                }
+            })
+        }
+        else {
+            // add message under form
+            form.append('<div class="form-group result_push_cms"><div class="alert alert-danger">Veuillez choisir un contenu</div></div>');
+        }
+
     }
     else {
         containerMsg.removeClass().addClass('alert alert-info');
@@ -463,6 +482,8 @@ function loadAllPostsPages(){
 
         if (msg.result == 'success'){
 
+            $('#select_arborescence').append('<option value="">-- Veuillez choisir un contenu --</option>')
+
             if (msg.arborescence.posts.length > 0){
                 var dataPosts = '<optgroup label="Posts">'
                 $.each(msg.arborescence.posts, function(idx, post){
@@ -495,5 +516,33 @@ function loadAllPostsPages(){
         else                    $('#liste-pages').slideUp();
     })
 
+}
 
+
+/**
+ * Update slug: update url post
+ * @param msg
+ */
+function updateUrlField(msg){
+    if (msg.url != ''){
+        $('#easycontent-url').val(msg.url);
+    }
+    else {
+        // error changing URL, reload
+        loadGridEditor();
+    }
+}
+
+/**
+ * easycontent editor: affichage du preview du post (article/page) dans wordpress
+ */
+function previewContentInCMS(btn){
+    var urlCible = $('#easycontent-url').val();     // article to preview
+
+    var form = btn.closest('form');
+
+    var contenuEditeur = $('#easycontent-grid').gridEditor('getHtml');
+    $('#preview_content').attr('value', contenuEditeur);
+    form.attr('action', urlCible );
+    form.submit();
 }
