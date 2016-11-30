@@ -11,13 +11,15 @@ OptimizmeUtils::LoadBloc('header');
             <form>
                 <button type="button" data-id="action" class="btn btn-primary load_arborescence">Load arbo</button>
             </form>
+        </div>
+    </div>
 
+    <div class="row" id="page_easycontenteditor_loadpage">
+        <div class="col-md-12">
             <?php OptimizmeUtils::LoadBloc('easycontent/select_page_arborescence'); ?>
             <form id="form_load_grideditor">
                 <button id="btn-load-grideditor" type="button" data-id="action" value="load_post_content" class="btn btn-primary load_grid_editor" data-target="#easycontent-grid">Load content</button>
             </form>
-
-            <br /><hr /><br />
         </div>
     </div>
 
@@ -84,12 +86,12 @@ OptimizmeUtils::LoadBloc('header');
                         Preview in Wordpress
                     </button>
 
-                    <button type="button" class="btn btn-default refresh_images" data-toggle="modal" data-target="#modalImgOptimiz">
+                    <button type="button" id="btn_easycontent_optimiz_images" class="btn btn-default refresh_images" data-toggle="modal" data-target="#modalImgOptimiz">
                         <i class="fa fa-picture-o" aria-hidden="true"></i>
                         Optimiz IMG
                     </button>
 
-                    <button type="button" class="btn btn-default refresh_links" data-toggle="modal" data-target="#modalHrefOptimiz">
+                    <button type="button" id="btn_easycontent_optimiz_hrefs" class="btn btn-default refresh_links" data-toggle="modal" data-target="#modalHrefOptimiz">
                         <i class="fa fa-link" aria-hidden="true"></i>
                         Optimiz Href
                     </button>

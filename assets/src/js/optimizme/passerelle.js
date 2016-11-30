@@ -64,6 +64,14 @@ $(document).ready(function(){
 
                 // add message under form
                 form.append('<div class="form-group result_push_cms"><div class="alert alert-'+ msg.result +'">'+ msg.message +'</div></div>');
+
+                // cas particulier : envoi contenu easycontent
+                if (tabData['action'] == 'set_post_content'){
+                    if (msg.result == 'success'){
+                        // réactive les modales
+                        setBoolContentUpdatedAndNotSaved(false);
+                    }
+                }
             })
 
         });

@@ -1,3 +1,5 @@
+var boolContentUpdatedAndNotSaved = false;
+
 /**
  * load "GridEditor"
  */
@@ -80,8 +82,6 @@ function loadGridEditor(){
         containerMsg.removeClass().addClass('alert alert-info');
         containerMsg.html('Veuillez choisir une page/article');
     }
-
-
 }
 
 
@@ -90,6 +90,7 @@ function loadGridEditor(){
  */
 function injectEasycontentContent(){
 
+    setBoolContentUpdatedAndNotSaved(true);
     var urlArticleCible = $('#url_cible').val();        // site where to push data
 
     // préparation requête ajax
@@ -202,8 +203,10 @@ function dropAction(element, action, url){
  */
 function injectDropContent(element, generateContent){
 
+    setBoolContentUpdatedAndNotSaved(true);
+
     // inject content in the current row
-    element.html('<div class="col-md-12 col-sm-12 col-xs-12 column addRow">'+ generateContent +'</div>')
+    element.html('<div class="col-md-12 col-sm-12 col-xs-12 column easyContentAddRow">'+ generateContent +'</div>')
 
     // supprime les row qui traineraient
     removeRowsPlaceholder();
@@ -293,7 +296,9 @@ function initDraggableDroppable(){
 
         start: function(event, ui) {
             ui.helper.data('dropped', false);
-            removeClassEverywhere('addRow');
+            removeClassEverywhere('easyContentAddRow');
+
+            // template d'une ligne permettant d'ajouter du contenu
             var htmlRowPlaceholder = '<div class="row placeholderdrop"><div class="col-md-12 col-sm-12 col-xs-12 column">&nbsp;</div></div>';
 
             // disable editor but keep content
@@ -303,14 +308,14 @@ function initDraggableDroppable(){
             $('#content-grid').html('<div id="easycontent-grid">'+contenuInitial+'</div>');
 
             // ajout des rows placeholder pour insérer du contenu
-            if ($('.ui-droppable').length == 0)
+            if ($('#easycontent-grid .row').length == 0)
             {
                 // editeur vide: ajoute une première ligne
                 $('#easycontent-grid').append(htmlRowPlaceholder);
             }
             else
             {
-                $('.ui-droppable').each(function(i){
+                $('#easycontent-grid .row').each(function(i){
                     // ajoute une row au tout début
                     if (i == 0)         $(this).before(htmlRowPlaceholder);
                     $(this).after(htmlRowPlaceholder);
@@ -362,35 +367,40 @@ function removeRowsPlaceholder(){
  */
 function refreshImagesListInPost(){
 
-    // préparation requête ajax pour les images
-    var contenuEditor = $('#easycontent-grid').gridEditor('getHtml');
-    var tabData = {grideditor_content: contenuEditor};
-    var json_data = JSON.stringify(tabData, null, 2);
+    if (boolContentUpdatedAndNotSaved == true){
+        alert('NO REFRESh')
+    }
+    else {
+        // préparation requête ajax pour les images
+        var contenuEditor = $('#easycontent-grid').gridEditor('getHtml');
+        var tabData = {grideditor_content: contenuEditor};
+        var json_data = JSON.stringify(tabData, null, 2);
 
-    // exécution ajax
-    getAjaxResponse('index.php?ajax=getImagesInGridEditor', json_data, function(msg) {
-        $('#image-list').empty();
-        if (msg.result == 'success')
-        {
-            if (msg.images.length > 0){
+        // exécution ajax
+        getAjaxResponse('index.php?ajax=getImagesInGridEditor', json_data, function(msg) {
+            $('#image-list').empty();
+            if (msg.result == 'success')
+            {
+                if (msg.images.length > 0){
 
-                $.each(msg.images, function(idx, objImage) {
-                    $.get("views/blocs/js-tmpl/image_detail_contenu.html", function(data){
-                        data =  $.tmpl( data, {
-                            'url_image' : objImage.src,
-                            'alt_image' : objImage.alt,
-                            'title_image' : objImage.title
-                        }).html()
+                    $.each(msg.images, function(idx, objImage) {
+                        $.get("views/blocs/js-tmpl/image_detail_contenu.html", function(data){
+                            data =  $.tmpl( data, {
+                                'url_image' : objImage.src,
+                                'alt_image' : objImage.alt,
+                                'title_image' : objImage.title
+                            }).html()
 
-                        $('#image-list').append(data);
-                    });
-                })
+                            $('#image-list').append(data);
+                        });
+                    })
+                }
+                else{
+                    $('#image-list').append('<li>Aucune image trouvée.</li>');
+                }
             }
-            else{
-                $('#image-list').append('<li>Aucune image trouvée.</li>');
-            }
-        }
-    })
+        })
+    }
 }
 
 
@@ -501,6 +511,8 @@ function loadAllPostsPages(){
                 dataPosts += '</optgroup>';
                 $('#select_arborescence').append(dataPosts);
             }
+
+            $('#page_easycontenteditor_loadpage').slideDown();
         }
         else {
             alert('error')
@@ -545,4 +557,17 @@ function previewContentInCMS(btn){
     $('#preview_content').attr('value', contenuEditeur);
     form.attr('action', urlCible );
     form.submit();
+}
+
+
+/**
+ * Active / désactive modal d'édition de contenu
+ * @param val
+ */
+function setBoolContentUpdatedAndNotSaved(boolVal){
+    if (boolVal == true)        var dataModal = 'no-modal';
+    else                        var dataModal = 'modal'
+
+    $('#btn_easycontent_optimiz_images').attr('data-toggle', dataModal);
+    $('#btn_easycontent_optimiz_hrefs').attr('data-toggle', dataModal);
 }

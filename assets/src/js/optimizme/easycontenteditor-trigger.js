@@ -69,4 +69,8 @@ $(document).ready(function(){
        previewContentInCMS( $(this) );
    })
 
+
+    $(document).on('click', '.push_easycontent_cms', function(){
+        setBoolContentUpdatedAndNotSaved(false);
+    })
 })

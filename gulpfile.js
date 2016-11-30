@@ -12,7 +12,7 @@ var sourceJS = source +'/js/optimizme';
 var destination = './assets/dist';  // dossier à livrer
 
 
-// Tâche "minifycss" = concatenation + minify => dossier source
+// Tâche "minifycss" = concatenation + minify => dossier source OPTIMIZ.ME
 gulp.task('minifycss', function () {
     return gulp.src(source + '/css/*.css')
         .pipe(concat('optimizme.css'))
@@ -23,7 +23,7 @@ gulp.task('minifycss', function () {
         .pipe(gulp.dest(destination + '/css/'));
 });
 
-// Tâche "minifyjss" = concatenation + minify => dossier source
+// Tâche "minifyjss" = concatenation + minify => dossier source OPTIMIZ.ME
 gulp.task('minifyjs', function () {
     return gulp.src([
         sourceJS +'/utils.js',

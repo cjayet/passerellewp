@@ -18,17 +18,22 @@
 .placeholderdrop > div { height: 100%; }
 
 /** EASYCONTENT EDITOR - Ajout d'une ligne **/
-.addRow {
-    -webkit-animation-name: animationAddRow; /* Safari 4.0 - 8.0 */
+.easyContentAddRow {
+    -webkit-animation-name: animationEasyContentAddRow; /* Safari 4.0 - 8.0 */
     -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
-    animation-name: animationAddRow;
+    animation-name: animationEasyContentAddRow;
     animation-duration: 4s;
 }
 
-@keyframes animationAddRow {
+@keyframes animationEasyContentAddRow {
     from {background-color: #c9e2b3;}
     to {background-color: #D2E4EE;}
 }
+
+
+#page_easycontenteditor_loadpage { display: none; }
+
+
 
 /** divers **/
 .h200 { height: 200px; }
