@@ -343,6 +343,7 @@ function initDroppablePlaceholder(){
     $( '.placeholderdrop' ).droppable({
         accept: ".ui-draggable",
         hoverClass: "placeholderdropHover",
+        tolerance: "pointer",
         drop: function (event, ui) {
             ui.helper.data('dropped', true);
             var action = $(ui.draggable).attr('data-action');
@@ -536,12 +537,12 @@ function loadAllPostsPages(){
  * @param msg
  */
 function updateUrlField(msg){
-    if (msg.url != ''){
+    if (msg.url != ''  && msg.url !== undefined){
         $('#easycontent-url').val(msg.url);
     }
     else {
         // error changing URL, reload
-        loadGridEditor();
+        //loadGridEditor();
     }
 }
 

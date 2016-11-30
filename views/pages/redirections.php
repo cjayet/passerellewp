@@ -11,6 +11,7 @@ OptimizmeUtils::LoadBloc('header');
             <?php OptimizmeUtils::LoadBloc('head_push') ?>
             <hr /><br />
 
+            <h3>Redirection des pages <small>les articles sont redirigés en natif dans Wordpress</small></h3>
             <table class="table table-striped table-hover" id="table-redirections">
                 <thead>
                     <tr>

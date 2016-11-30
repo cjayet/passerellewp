@@ -10,7 +10,9 @@ function loadRedirectionsFromSite(){
      *  Affichage des redirections présentes en base dans la page "Redirections"
      */
     if ($('#page-redirections').length > 0){
+
         var urlArticleCible = $('#url_cible').val();        // site where to push data
+        $('body').loading();
 
         // préparation requête ajax
         var tabData = {url_cible: urlArticleCible};
@@ -19,6 +21,7 @@ function loadRedirectionsFromSite(){
 
         // exécution ajax
         getAjaxResponse(urlArticleCible, json_data, function(msg){
+            $('body').loading('stop');
             if (msg.result == 'success'){
                 if (msg.redirections.length > 0)
                 {
@@ -31,6 +34,8 @@ function loadRedirectionsFromSite(){
                 sweetAlert("Oops...", "Error loading redirections", "error");
             }
         })
+
+        $('body').loading('stop');
     }
 }
 

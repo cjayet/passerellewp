@@ -22,6 +22,7 @@ OptimizmeUtils::LoadBloc('header');
             </form>
         </div>
     </div>
+    <hr /><br />
 
 
     <div id="container-easycontent" style="display: none">
