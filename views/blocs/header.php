@@ -31,6 +31,10 @@
     <!-- jquery tmpl -->
     <script src="bower_components/jquery-tmpl/jquery.tmpl.min.js"></script>
 
+    <!-- sweetalert -->
+    <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="bower_components/sweetalert/dist/sweetalert.css" />
+
     <!-- optimiz.me -->
     <link rel="stylesheet" type="text/css" href="assets/dist/css/optimizme.min.css" />
     <script src="assets/dist/js/optimizme-debug.min.js" ></script>

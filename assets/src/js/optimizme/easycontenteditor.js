@@ -269,7 +269,7 @@ function easycontentToolbarAction(){
 
         getAjaxResponse('index.php?ajax=getLoremIpsum', $(this).attr('data-select'), function(msg) {
             if(msg.result == 'success'){
-                alert(msg.lorem)
+                sweetAlert("Res", msg.lorem);
                 // TODO ajouter le contenu en dessous et pouvoir l'injecter dans le grid editor
                 //$('#toolbar-easycontent-')
             }
@@ -368,7 +368,7 @@ function removeRowsPlaceholder(){
 function refreshImagesListInPost(){
 
     if (boolContentUpdatedAndNotSaved == true){
-        alert('NO REFRESh')
+        sweetAlert("Res", "NO REFRESH");
     }
     else {
         // préparation requête ajax pour les images
@@ -515,7 +515,7 @@ function loadAllPostsPages(){
             $('#page_easycontenteditor_loadpage').slideDown();
         }
         else {
-            alert('error')
+            sweetAlert("Oops...", "Error in loadAllPostsPages", "error");
         }
 
     })

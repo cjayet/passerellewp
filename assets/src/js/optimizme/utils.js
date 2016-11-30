@@ -21,7 +21,7 @@ function getAjaxResponse(urlArticleCible, json_data, callback){
         },
         error: function(xhr, status, error) {
             if(xhr.status == 404) {
-                alert('error 404');
+                sweetAlert("Oops...", "Error 404 not foundin in getAjaxResponse", "error");
             }
             else {
                 var err = eval("(" + xhr.responseText + ")");
