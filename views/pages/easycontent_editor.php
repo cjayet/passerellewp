@@ -131,7 +131,11 @@ OptimizmeUtils::LoadBloc('header');
     (function($){
         $(document).ready(function(){
             // load au chargement de la page
-            //loadAllPostsPages();
+
+            $(document).on('change', '#url_cible', function(){
+                $('.load_arborescence').trigger('click');
+            })
+
         })
     })(jQuery)
 </script>

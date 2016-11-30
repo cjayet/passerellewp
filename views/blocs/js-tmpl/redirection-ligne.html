@@ -1,6 +1,6 @@
 <script id="redirection-table-ligne" type="text/x-jquery-tmpl">
     {{each redirections}}
-        <tr id="redirection-${id}" class="{{if is_disabled == "1"}}danger{{else}}success{{/if}}">
+        <tr id="redirection-${id}" class="ligne_table_redirection {{if is_disabled == "1"}}danger{{else}}success{{/if}}">
             <td>${id}</td>
             <td><a href="${url_base}" target="_blank">${url_base}</a></td>
             <td><a href="${url_redirect}" target="_blank">${url_redirect}</a></td>

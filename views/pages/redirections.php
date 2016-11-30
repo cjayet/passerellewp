@@ -29,5 +29,18 @@ OptimizmeUtils::LoadBloc('header');
     </div>
 </div>
 
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        // au chargement
+        loadRedirectionsFromSite();
+
+        $(document).on('change', '#url_cible', function(){
+            loadRedirectionsFromSite();
+        })
+
+    })
+</script>
+
 </body>
 </html>
