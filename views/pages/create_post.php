@@ -38,6 +38,17 @@ OptimizmeUtils::LoadBloc('header');
                     <select id="select_post_parent" data-id="parent" name="parent" class="form-control"></select>
                 </div>
 
+                <label for="post_type">État</label>
+                <div class="checkbox">
+                    <label>
+                        <input type="radio" data-id="post_status" name="post_status" value="publish"> Publié
+                    </label>
+                    <label>
+                        <input type="radio" data-id="post_status" name="post_status" value="draft"> Brouillon
+                    </label>
+                </div>
+
+
                 <button type="button" data-id="action" value="set_create_post" class="btn btn-primary push_cms">Ajouter</button>
                 <div id="easycontent-url" value="" />
             </form>

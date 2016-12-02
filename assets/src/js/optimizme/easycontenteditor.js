@@ -8,6 +8,9 @@ function loadGridEditor(){
     // remove all blocks
     removeNodeEverywhere('.result_push_cms');
 
+    // autorise l'optimisation des images/hrefs
+    setBoolContentUpdatedAndNotSaved(false);
+
     var form = $('#form_load_grideditor');
     var containerMsg = form.next();
     containerMsg.removeClass().html('');
@@ -63,7 +66,6 @@ function loadGridEditor(){
                     else                            $('#easycontent-publish').prop('checked', false);
 
                     // initialisation de la grille de l'éditeur
-                    //easycontentGridInit( '<h1>Essai !</h1>', false);
                     easycontentGridInit( msg.content, false);
                 }
                 else {
@@ -400,7 +402,7 @@ function refreshImagesListInPost(){
                     })
                 }
                 else{
-                    $('#image-list').append('<li>Aucune image trouvée.</li>');
+                    $('#image-list').append('<div class="alert alert-info">Aucune image trouvée.</div>');
                 }
             }
         })
@@ -437,7 +439,7 @@ function refreshLiensListInPost(){
                 })
             }
             else{
-                $('#href-list').append('<li>Aucun lien trouvé.</li>');
+                $('#href-list').append('<div class="alert alert-info">Aucun lien trouvé.</div>');
             }
         }
     })
@@ -496,12 +498,12 @@ function loadAllPostsPages(){
 
         if (msg.result == 'success'){
 
-            $('#select_arborescence').append('<option value="">-- Veuillez choisir un contenu --</option>')
+            //$('#select_arborescence').append('<option value="">-- Veuillez choisir un contenu --</option>')
 
             if (msg.arborescence.posts.length > 0){
                 var dataPosts = '<optgroup label="Posts">'
                 $.each(msg.arborescence.posts, function(idx, post){
-                    dataPosts += '<option value="'+ post.ID +'">'+ post.post_title +'</option>';
+                    dataPosts += '<option value="'+ post.ID +'">'+ post.post_title +' ['+ post.post_status +']</option>';
                 })
                 dataPosts += '</optgroup>';
                 $('#select_arborescence').append(dataPosts);
@@ -510,13 +512,17 @@ function loadAllPostsPages(){
             if (msg.arborescence.pages.length > 0){
                 var dataPosts = '<optgroup label="Pages">'
                 $.each(msg.arborescence.pages, function(idx, page){
-                    dataPosts += '<option value="'+ page.ID +'">'+ page.post_title +'</option>';
+                    dataPosts += '<option value="'+ page.ID +'">'+ page.post_title +' ['+ page.post_status +']</option>';
                 })
                 dataPosts += '</optgroup>';
                 $('#select_arborescence').append(dataPosts);
             }
 
             $('#page_easycontenteditor_loadpage').slideDown();
+
+            // refresh selectpicker des pages
+            $('.selectpicker').selectpicker('refresh');
+
         }
         else {
             sweetAlert("Oops...", "Error in loadAllPostsPages", "error");
@@ -542,10 +548,6 @@ function loadAllPostsPages(){
 function updateUrlField(msg){
     if (msg.url != ''  && msg.url !== undefined){
         $('#easycontent-url').val(msg.url);
-    }
-    else {
-        // error changing URL, reload
-        //loadGridEditor();
     }
 }
 
@@ -574,4 +576,20 @@ function setBoolContentUpdatedAndNotSaved(boolVal){
 
     $('#btn_easycontent_optimiz_images').attr('data-toggle', dataModal);
     $('#btn_easycontent_optimiz_hrefs').attr('data-toggle', dataModal);
+}
+
+
+/**
+ * @param btn
+ */
+function actionOnBtnOptimisationImagesHrefs(btn){
+    if ( btn.attr('data-toggle') == 'no-modal'){
+        // warning
+        sweetAlert("Informations", "Veuillez enregistrer le contenu pour avoir accès à cette fonctionnalité", "warning");
+    }
+    else {
+        // modal actives: refresh des données (la modale bootstrap se lance automatiquement au mêmem moment)
+        if ( btn.hasClass('refresh_images'))        refreshImagesListInPost();
+        else if ( btn.hasClass('refresh_images'))   refreshLiensListInPost()
+    }
 }

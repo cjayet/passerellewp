@@ -13,6 +13,7 @@
             <option value="http://localhost/wordpress/">http://localhost/wordpress/</option>
             <option value="http://localhost/wordpress2/">http://localhost/wordpress2/</option>
             <option value="http://localhost/wordpress2/site2/">http://localhost/wordpress2/site2/</option>
+            <option value="http://localhost/wordpress2/site3/">http://localhost/wordpress2/site3/</option>
         </optgroup>
     </select>
 </div>

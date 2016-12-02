@@ -9,35 +9,16 @@
     <title>Easycontent editor</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-    <!-- CSS dependencies -->
-    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css" />
+    <!-- vendor scripts -->
+    <link rel="stylesheet" type="text/css" href="./assets/dist/css/vendor.min.css" />
+    <script src="./assets/dist/js/vendor-debug.min.js" ></script>
 
-    <!-- Javascript dependencies -->
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bower_components/tinymce/tinymce.min.js"></script>
-    <script src="bower_components/tinymce/jquery.tinymce.min.js"></script>
-
-    <!-- jquery loading -->
-    <script src="bower_components/jquery-loading/dist/jquery.loading.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="bower_components/jquery-loading/dist/jquery.loading.min.css" />
-
-    <!-- Grid editor -->
-    <script src="bower_components/grid-editor/dist/jquery.grideditor.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="bower_components/grid-editor/dist/grideditor.css" />
-
-    <!-- jquery tmpl -->
-    <script src="bower_components/jquery-tmpl/jquery.tmpl.min.js"></script>
-
-    <!-- sweetalert -->
-    <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="bower_components/sweetalert/dist/sweetalert.css" />
+    <script src="./bower_components/tinymce/tinymce.min.js" ></script>
+    <script src="./bower_components/tinymce/jquery.tinymce.min.js" ></script>
 
     <!-- optimiz.me -->
-    <link rel="stylesheet" type="text/css" href="assets/dist/css/optimizme.min.css" />
-    <script src="assets/dist/js/optimizme-debug.min.js" ></script>
+    <link rel="stylesheet" type="text/css" href="./assets/dist/css/optimizme.min.css" />
+    <script src="./assets/dist/js/optimizme.min.js" ></script>
 </head>
 <body>
 

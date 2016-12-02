@@ -47,20 +47,6 @@ $(document).ready(function(){
    })
 
 
-   /**
-    * Refresh image list
-    */
-   $(document).on('click', '.refresh_images', function(){
-       refreshImagesListInPost();
-   })
-
-   /**
-    * Refresh links list
-    */
-   $(document).on('click', '.refresh_links', function(){
-       refreshLiensListInPost();
-   })
-
 
    /**
     * easycontent editor: affichage du preview du post (article/page) dans wordpress
@@ -70,9 +56,22 @@ $(document).ready(function(){
    })
 
 
+    /**
+     * réactive l'optimisation images/href
+     */
     $(document).on('click', '.push_easycontent_cms', function(){
         setBoolContentUpdatedAndNotSaved(false);
     })
+
+
+    /**
+     *  Warning si non modal
+     */
+    $(document).on('click', '#btn_easycontent_optimiz_images, #btn_easycontent_optimiz_hrefs', function(){
+        actionOnBtnOptimisationImagesHrefs( $(this) );
+    })
+
+
 
 
 })

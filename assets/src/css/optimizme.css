@@ -33,6 +33,9 @@
 #page_easycontenteditor_loadpage { display: none; }
 
 
+/** jquey-loading - overlay on bootstrap modal **/
+.loading-overlay { z-index: 1100!important; }
+
 
 /** divers **/
 .h200 { height: 200px; }

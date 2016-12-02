@@ -36,7 +36,7 @@ $(document).ready(function(){
                     $('#select_post_parent').append('<option value="0">No parent</option>');
                     if (msg.arborescence.pages.length > 0){
                         $.each(msg.arborescence.pages, function(idx, page){
-                            $('#select_post_parent').append('<option value="'+ page.ID +'">'+ page.post_title +'</option>');
+                            $('#select_post_parent').append('<option value="'+ page.ID +'">'+ page.post_title +' ['+ page.post_status +']</option>');
                         })
                     }
                 }

@@ -54,25 +54,31 @@ $(document).ready(function(){
                 // exécution ajax
                 getAjaxResponse(urlArticleCible, json_data, function(msg){
 
+                    // stop loading
+                    form.loading('stop');
+
                     // lance une fonction supplémentaire si nécessaire : définie dans data-after
                     var traitementSupp = btnClick.attr('data-after');
                     if (traitementSupp !== undefined && traitementSupp != ''){
                         window[traitementSupp](msg);
                     }
 
-                    // stop loading
-                    form.loading('stop');
-
-                    // add message under form
-                    form.append('<div class="form-group result_push_cms"><div class="alert alert-'+ msg.result +'">'+ msg.message +'</div></div>');
-
                     // cas particulier : envoi contenu easycontent
                     if (tabData['action'] == 'set_post_content'){
                         if (msg.result == 'success'){
                             // réactive les modales
                             setBoolContentUpdatedAndNotSaved(false);
+
+                            // réinject le contenu de wordpress dans le grid editor
+                            easycontentGridInit(msg.content, false);
+
                         }
                     }
+
+                    // add message under form
+                    form.append('<div class="form-group result_push_cms"><div class="alert alert-'+ msg.result +'">'+ msg.message +'</div></div>');
+
+
                 })
             });
         }
