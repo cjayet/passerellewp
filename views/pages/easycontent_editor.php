@@ -71,7 +71,10 @@ OptimizmeUtils::LoadBloc('header');
                     <div data-action="h3" class="btn btn-default ui-draggable ui-draggable-handle ui-sortable">H3</div>
                     <div data-action="content" class="btn btn-default ui-draggable ui-draggable-handle ui-sortable">Content</div>
                     <div data-action="image" class="btn btn-default ui-draggable ui-draggable-handle ui-sortable">Image</div>
-                    <div class="btn btn-default load_random_images">Load random images</div>
+                    <div class="btn btn-default load_random_images">
+                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                        Load random images
+                    </div>
                     <div id="draggable-random-images"></div>
                 </aside>
             </div>
@@ -89,13 +92,14 @@ OptimizmeUtils::LoadBloc('header');
 
                     <button type="button" id="btn_easycontent_optimiz_images" class="btn btn-default refresh_images" data-toggle="modal" data-target="#modalImgOptimiz">
                         <i class="fa fa-picture-o" aria-hidden="true"></i>
-                        Optimiz IMG
+                        Optimiz IMGs
                     </button>
 
                     <button type="button" id="btn_easycontent_optimiz_hrefs" class="btn btn-default refresh_links" data-toggle="modal" data-target="#modalHrefOptimiz">
                         <i class="fa fa-link" aria-hidden="true"></i>
-                        Optimiz Href
+                        Optimiz HREFs
                     </button>
+
                 </form>
 
                 <form>

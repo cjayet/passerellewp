@@ -4,7 +4,7 @@ $(document).ready(function(){
 
         // load des informations du site au chargement de la page
         var urlArticleCible = $('#url_cible').val();        // site where to push data
-        $('#easycontent-url').val(urlArticleCible);
+        $('#easycontent-url').val(urlArticleCible);         // for push
         form = $(this).closest('form');
 
         // site selected?

@@ -7,7 +7,11 @@ OptimizmeUtils::LoadBloc('header');
     <div class="row">
         <div class="col-md-9">
             <?php OptimizmeUtils::LoadBloc('head_push'); ?>
-          <hr />
+            <form>
+                <button type="button" data-id="action" id="btn_createpostpage_loadarborescence" class="btn btn-primary">Reload pages</button>
+                <div id="easycontent-url" value="" />
+            </form>
+            <hr /><br />
         </div>
 
         <div class="col-md-9">
@@ -22,23 +26,20 @@ OptimizmeUtils::LoadBloc('header');
                 <label for="post_type">Type de contenu</label>
                 <div class="checkbox">
                     <label>
-                        <input type="radio" data-id="post_type" name="post_type" class="post_type" value="post"> Article
+                        <input type="radio" data-id="post_type" name="post_type" class="createpostpage_post_type" value="post"> Article
                     </label>
                     <label>
-                        <input type="radio" data-id="post_type" name="post_type" class="post_type" value="page"> Page
+                        <input type="radio" data-id="post_type" name="post_type" class="createpostpage_post_type" value="page"> Page
                     </label>
                 </div>
 
                 <div id="liste-pages" class="form-group" style="display: none">
                     <label for="title">Page parente</label>
-                    <select id="select_post_parent" data-id="parent" name="parent" class="form-control">
-                        <option value="0">No parent</option>
-                        <option value="1">Test1</option>
-                        <option value="1">Test2</option>
-                    </select>
+                    <select id="select_post_parent" data-id="parent" name="parent" class="form-control"></select>
                 </div>
 
                 <button type="button" data-id="action" value="set_create_post" class="btn btn-primary push_cms">Ajouter</button>
+                <div id="easycontent-url" value="" />
             </form>
         </div>
 
@@ -50,35 +51,10 @@ OptimizmeUtils::LoadBloc('header');
     (function($){
         $(document).ready(function(){
 
-            var urlArticleCible = $('#url_cible').val();        // site where to push data
+            $('#btn_createpostpage_loadarborescence').trigger('click');
 
-            ////////////////////////////////////////
-            // RECUPERATION LISTE DES PAGES
-            ////////////////////////////////////////
-
-            // préparation requête ajax
-            var tabData = {url_cible: urlArticleCible};
-            tabData['action'] = 'load_posts_pages';
-            var json_data = JSON.stringify(tabData, null, 2);
-
-            getAjaxResponse(urlArticleCible, json_data, function(msg){
-                if (msg.result == 'success'){
-                    $('#select_post_parent').empty();
-                    $('#select_post_parent').append('<option value="0">-- No parent --</option>');
-                    if (msg.arborescence.pages.length > 0){
-                        $.each(msg.arborescence.pages, function(idx, page){
-                            $('#select_post_parent').append('<option value="'+ page.ID +'">'+ page.post_title +'</option>');
-                        })
-                    }
-                }
-            })
-
-
-            // affiche ou non l'arborescence des pages (non pour post, oui pour page)
-            $(document).on('change', '.post_type', function(){
-                var type = ( $('input[name=post_type]:checked').val());
-                if (type == 'page')     $('#liste-pages').slideDown();
-                else                    $('#liste-pages').slideUp();
+            $(document).on('change', '#url_cible', function(){
+                $('#btn_createpostpage_loadarborescence').trigger('click');
             })
 
         })

@@ -31,6 +31,7 @@ gulp.task('minifyjs', function () {
         sourceJS +'/passerelle.js',
         sourceJS +'/easycontenteditor-trigger.js',
         sourceJS +'/redirections.js',
+        sourceJS +'/create_post_page.js',
         sourceJS +'/site_options.js'
     ])
         .pipe(concat('optimizme.js'))

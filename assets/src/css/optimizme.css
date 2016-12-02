@@ -1,4 +1,4 @@
-.confirmAction, .pointer { cursor: pointer; }
+
 
 /** EASYCONTENT EDITOR - toolbar **/
 .toolbar-editor {
@@ -30,7 +30,6 @@
     to {background-color: #D2E4EE;}
 }
 
-
 #page_easycontenteditor_loadpage { display: none; }
 
 
@@ -39,3 +38,4 @@
 .h200 { height: 200px; }
 .t25 { position: relative; top: 25px; }
 .empty { border: 2px dashed #c0c0c0; height: 50px;}
+.confirmAction, .pointer { cursor: pointer; }

@@ -39,8 +39,14 @@ OptimizmeUtils::LoadBloc('header');
 <script type="text/javascript">
     (function($){
         $(document).ready(function(){
+
             // load options
             $('#load_site_options').trigger('click');
+
+            // on chane
+            $(document).on('change', '#url_cible', function(){
+                $('#load_site_options').trigger('click');
+            })
         })
     })(jQuery)
 </script>

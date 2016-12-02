@@ -73,4 +73,6 @@ $(document).ready(function(){
     $(document).on('click', '.push_easycontent_cms', function(){
         setBoolContentUpdatedAndNotSaved(false);
     })
+
+
 })

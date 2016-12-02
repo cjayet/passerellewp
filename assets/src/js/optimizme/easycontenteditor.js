@@ -330,6 +330,9 @@ function initDraggableDroppable(){
             if (ui.helper.data('dropped') == false){
                 // drop dans une zone non acceptée : nettoie les rows placeholder ajoutées dynamiquement
                 removeRowsPlaceholder();
+
+                // remet l'éditeur
+                easycontentGridInit('', true);
             }
         }
     });
