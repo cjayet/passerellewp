@@ -36,25 +36,31 @@
 
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="<?php OptimizmeUtils::LinkToPage('easycontent_editor') ?>">Easycontent Editor</a></li>
-                    <li><a href="<?php OptimizmeUtils::LinkToPage('install_config') ?>">Install WP plugin</a></li>
-                    <!-- <li><a href="<?php OptimizmeUtils::LinkToPage('push_content') ?>">Push</a></li> -->
-                    <li><a href="<?php OptimizmeUtils::LinkToPage('redirections') ?>">Redirections</a></li>
-                    <li><a href="<?php OptimizmeUtils::LinkToPage('create_post') ?>">Create post/page</a></li>
-                    <li><a href="<?php OptimizmeUtils::LinkToPage('site_options') ?>">Site options</a></li>
-
-                    <!--<li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Wordpress <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Nav header</li>
-                            <li><a href="#">Separated link</a></li>
-                            <li><a href="#">One more separated link</a></li>
+                            <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/easycontent_editor') ?>">Easycontent Editor</a></li>
+                            <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/install_config') ?>">Install WP plugin</a></li>
+                            <!-- <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/push_content') ?>">Push</a></li> -->
+                            <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/redirections') ?>">Redirections</a></li>
+                            <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/create_post') ?>">Create post/page</a></li>
+                            <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/site_options') ?>">Site options</a></li>
                         </ul>
-                    </li> -->
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Prestashop <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php OptimizmeUtils::LinkToPage('prestashop/easycontent_editor') ?>">Easycontent Editor</a></li>
+                        </ul>
+                    </li>
+
+
+                    <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/easycontent_editor') ?>">Easycontent Editor</a></li>
+                    <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/install_config') ?>">Install WP plugin</a></li>
+                    <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/redirections') ?>">Redirections</a></li>
+                    <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/create_post') ?>">Create post/page</a></li>
+                    <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/site_options') ?>">Site options</a></li>
                 </ul>
 
             </div><!--/.nav-collapse -->

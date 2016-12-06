@@ -8,7 +8,7 @@ OptimizmeUtils::LoadBloc('header');
     <div class="row">
 
         <div class="col-md-12">
-            <?php OptimizmeUtils::LoadBloc('head_push') ?>
+            <?php OptimizmeUtils::LoadBloc('wordpress/head_push') ?>
             <hr /><br />
 
             <h3>Redirection des pages <small>les articles sont redirigés en natif dans Wordpress</small></h3>

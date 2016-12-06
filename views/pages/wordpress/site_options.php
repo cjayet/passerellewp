@@ -6,7 +6,7 @@ OptimizmeUtils::LoadBloc('header');
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <?php OptimizmeUtils::LoadBloc('head_push'); ?>
+            <?php OptimizmeUtils::LoadBloc('wordpress/head_push'); ?>
             <form>
                 <button type="button" data-id="action" id="load_site_options" class="btn btn-primary">Load site options</button>
                 <div id="easycontent-url" value="" />

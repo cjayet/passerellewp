@@ -6,7 +6,7 @@ OptimizmeUtils::LoadBloc('header');
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <?php OptimizmeUtils::LoadBloc('head_push'); ?>
+            <?php OptimizmeUtils::LoadBloc('wordpress/head_push'); ?>
 
             <form>
                 <button type="button" data-id="action" class="btn btn-primary load_arborescence">Load arbo</button>

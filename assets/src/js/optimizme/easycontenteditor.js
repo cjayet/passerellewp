@@ -131,8 +131,8 @@ function easycontentGridInit(newContentGrid, keepContent){
 
     // grid editor
     $('#easycontent-grid').gridEditor({
-        //new_row_layouts: [[12], [6,6], [9,3], [3,9], [8,4], [4,8]],
-        new_row_layouts: [],
+        new_row_layouts: [[12], [6,6], [9,3], [3,9], [8,4], [4,8]],
+        //new_row_layouts: [],
 
         content_types: ['tinymce'],
         tinymce: {
@@ -500,23 +500,28 @@ function loadAllPostsPages(){
 
             //$('#select_arborescence').append('<option value="">-- Veuillez choisir un contenu --</option>')
 
-            if (msg.arborescence.posts.length > 0){
-                var dataPosts = '<optgroup label="Posts">'
-                $.each(msg.arborescence.posts, function(idx, post){
-                    dataPosts += '<option value="'+ post.ID +'">'+ post.post_title +' ['+ post.post_status +']</option>';
-                })
-                dataPosts += '</optgroup>';
-                $('#select_arborescence').append(dataPosts);
+            if (msg.arborescence.posts){
+                if (msg.arborescence.posts.length > 0){
+                    var dataPosts = '<optgroup label="Posts">'
+                    $.each(msg.arborescence.posts, function(idx, post){
+                        dataPosts += '<option value="'+ post.ID +'">'+ post.post_title +' ['+ post.post_status +']</option>';
+                    })
+                    dataPosts += '</optgroup>';
+                    $('#select_arborescence').append(dataPosts);
+                }
             }
 
-            if (msg.arborescence.pages.length > 0){
-                var dataPosts = '<optgroup label="Pages">'
-                $.each(msg.arborescence.pages, function(idx, page){
-                    dataPosts += '<option value="'+ page.ID +'">'+ page.post_title +' ['+ page.post_status +']</option>';
-                })
-                dataPosts += '</optgroup>';
-                $('#select_arborescence').append(dataPosts);
+            if (msg.arborescence.pages){
+                if (msg.arborescence.pages.length > 0){
+                    var dataPosts = '<optgroup label="Pages">'
+                    $.each(msg.arborescence.pages, function(idx, page){
+                        dataPosts += '<option value="'+ page.ID +'">'+ page.post_title +' ['+ page.post_status +']</option>';
+                    })
+                    dataPosts += '</optgroup>';
+                    $('#select_arborescence').append(dataPosts);
+                }
             }
+
 
             $('#page_easycontenteditor_loadpage').slideDown();
 
