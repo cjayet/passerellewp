@@ -1,5 +1,10 @@
 $(document).ready(function(){
 
+    // chargement des tinyMCE
+    if ( $('#easycontent-short_description').length ){
+        loadTinyMCE('#easycontent-short_description');
+    }
+
    /**
     * load "GridEditor"
     */
@@ -7,7 +12,7 @@ $(document).ready(function(){
        loadGridEditor();
    })
 
-   $(document).on('change', '#select_arborescence', function(){
+   $(document).on('change', '#select_list_posts', function(){
        loadGridEditor();
    })
 
@@ -18,10 +23,6 @@ $(document).ready(function(){
        loadAllPostsPages();
    })
 
-
-   $(document).on('click', '.inject_easycontent_content', function(){
-       injectEasycontentContent();
-   })
 
 
    /**

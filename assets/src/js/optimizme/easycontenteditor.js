@@ -21,7 +21,7 @@ function loadGridEditor(){
         // préparation requête ajax
         var tabData = {url_cible: urlArticleCible};
         tabData['action'] = 'load_post_content';
-        tabData['id_post'] = $('#select_arborescence').val();
+        tabData['id_post'] = $('#select_list_posts').val();
         var json_data = JSON.stringify(tabData, null, 2);
 
         $('#container-easycontent').css('display', 'none');
@@ -39,7 +39,7 @@ function loadGridEditor(){
 
                     $('#container-easycontent').slideDown();
 
-                    // set content
+                    // set common content
                     $('#easycontent-title').val(msg.title);
                     $('#easycontent-slug').val(msg.slug);
                     $('#easycontent-meta-description').val(msg.meta_description);
@@ -62,8 +62,19 @@ function loadGridEditor(){
                         else                            $('#easycontent-nofollow').prop('checked', false);
                     }
 
-                    if (msg.publish == 'publish')   $('#easycontent-publish').prop('checked', true);
+                    if (msg.publish == 1)           $('#easycontent-publish').prop('checked', true);
                     else                            $('#easycontent-publish').prop('checked', false);
+
+
+                    // set specific content
+                    if ( $('#easycontent-short_description').length ){
+                        $('#easycontent-short_description').val(msg.short_description);
+                        changeTinymceContent('easycontent-short_description', msg.short_description);
+                    }
+
+                    if ( $('#easycontent-meta-title').length ){
+                        $('#easycontent-meta-title').val(msg.meta_title);
+                    }
 
                     // initialisation de la grille de l'éditeur
                     easycontentGridInit( msg.content, false);
@@ -85,33 +96,6 @@ function loadGridEditor(){
         containerMsg.html('Veuillez choisir une page/article');
     }
 }
-
-
-/**
- * easycontent editor: append de contenu
- */
-function injectEasycontentContent(){
-
-    setBoolContentUpdatedAndNotSaved(true);
-    var urlArticleCible = $('#url_cible').val();        // site where to push data
-
-    // préparation requête ajax
-    var tabData = {url_cible: urlArticleCible};
-    tabData['action'] = 'load_lorem_ipsum';
-    var json_data = JSON.stringify(tabData, null, 2);
-
-    // exécution ajax
-    getAjaxResponse(urlArticleCible, json_data, function(msg){
-        if (msg.result == 'success'){
-
-            // add content with simple bootstrap form
-            var newContent = '<div class="row"><div class="col-md-12 col-sm-12 col-xs-12 column">'+msg.content+'</div></div>';
-
-            // initialisation de la grille de l'éditeur
-            easycontentGridInit(newContent, true);
-        }
-    })
-};
 
 
 /**
@@ -490,15 +474,13 @@ function loadAllPostsPages(){
     var json_data = JSON.stringify(tabData, null, 2);
 
     // vide le selecteur
-    $('#select_arborescence').empty();
+    $('#select_list_posts').empty();
 
     getAjaxResponse(urlWordpressCible, json_data, function(msg){
 
         $('body').loading('stop');
 
         if (msg.result == 'success'){
-
-            //$('#select_arborescence').append('<option value="">-- Veuillez choisir un contenu --</option>')
 
             if (msg.arborescence.posts){
                 if (msg.arborescence.posts.length > 0){
@@ -507,7 +489,7 @@ function loadAllPostsPages(){
                         dataPosts += '<option value="'+ post.ID +'">'+ post.post_title +' ['+ post.post_status +']</option>';
                     })
                     dataPosts += '</optgroup>';
-                    $('#select_arborescence').append(dataPosts);
+                    $('#select_list_posts').append(dataPosts);
                 }
             }
 
@@ -518,7 +500,7 @@ function loadAllPostsPages(){
                         dataPosts += '<option value="'+ page.ID +'">'+ page.post_title +' ['+ page.post_status +']</option>';
                     })
                     dataPosts += '</optgroup>';
-                    $('#select_arborescence').append(dataPosts);
+                    $('#select_list_posts').append(dataPosts);
                 }
             }
 
@@ -553,6 +535,7 @@ function loadAllPostsPages(){
 function updateUrlField(msg){
     if (msg.url != ''  && msg.url !== undefined){
         $('#easycontent-url').val(msg.url);
+        $('#easycontent-slug').val(msg.new_slug);
     }
 }
 

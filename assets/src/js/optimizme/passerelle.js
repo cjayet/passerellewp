@@ -12,9 +12,9 @@ $(document).ready(function(){
         var btnClick = $(this);
         var form = $(this).closest('form');
 
-        //var urlArticleCible = $('#url_cible').val();          // where to push data
         var urlArticleCible = $('#easycontent-url').val();      // where to push data
         console.log('push_cms TO '+ urlArticleCible);
+
 
         if (urlArticleCible != '')
         {
@@ -27,6 +27,9 @@ $(document).ready(function(){
 
                 // tableau des données à envoyer
                 var tabData = {url_cible: urlArticleCible};
+                if ( $('#select_list_posts').length )         tabData['id_post'] = $('#select_list_posts').val();
+
+                // valeurs présentes dans le formulaire
                 elements.each(function(){
                     if ( $(this).attr('type') == 'radio' || $(this).attr('type') == 'checkbox' ){
                         if ($(this).prop('checked')){
@@ -47,6 +50,7 @@ $(document).ready(function(){
                         }
                     }
                 });
+
 
                 // to JSON
                 var json_data = JSON.stringify(tabData, null, 2);

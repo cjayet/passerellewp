@@ -75,3 +75,31 @@ function setMetaRobotsIfSearchEngineDisabled( isBlogPublic ){
         $('#alert_no_search_engines').css('display', '');
     }
 }
+
+
+/**
+ *
+ * @param selector
+ */
+function loadTinyMCE(idSelector){
+    var tinyMceEditor = tinymce.init({
+        selector: idSelector,
+        menubar: false,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table contextmenu paste code'
+        ],
+        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+        content_css: '//www.tinymce.com/css/codepen.min.css'
+    });
+}
+
+/**
+ * Change le contenu du tinyMCE souhaité
+ * @param idTinyMCE : id
+ * @param content : nouveau contenu
+ */
+function changeTinymceContent(idTinyMCE, content){
+    tinymce.get(idTinyMCE).setContent(content);
+}

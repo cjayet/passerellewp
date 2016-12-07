@@ -1,3 +1,4 @@
+<?php /** COMMUN  **/ ?>
 <div class="row">
     <div class="form-group col-md-8">
         <label for="easycontent-url">URL</label>

@@ -46,6 +46,12 @@ OptimizmeUtils::LoadBloc('header');
                 // META DESCRIPTION
                 OptimizmeUtils::LoadBloc('form-push/post/meta_description');
 
+                // META TITLE
+                OptimizmeUtils::LoadBloc('form-push/post/meta_title');
+
+                // SHORT DESCRIPTION
+                OptimizmeUtils::LoadBloc('form-push/post/short_description');
+
                 // META ROBOTS
                 OptimizmeUtils::LoadBloc('form-push/post/meta_robots');
 
