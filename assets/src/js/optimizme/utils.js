@@ -103,3 +103,12 @@ function loadTinyMCE(idSelector){
 function changeTinymceContent(idTinyMCE, content){
     tinymce.get(idTinyMCE).setContent(content);
 }
+
+/**
+ * Récupère le contenu du tinyMCE souhaité
+ * @param idTinyMCE : id
+ * @param content : nouveau contenu
+ */
+function getTinymceContent(idTinyMCE){
+    return tinymce.get(idTinyMCE).getContent();
+}

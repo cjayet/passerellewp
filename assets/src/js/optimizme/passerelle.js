@@ -44,9 +44,14 @@ $(document).ready(function(){
                     else {
                         tabData[$(this).attr('data-id')] = $(this).val();
 
+                        // cas particuliers
                         if ( $(this).attr('data-id') == 'action' && $(this).val() == 'set_post_content'){
-                            // cas particulier : on rajoute le contenu de grid editor
+                            // contenu : on rajoute le contenu de grid editor
                             tabData['new_content'] = $('#easycontent-grid').gridEditor('getHtml');
+                        }
+                        else if ( $(this).attr('data-id') == 'action' && $(this).val() == 'set_post_shortdescription'){
+                            var newContent = getTinymceContent('easycontent-short_description');
+                            tabData['new_short_description'] = newContent;
                         }
                     }
                 });

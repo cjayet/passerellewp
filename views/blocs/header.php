@@ -55,12 +55,13 @@
                         </ul>
                     </li>
 
-
+                    <!--
                     <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/easycontent_editor') ?>">Easycontent Editor</a></li>
                     <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/install_config') ?>">Install WP plugin</a></li>
                     <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/redirections') ?>">Redirections</a></li>
                     <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/create_post') ?>">Create post/page</a></li>
                     <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/site_options') ?>">Site options</a></li>
+                    -->
                 </ul>
 
             </div><!--/.nav-collapse -->

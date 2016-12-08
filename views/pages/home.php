@@ -6,22 +6,22 @@ OptimizmeUtils::LoadBloc('header');
 <div class="container">
     <div class="row">
 
-        <div class="col-md-9">
+        <div class="col-md-3">
             <h2>Wordpress</h2>
-            <a href="<?php OptimizmeUtils::LinkToPage('wordpress/install_config'); ?>">Install plugin</a>
+            <ul>
+                <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/easycontent_editor'); ?>">Easycontent editor</a></li>
+                <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/install_config'); ?>">Install plugin</a></li>
+                <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/redirections'); ?>">Redirections</a></li>
+                <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/create_post'); ?>">Create post / page</a></li>
+                <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/site_options'); ?>">Site options</a></li>
+            </ul>
+        </div>
 
-            <h2>Easycontent editor</h2>
-            <a href="<?php OptimizmeUtils::LinkToPage('wordpress/easycontent_editor'); ?>">Easycontent editor</a>
-
-            <h2>Redirections</h2>
-            <a href="<?php OptimizmeUtils::LinkToPage('wordpress/redirections'); ?>">Redirections</a>
-
-            <h2>Create post / page</h2>
-            <a href="<?php OptimizmeUtils::LinkToPage('wordpress/create_post'); ?>">Create post / page</a>
-
-            <h2>Site options</h2>
-            <a href="<?php OptimizmeUtils::LinkToPage('wordpress/site_options'); ?>">Site options</a>
-
+        <div class="col-md-3">
+            <h2>Prestashop</h2>
+            <ul>
+                <li><a href="<?php OptimizmeUtils::LinkToPage('prestashop/easycontent_editor'); ?>">Install plugin</a></li>
+            </ul>
         </div>
     </div>
 </div>
