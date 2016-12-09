@@ -139,8 +139,8 @@ function easycontentGridInit(newContentGrid, keepContent){
     });
 
     // maj des listes d'images / liens
-    refreshImagesListInPost();
-    refreshLiensListInPost();
+    //refreshImagesListInPost();
+    //refreshLiensListInPost();
 }
 
 /**
@@ -578,6 +578,6 @@ function actionOnBtnOptimisationImagesHrefs(btn){
     else {
         // modal actives: refresh des données (la modale bootstrap se lance automatiquement au mêmem moment)
         if ( btn.hasClass('refresh_images'))        refreshImagesListInPost();
-        else if ( btn.hasClass('refresh_images'))   refreshLiensListInPost()
+        else if ( btn.hasClass('refresh_links'))   refreshLiensListInPost()
     }
 }

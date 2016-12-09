@@ -41,7 +41,7 @@ OptimizmeUtils::LoadBloc('header');
                 OptimizmeUtils::LoadBloc('form-push/post/slug');
 
                 // URL CANONIQUE
-                OptimizmeUtils::LoadBloc('form-push/post/url_canonique');
+                //OptimizmeUtils::LoadBloc('form-push/post/url_canonique');
 
                 // META DESCRIPTION
                 OptimizmeUtils::LoadBloc('form-push/post/meta_description');
@@ -53,7 +53,7 @@ OptimizmeUtils::LoadBloc('header');
                 OptimizmeUtils::LoadBloc('form-push/post/short_description');
 
                 // META ROBOTS
-                OptimizmeUtils::LoadBloc('form-push/post/meta_robots');
+                //OptimizmeUtils::LoadBloc('form-push/post/meta_robots');
 
                 // PUBLISH
                 OptimizmeUtils::LoadBloc('form-push/post/publish');

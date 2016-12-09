@@ -12,7 +12,8 @@ $(document).ready(function(){
         var btnClick = $(this);
         var form = $(this).closest('form');
 
-        var urlArticleCible = $('#easycontent-url').val();      // where to push data
+        //var urlArticleCible = $('#easycontent-url').val();      // where to push data
+        var urlArticleCible = $('#url_cible').val();            // où envoyer les data (racine du site)
         console.log('push_cms TO '+ urlArticleCible);
 
 

@@ -5,7 +5,7 @@
             <label for="noindex">Contenu publié</label>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" data-id="is_publish" id="easycontent-publish" name="is_publish" value="1"> Publier la page
+                    <input type="checkbox" data-id="is_publish" id="easycontent-publish" name="is_publish" value="1"> Publier le contenu
                 </label>
             </div>
         </div>
