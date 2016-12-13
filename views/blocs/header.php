@@ -41,7 +41,6 @@
                         <ul class="dropdown-menu">
                             <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/easycontent_editor') ?>">Easycontent Editor</a></li>
                             <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/install_config') ?>">Install WP plugin</a></li>
-                            <!-- <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/push_content') ?>">Push</a></li> -->
                             <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/redirections') ?>">Redirections</a></li>
                             <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/create_post') ?>">Create post/page</a></li>
                             <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/site_options') ?>">Site options</a></li>
@@ -52,6 +51,15 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Prestashop <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="<?php OptimizmeUtils::LinkToPage('prestashop/easycontent_editor') ?>">Easycontent Editor</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shopify <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php OptimizmeUtils::LinkToPage('shopify/get_products') ?>">Liste des produits</a></li>
+                            <li><a href="<?php OptimizmeUtils::LinkToPage('shopify/edit_product') ?>">Edit produit</a></li>
+                            <li><a href="<?php OptimizmeUtils::LinkToPage('shopify/redirections') ?>">Redirections</a></li>
                         </ul>
                     </li>
 

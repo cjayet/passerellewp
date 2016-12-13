@@ -23,6 +23,15 @@ OptimizmeUtils::LoadBloc('header');
                 <li><a href="<?php OptimizmeUtils::LinkToPage('prestashop/easycontent_editor'); ?>">Easycontent editor</a></li>
             </ul>
         </div>
+
+        <div class="col-md-3">
+            <h2>Shopify</h2>
+            <ul>
+                <li><a href="<?php OptimizmeUtils::LinkToPage('shopify/get_products'); ?>">Product list</a></li>
+                <li><a href="<?php OptimizmeUtils::LinkToPage('shopify/edit_product'); ?>">Edit product</a></li>
+                <li><a href="<?php OptimizmeUtils::LinkToPage('shopify/redirections'); ?>">Redirections</a></li>
+            </ul>
+        </div>
     </div>
 </div>
 
