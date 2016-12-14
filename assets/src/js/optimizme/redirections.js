@@ -28,7 +28,6 @@ function loadRedirectionsFromSite(){
                     // ajout de la liste des redirections
                     $("#redirection-table-ligne").tmpl(msg).appendTo("#table-redirections tbody");
                 }
-
             }
             else {
                 sweetAlert("Oops...", "Error loading redirections", "error");

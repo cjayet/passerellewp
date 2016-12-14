@@ -37,6 +37,10 @@
 .loading-overlay { z-index: 1100!important; }
 
 
+/** shopify **/
+#container-shopify { display: none; }
+
+
 /** divers **/
 .h200 { height: 200px; }
 .t25 { position: relative; top: 25px; }

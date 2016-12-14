@@ -12,8 +12,17 @@ $(document).ready(function(){
         var btnClick = $(this);
         var form = $(this).closest('form');
 
-        //var urlArticleCible = $('#easycontent-url').val();      // where to push data
-        var urlArticleCible = $('#url_cible').val();            // où envoyer les data (racine du site)
+        //var urlArticleCible = $('#easycontent-url').val();        // where to push data
+
+        // où envoyer les data (racine du site)
+        var dataUrl = btnClick.attr('data-url');
+        if (dataUrl !== undefined && dataUrl != ''){
+            var urlArticleCible = dataUrl;
+        }
+        else {
+            var urlArticleCible = $('#url_cible').val();
+        }
+
         console.log('push_cms TO '+ urlArticleCible);
 
 
@@ -28,7 +37,8 @@ $(document).ready(function(){
 
                 // tableau des données à envoyer
                 var tabData = {url_cible: urlArticleCible};
-                if ( $('#select_list_posts').length )         tabData['id_post'] = $('#select_list_posts').val();
+                if ( $('#select_list_posts').length )                       tabData['id_post'] = $('#select_list_posts').val();
+                else if ( $('#shopify_select_list_products').length )       tabData['id_post'] = $('#shopify_select_list_products').val();
 
                 // valeurs présentes dans le formulaire
                 elements.each(function(){
@@ -53,6 +63,10 @@ $(document).ready(function(){
                         else if ( $(this).attr('data-id') == 'action' && $(this).val() == 'set_post_shortdescription'){
                             var newContent = getTinymceContent('easycontent-short_description');
                             tabData['new_short_description'] = newContent;
+                        }
+                        else if ( $(this).attr('data-id') == 'action' && $(this).val() == 'set_shopify_product_update'){
+                            tabData['shop_name'] = $('#url_cible').val();
+                            tabData['new_description'] = getTinymceContent('product_description');
                         }
                     }
                 });
@@ -87,8 +101,6 @@ $(document).ready(function(){
 
                     // add message under form
                     form.append('<div class="form-group result_push_cms"><div class="alert alert-'+ msg.result +'">'+ msg.message +'</div></div>');
-
-
                 })
             });
         }

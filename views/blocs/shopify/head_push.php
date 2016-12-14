@@ -7,7 +7,7 @@
 
     <select name="" id="url_cible" class="form-control">
         <optgroup label="Veuillez choisir un site">
-            <option value="http://optimiz-me-dev.myshopify.com/">http://optimiz-me-dev.myshopify.com/</option>
+            <option value="optimiz-me-dev.myshopify.com">http://optimiz-me-dev.myshopify.com/</option>
         </optgroup>
     </select>
 </div>

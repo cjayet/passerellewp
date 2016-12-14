@@ -52,7 +52,8 @@ gulp.task('minifyjs', function () {
         sourceJS +'/easycontenteditor-trigger.js',
         sourceJS +'/redirections.js',
         sourceJS +'/create_post_page.js',
-        sourceJS +'/site_options.js'
+        sourceJS +'/site_options.js',
+        sourceJS +'/shopify.js',
     ])
         .pipe(concat('optimizme.js'))
         .pipe(minify({

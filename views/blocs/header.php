@@ -18,7 +18,7 @@
 
     <!-- optimiz.me -->
     <link rel="stylesheet" type="text/css" href="./assets/dist/css/optimizme.min.css" />
-    <script src="./assets/dist/js/optimizme.min.js" ></script>
+    <script src="./assets/dist/js/optimizme-debug.min.js" ></script>
 </head>
 <body>
 

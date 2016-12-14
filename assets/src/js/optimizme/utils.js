@@ -21,7 +21,7 @@ function getAjaxResponse(urlArticleCible, json_data, callback){
         },
         error: function(xhr, status, error) {
             if(xhr.status == 404) {
-                sweetAlert("Oops...", "Error 404 not found in in getAjaxResponse", "error");
+                sweetAlert("Oops...", "Error 404 not found in getAjaxResponse", "error");
             }
             else {
                 var err = eval("(" + xhr.responseText + ")");
@@ -82,6 +82,7 @@ function setMetaRobotsIfSearchEngineDisabled( isBlogPublic ){
  * @param selector
  */
 function loadTinyMCE(idSelector){
+
     var tinyMceEditor = tinymce.init({
         selector: idSelector,
         menubar: false,
