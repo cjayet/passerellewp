@@ -9,9 +9,8 @@
 $dataOptimizme = json_decode($_POST['data_optme']);
 $shop = $dataOptimizme->shop_name;
 
-$shopObj = new ShopifyEasycontent();
-$shopify = $shopObj->loadShopConnection($shop);
-$product = ShopifyEasycontent::saveProduct($shopify, $dataOptimizme);
+$shopObj = new ShopifyEasycontent($shop);
+$product = $shopObj->saveProduct($dataOptimizme);
 
 echo json_encode(
     array(

@@ -10,10 +10,9 @@ $dataOptimizme = json_decode($_POST['data_optme']);
 $shop = $dataOptimizme->shop_name;
 $idProduct = $dataOptimizme->id_product;
 
-$shopObj = new ShopifyEasycontent();
-$shopify = $shopObj->loadShopConnection($shop);
-$product = ShopifyEasycontent::getProduct($shopify, $idProduct);
-$metas = ShopifyEasycontent::getProductMetas($shopify, $idProduct);
+$shopObj = new ShopifyEasycontent($shop);
+$product = $shopObj->getProduct($idProduct);
+$metas = $shopObj->getProductMetas($idProduct);
 
 echo json_encode(
     array(

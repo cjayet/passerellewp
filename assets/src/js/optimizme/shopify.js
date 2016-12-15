@@ -1,3 +1,34 @@
+/**
+ *  Load all redirections
+ */
+function shopifyLoadAllRedirections(){
+
+    // préparation requête ajax pour les images
+    var tabData = { shop_name: $('#url_cible').val() };
+    var json_data = JSON.stringify(tabData, null, 2);
+
+    $('body').loading();
+
+    // exécution ajax
+    getAjaxResponse('index.php?ajax=shopifyGetRedirections', json_data, function(msg) {
+        $('body').loading('stop');
+
+        if (msg.result == 'success'){
+            if (msg.redirections.length > 0)
+            {
+                // ajout de la liste des redirections
+                $("#redirection-table-ligne").tmpl(msg).appendTo("#table-redirections tbody");
+            }
+        }
+        else {
+            sweetAlert("Oops...", "Error loading redirections", "error");
+        }
+    })
+}
+
+
+
+
 $(document).ready(function(){
 
     /**
@@ -75,21 +106,38 @@ $(document).ready(function(){
 
                 $('body').loading('stop');
 
+                // déplie le contenu
                 $('#container-shopify').slideDown();
+
+
+                // load la liste des images
+                if (msg.product.images.length > 0){
+                    $.each(msg.product.images, function(idx, objImage) {
+                        $.get("views/blocs/js-tmpl/shopify_image_detail_contenu.html", function(data){
+                            data =  $.tmpl( data, {
+                                'url_image' : objImage.src,
+                                'alt_image' : objImage.src,
+                                'title_image' : objImage.src
+                            }).html()
+
+                            $('#image-list').append(data);
+                        });
+                    })
+                }
+                else{
+                    $('#image-list').append('<div class="alert alert-info">Aucune image trouvée.</div>');
+                }
+
+
             }
         })
     }
-
-
-
-
 
 
     // chargement des tinyMCE
     if ( $('#product_description').length ){
         loadTinyMCE('#product_description');
     }
-
 
     /** trigger : load all products on click **/
     $(document).on('click', '#shopify_load_products', function () {
@@ -104,6 +152,11 @@ $(document).ready(function(){
     $(document).on('change', '#shopify_select_list_products', function () {
         shopifyLoadProduct();
     })
+
+    $(document).on('click', '#shopify_load_redirections', function(){
+        shopifyLoadAllRedirections();
+    })
+
 
 
 })

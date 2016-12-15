@@ -10,18 +10,28 @@ use sandeepshetty\shopify_api;
  */
 class ShopifyEasycontent
 {
+    public $shopify;
+
+    public function __construct($shopName){
+        $this->loadShopConnection($shopName);
+    }
+
+
     /**
      * @param $shopName
      * @return Closure
      */
     public function loadShopConnection($shopName){
 
+        $db = new EasycontentDB();
+        $appSettings = $db->getOneRow('SELECT * FROM tbl_appsettings WHERE id="1"');
+
         $token = $this->getAccessTokenByShopName($shopName);
         if ($token != ''){
             $shopify = shopify_api\client(
-                $shopName, $token, SHOPIFY_API_KEY, SHOPIFY_SHARED_SECRET    // TODO cle site client
+                $shopName, $token, $appSettings->api_key, $appSettings->shared_secret
             );
-            return $shopify;
+            $this->shopify = $shopify;
         }
     }
 
@@ -30,7 +40,7 @@ class ShopifyEasycontent
      * @return string
      */
     public function getAccessTokenByShopName($shop){
-        $sql = 'SELECT access_token FROM tbl_usersettings WHERE store_name="'. $shop .'" LIMIT 0, 1';
+        $sql = 'SELECT access_token FROM tbl_usersettings WHERE store_name="'. $shop .'" LIMIT 1';
         $db = new EasycontentDB();
         foreach ($db->dbh->query($sql) as $row){
             return $row['access_token'];
@@ -39,30 +49,30 @@ class ShopifyEasycontent
     }
 
     /**
-     * @param $shopify
      * @return mixed
      */
-    public static function getAllProducts($shopify){
+    public function getAllProducts(){
+        $shopify = $this->shopify;
         $products = $shopify('GET', '/admin/products.json', array('published_status' => 'published'));
         return $products;
     }
 
     /**
-     * @param $shopify
      * @param $idProduct
      * @return mixed
      */
-    public static function getProduct($shopify, $idProduct){
+    public function getProduct($idProduct){
+        $shopify = $this->shopify;
         $product = $shopify('GET', '/admin/products/'. $idProduct .'.json');
         return $product;
     }
 
     /**
-     * @param $shopify
      * @param $idProduct
-     * @return mixed
+     * @return array
      */
-    public static function getProductMetas($shopify, $idProduct){
+    public function getProductMetas($idProduct){
+        $shopify = $this->shopify;
         $metaProduct = $shopify('GET', '/admin/products/'. $idProduct .'/metafields.json');
         $productMeta = array('meta_title' => '', 'meta_description' => '');
         if (is_array($metaProduct) && count($metaProduct)>0){
@@ -74,7 +84,11 @@ class ShopifyEasycontent
         return $productMeta;
     }
 
-    public static function saveProduct($shopify, $data){
+    /**
+     * @param $data
+     */
+    public function saveProduct($data){
+        $shopify = $this->shopify;
 
         // update product
         $args = array(
@@ -85,8 +99,7 @@ class ShopifyEasycontent
                 'metafields_global_description_tag' => $data->metadescription,
                 'body_html' => preg_replace( "/\r|\n/", "", ($data->new_description)),
                 'handle' => $data->handle
-            ),
-            'images' => array('metafields' => array("namespace"=> "tags",  "key" => "alt", "value" => "basket of kittens", "value_type" => "string"))
+            )
         );
         $product = $shopify('PUT', '/admin/products/'. $data->id_post .'.json', $args);
 
@@ -97,6 +110,46 @@ class ShopifyEasycontent
             $argsRedirect = array('redirect' => array('path' => '/products/'. $data->current_handle, 'target' => '/products/'. $data->handle));
             $redirection = $shopify('POST', '/admin/redirects.json', $argsRedirect);
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAllRedirections(){
+        $shopify = $this->shopify;
+        $redirections = $shopify('GET', '/admin/redirects.json');
+        return $redirections;
+    }
+
+
+    /**
+     * @param $idRedirection
+     */
+    public function deleteRedirection($idRedirection){
+        $shopify = $this->shopify;
+        $res = $shopify('DELETE', '/admin/redirects/'. $idRedirection .'.json');
+    }
+
+
+    /**
+     * @param $idProduct
+     * @param $idImage
+     */
+    public function setProductImageAlt($idProduct, $idImage){
+        $shopify = $this->shopify;
+
+        // update product
+        $args = array(
+            'image' => array(
+                'metafields' => array(
+                    "key" => "alt",
+                    "value" => "new alt tag content",
+                    "value_type" => "string",
+                    "namespace" => "tags"
+                )
+            )
+        );
+        $product = $shopify('PUT', '/admin/products/'. $idProduct .'/images/'. $idImage .'.json', $args);
     }
 
 }

@@ -16,12 +16,8 @@ $(document).ready(function(){
 
         // où envoyer les data (racine du site)
         var dataUrl = btnClick.attr('data-url');
-        if (dataUrl !== undefined && dataUrl != ''){
-            var urlArticleCible = dataUrl;
-        }
-        else {
-            var urlArticleCible = $('#url_cible').val();
-        }
+        if (dataUrl !== undefined && dataUrl != '')     var urlArticleCible = dataUrl;
+        else                                            var urlArticleCible = $('#url_cible').val();
 
         console.log('push_cms TO '+ urlArticleCible);
 

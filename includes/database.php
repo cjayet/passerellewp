@@ -20,4 +20,30 @@ class EasycontentDB {
         }
     }
 
+    /**
+     * @param $sql
+     * @return mixed
+     */
+    public function getOneRow($sql){
+        $stmt = $this->dbh->prepare($sql);
+        $stmt->execute();
+        $row = $stmt->fetchObject();
+        return $row;
+    }
+
+    /**
+     * @param $sql
+     */
+    public function executeSql($sql){
+
+        try {
+            $stmt = $this->dbh->prepare($sql);
+            $stmt->execute();
+        }
+        catch (Exception $e){
+            die('Error doing SQL : ' . $e->getMessage());
+        }
+
+    }
+
 }

@@ -8,13 +8,14 @@
 
 $dataOptimizme = json_decode($_POST['data_optme']);
 $shop = $dataOptimizme->shop_name;
+$idRedirection = $dataOptimizme->id_redirection;
 
 $shopObj = new ShopifyEasycontent($shop);
-$products = $shopObj->getAllProducts();
+$redirection = $shopObj->deleteRedirection($idRedirection);
 
 echo json_encode(
     array(
         'result' => 'success',
-        'products' => $products
+        'redirection' => $redirection
     )
 );

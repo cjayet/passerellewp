@@ -1,0 +1,12 @@
+<script id="redirection-table-ligne" type="text/x-jquery-tmpl">
+    {{each redirections}}
+        <tr id="redirection-${id}" class="ligne_table_redirection">
+            <td>${id}</td>
+            <td><a href="${path}" target="_blank">${path}</a></td>
+            <td><a href="${target}" target="_blank">${target}</a></td>
+            <td>
+                <span class="glyphicon glyphicon-trash confirmAction" data-cms="shopify" data-action="redirection_delete" data-id="${id}" data-url="index.php?ajax=shopifyDeleteRedirection" aria-hidden="true"></span>
+            </td>
+        </tr>
+    {{/each}}
+</script>

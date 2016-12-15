@@ -28,6 +28,10 @@ OptimizmeUtils::LoadBloc('header');
         <div class="col-md-12">
 
             <h3>Produit : </h3>
+            <button type="button" id="btn_easycontent_optimiz_images" class="btn btn-default refresh_images" data-toggle="modal" data-target="#modalImgOptimiz">
+                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                Optimiz IMGs
+            </button>
             <?php
             // update alt image
             // TODO alt à faire marcher
@@ -56,13 +60,19 @@ OptimizmeUtils::LoadBloc('header');
 
                         <label for="description">Description</label>
                         <textarea name="description" id="product_description" class="form-control"></textarea>
-
                     </div>
                     <div class="col-md-12">
                         <button type="button" data-id="action" value="set_shopify_product_update" class="btn btn-primary push_cms" data-url="index.php?ajax=shopifySaveProduct">Envoyer</button>
                     </div>
                 </div>
             </form>
+
+
+            <?php
+            // modal for images
+            OptimizmeUtils::LoadBloc('easycontent/modal_image_optimisation');
+
+            ?>
         </div>
     </div>
 
@@ -70,6 +80,19 @@ OptimizmeUtils::LoadBloc('header');
         <div class="col-md-12 h200">&nbsp;</div>
     </div>
 </div>
+
+
+<script type="text/javascript">
+    (function($){
+        $(document).ready(function(){
+
+            $(document).on('change', '#url_cible', function(){
+                $('.load_arborescence').trigger('click');
+            })
+
+        })
+    })(jQuery)
+</script>
 
 </body>
 </html>

@@ -7,7 +7,6 @@ OptimizmeUtils::LoadBloc('header');
     <div class="row">
         <div class="col-md-12">
             <?php OptimizmeUtils::LoadBloc('wordpress/head_push'); ?>
-
             <form>
                 <button type="button" data-id="action" class="btn btn-primary load_arborescence">Load arbo</button>
             </form>
@@ -135,7 +134,6 @@ OptimizmeUtils::LoadBloc('header');
 <script type="text/javascript">
     (function($){
         $(document).ready(function(){
-            // load au chargement de la page
 
             $(document).on('change', '#url_cible', function(){
                 $('.load_arborescence').trigger('click');

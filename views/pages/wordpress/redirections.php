@@ -22,7 +22,7 @@ OptimizmeUtils::LoadBloc('header');
                     </tr>
                 </thead>
                 <tbody id="tbody-redirections">
-                    <?php OptimizmeUtils::LoadBloc('js-tmpl/redirection-ligne', 'html') ?>
+                    <?php OptimizmeUtils::LoadBloc('js-tmpl/wordpress-redirection-ligne', 'html') ?>
                 </tbody>
             </table>
         </div>

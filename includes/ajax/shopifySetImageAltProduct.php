@@ -8,13 +8,15 @@
 
 $dataOptimizme = json_decode($_POST['data_optme']);
 $shop = $dataOptimizme->shop_name;
+$idProduct = $dataOptimizme->id_product;
 
 $shopObj = new ShopifyEasycontent($shop);
-$products = $shopObj->getAllProducts();
+$product = $shopObj->setProductImageAlt($shopify, $idProduct);
 
 echo json_encode(
     array(
         'result' => 'success',
-        'products' => $products
+        'product' => $product,
+        'metas' => $metas
     )
 );

@@ -10,11 +10,11 @@ $dataOptimizme = json_decode($_POST['data_optme']);
 $shop = $dataOptimizme->shop_name;
 
 $shopObj = new ShopifyEasycontent($shop);
-$products = $shopObj->getAllProducts();
+$redirections = $shopObj->getAllRedirections();
 
 echo json_encode(
     array(
         'result' => 'success',
-        'products' => $products
+        'redirections' => $redirections
     )
 );

@@ -1,0 +1,16 @@
+<script type="text/x-jquery-tmpl">
+    <form>
+        <div class="row">
+            <div class="col-md-3">
+                <img src="${url_image}" alt="${alt_image}" width="100%" class="img-thumbnail" />
+            </div>
+            <div class="col-md-3">
+                <input class="form-control" type="text" data-id="alt_image" id="alt_image" name="alt_image" value="${alt_image}" placeholder="Alt de l'image" />
+            </div>
+            <div class="col-md-3">
+                <button type="button" data-id="action" class="btn btn-default push_cms" value="set_post_imgattributes" >Mettre à jour</button>
+            </div>
+            <input type="hidden" data-id="url_reference" name="url_reference" value="${url_image}" />
+        </div>
+    </form>
+</script>

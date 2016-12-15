@@ -2,56 +2,84 @@
 
 use sandeepshetty\shopify_api;
 
+// database connect
+$db = new EasycontentDB();
 
-$db = new Mysqli("localhost", "root", "", "shopify");
+// get settings
+$app_settings = $db->getOneRow("SELECT * FROM tbl_appsettings WHERE id = 1");
 
-if ($db->connect_errno) {
-    die('Connect Error: ' . $db->connect_errno);
-}
+if (!empty($_GET['shop']))
+{
+    $shop = $_GET['shop'];
 
-$select_settings = $db->query("SELECT * FROM tbl_appsettings WHERE id = 1");
-$app_settings = $select_settings->fetch_object();
+    // get store in database (if exists)
+    $sqlGetStore = "SELECT * FROM tbl_usersettings WHERE store_name = '$shop'";
+    $select_store = $db->getOneRow($sqlGetStore); //check if the store exists
 
+    if  (!empty($_GET['code'])) {
 
-if (!empty($_GET['shop']) && !empty($_GET['code'])) {
-    $shop = $_GET['shop']; //shop name
+        // APP INSTALLATION PART 2
+        // Step 3: Capture Access Code
+        $code = $_GET['code'];
+        $hmac = $_GET['hmac'];
+        $timestamp = $_GET['timestamp'];
+        $nonce = $_GET['state'];
+        $shared_secret = $app_settings->shared_secret;
 
-    //get permanent access token
-    $access_token = shopify_api\oauth_access_token(
-        $_GET['shop'], $app_settings->api_key, $app_settings->shared_secret, $_GET['code']
-    );
+        // vérification du hmac
+        foreach($_GET as $param => $value) {
+            if ($param != 'signature' && $param != 'hmac')                 $params[$param] = "{$param}={$value}";
+        }
+        asort($params);
+        $params = implode('&', $params);
+        $calculatedHmac = hash_hmac('sha256', $params, $shared_secret);
 
+        // security check : https://help.shopify.com/api/guides/authentication/oauth#verification
+        if ($_SESSION['shopify_install_nonce'] == $nonce && $hmac == $calculatedHmac){
 
-    //save the shop details to the database
-    $db->query("
-     INSERT INTO tbl_usersettings 
-     SET access_token = '$access_token',
-     store_name = '$shop'
- ");
+            // VALIDATED
+            // Step 4: Exchange Access Code for the Shop Token
+            $access_token = shopify_api\oauth_access_token(
+                $_GET['shop'], $app_settings->api_key, $app_settings->shared_secret, $_GET['code']
+            );
 
-    //save the signature and shop name to the current session
-    $_SESSION['shopify_signature'] = $_GET['signature'];
-    $_SESSION['shop'] = $shop;
+            //save the shop details to the database
+            if ($select_store->id) {
 
-    header('Location: http://localhost/shopify/shopify_app.php/admin.php');
-}
-else
-    {
-    if (!empty($_GET['shop'])) { //check if the shop name is passed in the URL
-        $shop = $_GET['shop']; //shop-name.myshopify.com
+                // udpdate key
+                $sqlClient = 'UPDATE tbl_usersettings
+                                SET access_token = "'. $access_token .'"
+                                WHERE id="'. $select_store->id .'"';
 
-        $select_store = $db->query("SELECT store_name FROM tbl_usersettings WHERE store_name = '$shop'"); //check if the store exists
-
-        if ($select_store->num_rows > 0) {
-
-            if (shopify_api\is_valid_request($_GET, $app_settings->shared_secret)) { //check if its a valid request from Shopify
-                $_SESSION['shopify_signature'] = $_GET['signature'];
-                $_SESSION['shop'] = $shop;
-                header('Location: http://localhost/shopify/admin.php'); //redirect to the admin page
+            }
+            else {
+                // create client
+                $sqlClient = 'INSERT INTO tbl_usersettings (access_token, store_name)
+                              VALUES ("'. $access_token .'", "'. $shop .'")';
             }
 
-        } else {
+            $db->executeSql($sqlClient);
 
+        } else {
+            // NOT VALIDATED - Someone is being shady!
+            echo $_SESSION['shopify_install_nonce'] .' ' . $nonce .' AND '. $hmac == $calculatedHmac ."<br />";
+            die('This request is NOT from Shopify!');
+        }
+
+        // installation ok : go to app lists
+        header('Location: https://'. $shop .'/admin/apps');
+    }
+    else {
+
+        /// APP INSTALLATION PART 1
+        if (!empty($_GET['shop'])) { //check if the shop name is passed in the URL
+
+            if ($select_store->id){
+                // shop already registered
+                OptimizmeUtils::LoadPage('shopify/welcome');
+            }
+
+            // Step 2: Installation Approval
             //convert the permissions to an array
             $permissions = json_decode($app_settings->permissions, true);
 
@@ -59,13 +87,16 @@ else
             $permission_url = shopify_api\permission_url(
                 $_GET['shop'], $app_settings->api_key, $permissions
             );
-            //$redirect_uri = "http://localhost/generate_token.php";
 
-            //$permission_url .= '&redirect_uri=' . $app_settings->redirect_url ."&scope=". $app_settings->permissions ."&redirect_uri=" . urlencode($redirect_uri);
-            $permission_url .= '&redirect_uri=' . $app_settings->redirect_url . "&scope=" . $app_settings->permissions;
-            //https://optimiz-me-dev.myshopify.com/admin/oauth/authorize?client_id=&redirect_uri=
+            // generate nonce for security
+            $nonce = OptimizmeUtils::generateNonce();
+            $_SESSION['shopify_install_nonce'] = $nonce;
+
+            $permission_url .= '&redirect_uri=' . urlencode($app_settings->redirect_url) . "&scope=" . $app_settings->permissions."&state=".$nonce;
 
             header('Location: ' . $permission_url); //redirect to the permission url
+
         }
     }
+
 }

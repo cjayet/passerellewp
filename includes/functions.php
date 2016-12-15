@@ -100,4 +100,13 @@ class OptimizmeUtils {
         $nodes = $xp->query('//'.$tag);
         return $nodes;
     }
+
+    /**
+     * @return string
+     */
+    public static function generateNonce(){
+        $random = openssl_random_pseudo_bytes(10);
+        $crypt = sha1($random);
+        return $crypt;
+    }
 }

@@ -58,12 +58,22 @@ $(document).on('click', '.confirmAction', function(){
             closeOnConfirm: true
         },
         function(){
-            var urlArticleCible = $('#url_cible').val();        // site where to push data
+
+            var dataUrl = btnClick.attr('data-url');
+            if (dataUrl !== undefined && dataUrl != '')     var urlArticleCible = dataUrl;
+            else                                            var urlArticleCible = $('#url_cible').val();
 
             // préparation requête ajax
             var tabData = {url_cible: urlArticleCible};
             tabData['action'] = btnClick.attr('data-action');
             tabData['id_redirection'] = btnClick.attr('data-id');
+
+            // specifique
+            var cms = btnClick.attr('data-cms');
+            if (cms !== undefined && cms == 'shopify'){
+                tabData['shop_name'] = $('#url_cible').val();
+            }
+
             var json_data = JSON.stringify(tabData, null, 2);
 
             // exécution ajax

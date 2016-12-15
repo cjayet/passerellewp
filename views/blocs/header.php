@@ -18,7 +18,7 @@
 
     <!-- optimiz.me -->
     <link rel="stylesheet" type="text/css" href="./assets/dist/css/optimizme.min.css" />
-    <script src="./assets/dist/js/optimizme-debug.min.js" ></script>
+    <script src="./assets/dist/js/optimizme.min.js" ></script>
 </head>
 <body>
 
@@ -57,7 +57,6 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shopify <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php OptimizmeUtils::LinkToPage('shopify/get_products') ?>">Liste des produits</a></li>
                             <li><a href="<?php OptimizmeUtils::LinkToPage('shopify/edit_product') ?>">Edit produit</a></li>
                             <li><a href="<?php OptimizmeUtils::LinkToPage('shopify/redirections') ?>">Redirections</a></li>
                         </ul>
