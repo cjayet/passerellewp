@@ -6,14 +6,14 @@ use sandeepshetty\shopify_api;
 $db = new EasycontentDB();
 
 // get settings
-$app_settings = $db->getOneRow("SELECT * FROM tbl_appsettings WHERE id = 1");
+$app_settings = $db->getOneRow("SELECT * FROM shopify_appsettings WHERE id = 1");
 
 if (!empty($_GET['shop']))
 {
     $shop = $_GET['shop'];
 
     // get store in database (if exists)
-    $sqlGetStore = "SELECT * FROM tbl_usersettings WHERE store_name = '$shop'";
+    $sqlGetStore = "SELECT * FROM shopify_usersettings WHERE store_name = '$shop'";
     $select_store = $db->getOneRow($sqlGetStore); //check if the store exists
 
     if  (!empty($_GET['code'])) {
@@ -47,14 +47,14 @@ if (!empty($_GET['shop']))
             if ($select_store->id) {
 
                 // udpdate key
-                $sqlClient = 'UPDATE tbl_usersettings
+                $sqlClient = 'UPDATE shopify_usersettings
                                 SET access_token = "'. $access_token .'"
                                 WHERE id="'. $select_store->id .'"';
 
             }
             else {
                 // create client
-                $sqlClient = 'INSERT INTO tbl_usersettings (access_token, store_name)
+                $sqlClient = 'INSERT INTO shopify_usersettings (access_token, store_name)
                               VALUES ("'. $access_token .'", "'. $shop .'")';
             }
 

@@ -43,7 +43,5 @@ class EasycontentDB {
         catch (Exception $e){
             die('Error doing SQL : ' . $e->getMessage());
         }
-
     }
-
 }

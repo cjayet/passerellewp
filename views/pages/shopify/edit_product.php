@@ -28,20 +28,6 @@ OptimizmeUtils::LoadBloc('header');
         <div class="col-md-12">
 
             <h3>Produit : </h3>
-            <button type="button" id="btn_easycontent_optimiz_images" class="btn btn-default refresh_images" data-toggle="modal" data-target="#modalImgOptimiz">
-                <i class="fa fa-picture-o" aria-hidden="true"></i>
-                Optimiz IMGs
-            </button>
-            <?php
-            // update alt image
-            // TODO alt à faire marcher
-            //$dataImage = array('image' => array('position' => 1 , 'metafields' => array("namespace"=> "tags",  "key" => "alt", "value" => "basket of kittens", "value_type" => "string")));
-            //$dataImage = array('image' => array('position' => 1 , 'metafields' => array("key" => "alt", "value" => "basket of kittens", "value_type" => "string")));
-
-            //$dataImage = array('image' => array('position' => 1 ));
-            //$image = $shopify('PUT', '/admin/products/8590696909/images/19866381965.json', $dataImage);
-            ?>
-
             <form method="post" action="">
                 <div class="row">
                     <div class="form-group col-md-12">
@@ -67,18 +53,37 @@ OptimizmeUtils::LoadBloc('header');
                 </div>
             </form>
 
-
-            <?php
-            // modal for images
-            OptimizmeUtils::LoadBloc('easycontent/modal_image_optimisation');
-
-            ?>
         </div>
+
+        <div class="row">
+            <div class="col-md-12 h200">&nbsp;</div>
+        </div>
+
+        <h3>IMG LIST</h3>
+        <div id="image-list"></div>
+
+        <form>
+            <div class="row">
+                <div class="form-group col-md-8">
+                    <label for="url"> Upload image from URL</label>
+                    <input type="text" name="url" id="image_url" data-id="url" class="form-control" value="" required="" />
+                </div>
+                <div class="col-md-4">
+                    <button type="button" data-id="action" value="shopify_add_shopname" class="btn btn-default t25 push_cms" data-url="index.php?ajax=shopifyAddProductImage" data-after="shopifyRefreshProductImages">Envoyer</button>
+                </div>
+            </div>
+        </form>
+
     </div>
+
+
 
     <div class="row">
         <div class="col-md-12 h200">&nbsp;</div>
     </div>
+
+
+
 </div>
 
 

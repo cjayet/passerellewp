@@ -29,6 +29,7 @@ OptimizmeUtils::LoadBloc('header');
             <ul>
                 <li><a href="<?php OptimizmeUtils::LinkToPage('shopify/edit_product'); ?>">Edit product</a></li>
                 <li><a href="<?php OptimizmeUtils::LinkToPage('shopify/redirections'); ?>">Redirections</a></li>
+                <li><a href="<?php OptimizmeUtils::LinkToPage('shopify/install_config'); ?>">Installation</a></li>
             </ul>
         </div>
     </div>

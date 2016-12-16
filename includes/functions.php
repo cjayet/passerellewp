@@ -53,7 +53,7 @@ class OptimizmeUtils {
     /**
      * Lancement du script d'installation du plugin Phantomjs
      */
-    public static function executeInstall(){
+    public static function executeInstall($cms){
         // config
         set_time_limit(90);
         $login = $_POST['login'];
@@ -61,7 +61,7 @@ class OptimizmeUtils {
         $urlBackoffice = $_POST['url_backoffice'];
 
         // call install script
-        $response = exec(PHANTOMJS_PATH_BINARY .' '.  PHANTOMJS_RELATIVE_PATH_SCRIPT .' '. $login .' '. $password .' '. $urlBackoffice);
+        $response = exec(PHANTOMJS_PATH_BINARY .' '.  PHANTOMJS_RELATIVE_PATH_SCRIPT . $cms.'-phantom-automation.js '. $login .' '. $password .' '. $urlBackoffice);
         return $response;
     }
 

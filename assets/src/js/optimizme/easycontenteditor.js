@@ -362,8 +362,14 @@ function refreshImagesListInPost(){
     }
     else {
         // préparation requête ajax pour les images
-        var contenuEditor = $('#easycontent-grid').gridEditor('getHtml');
-        var tabData = {grideditor_content: contenuEditor};
+        if ( $('#easycontent-grid').length ){
+            var contenuEditor = $('#easycontent-grid').gridEditor('getHtml');
+            var tabData = {grideditor_content: contenuEditor};
+        }
+        else {
+            var tabData = {};
+        }
+
         var json_data = JSON.stringify(tabData, null, 2);
 
         // exécution ajax
@@ -577,7 +583,8 @@ function actionOnBtnOptimisationImagesHrefs(btn){
     }
     else {
         // modal actives: refresh des données (la modale bootstrap se lance automatiquement au mêmem moment)
-        if ( btn.hasClass('refresh_images'))        refreshImagesListInPost();
-        else if ( btn.hasClass('refresh_links'))   refreshLiensListInPost()
+        if ( btn.hasClass('refresh_images'))                refreshImagesListInPost();
+        else if ( btn.hasClass('shopify_refresh_images'))   shopifyRefreshProductImages();
+        else if ( btn.hasClass('refresh_links'))            refreshLiensListInPost()
     }
 }

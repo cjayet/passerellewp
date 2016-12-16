@@ -64,6 +64,9 @@ $(document).ready(function(){
                             tabData['shop_name'] = $('#url_cible').val();
                             tabData['new_description'] = getTinymceContent('product_description');
                         }
+                        else if ( $(this).attr('data-id') == 'action' && $(this).val() == 'shopify_add_shopname'){
+                            tabData['shop_name'] = $('#url_cible').val();
+                        }
                     }
                 });
 

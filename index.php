@@ -13,6 +13,8 @@ $_SESSION['id_optimizme_user'] = 3; // TODO vraie gestion de session utilisateur
 require_once ('includes/constantes.php');
 require_once ('includes/functions.php');
 require_once ('includes/database.php');
+require 'includes/shopifyUtils/vendor/autoload.php';
+
 
 /**
  * Load all required files

@@ -59,6 +59,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="<?php OptimizmeUtils::LinkToPage('shopify/edit_product') ?>">Edit produit</a></li>
                             <li><a href="<?php OptimizmeUtils::LinkToPage('shopify/redirections') ?>">Redirections</a></li>
+                            <li><a href="<?php OptimizmeUtils::LinkToPage('shopify/install_config') ?>">Installation</a></li>
                         </ul>
                     </li>
 

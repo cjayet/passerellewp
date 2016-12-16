@@ -7,16 +7,20 @@
  */
 
 $dataOptimizme = json_decode($_POST['data_optme']);
+
 $shop = $dataOptimizme->shop_name;
-$idProduct = $dataOptimizme->id_product;
+$idProduct = $dataOptimizme->id_post;
+$idImage = $dataOptimizme->id_image;
+$alt = $dataOptimizme->alt_image;
 
 $shopObj = new ShopifyEasycontent($shop);
-$product = $shopObj->setProductImageAlt($shopify, $idProduct);
+$image = $shopObj->setProductImageAlt($dataOptimizme);
+
 
 echo json_encode(
     array(
         'result' => 'success',
-        'product' => $product,
-        'metas' => $metas
+        'image' => $image,
+        'message' => 'Image updated',
     )
 );

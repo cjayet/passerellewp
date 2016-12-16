@@ -10,7 +10,7 @@ OptimizmeUtils::LoadBloc('header');
             <h2>Informations</h2>
 
             <?php if (isset($_POST['send_install']) && $_POST['send_install'] == 1) : ?>
-                <?php $responseInstall = OptimizmeUtils::executeInstall(); ?>
+                <?php $responseInstall = OptimizmeUtils::executeInstall('wordpress'); ?>
                 <div class="alert alert-warning" role="alert"><?php echo $responseInstall ?></div>
             <?php endif; ?>
 
