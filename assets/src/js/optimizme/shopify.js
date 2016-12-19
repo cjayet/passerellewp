@@ -114,9 +114,10 @@ function shopifyLoadProduct(){
 
 
 /**
- *
+ * Add image to shopify
+ * @param type : url/computer
  */
-function shopifyUploadImage(){
+function shopifyUploadImage(type){
 
     // préparation requête ajax pour les images
     var tabData = { shop_name: $('#url_cible').val(), id_product: $('#shopify_select_list_products').val() };
@@ -125,19 +126,22 @@ function shopifyUploadImage(){
     $('body').loading();
 
     // exécution ajax
-    getAjaxResponse('index.php?ajax=shopifyAddProductImage', json_data, function(msg) {
+    if (type == 'url')          var ajaxScript = 'shopifyAddProductImageUrl';
+    else                        var ajaxScript = 'shopifyAddProductImageComputer';
+
+    getAjaxResponse('index.php?ajax='+ajaxScript, json_data, function(msg) {
         $('body').loading('stop');
 
         if (msg.result == 'success'){
-            alert('avant refresh')
             shopifyRefreshProductImages();
-            alert('refresh done')
         }
         else {
             sweetAlert("Oops...", "Error Adding product image", "error");
         }
     })
+
 }
+
 
 
 /**
@@ -245,7 +249,11 @@ $(document).ready(function(){
     })
 
     $(document).on('click', '#btn_shopify_add_image_url', function(){
-        shopifyUploadImage();
+        shopifyUploadImage('url');
+    })
+
+    $(document).on('click', '#btn_shopify_add_image_computer', function(){
+        shopifyUploadImage('computer');
     })
 
     $(document).on('click', '.btn_shopify_delete_product_image', function(){

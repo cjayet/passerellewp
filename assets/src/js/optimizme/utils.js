@@ -14,8 +14,11 @@ function getAjaxResponse(urlArticleCible, json_data, callback){
         method: "POST",
         url: urlArticleCible,
         cache: false,
-        dataType: "json",
+        dataType: "jsonp",
+        enctype: 'multipart/form-data',
         data: { data_optme: json_data },
+        crossDomain: true,
+
         success:    function(data) {
             callback(data);
         },

@@ -1,6 +1,6 @@
 <script type="text/x-jquery-tmpl">
 
-    <div id="shopify_img_${id_image}" class="col-md-4">
+    <div id="shopify_img_${id_image}" class="col-md-4 col-sm-4">
         <form id="shopify_list_product_images">
             <div class="row">
                 <div class="col-md-12">
@@ -13,7 +13,6 @@
                 <div class="col-md-12">
                     <button type="button" data-id="action" value="shopify_add_shopname" class="btn btn-default push_cms" data-url="index.php?ajax=shopifySetImageAltProduct" data-after="shopifyRefreshProductImages" >Mettre à jour</button>
                     <button type="button" data-id="action" value="shopify_add_shopname" class="btn btn-danger push_cms" data-url="index.php?ajax=shopifyDeleteProductImage" data-after="shopifyRefreshProductImages" >Delete</button>
-                    <!-- <button type="button" class="btn btn-danger btn_shopify_delete_product_image" >Delete</button> -->
                 </div>
                 <input type="hidden" data-id="id_image" name="id_image" value="${id_image}" />
                 <input type="hidden" data-id="id_metafield_alt" name="id_metafield_alt" value="${id_metafield_alt}" />

@@ -109,4 +109,20 @@ class OptimizmeUtils {
         $crypt = sha1($random);
         return $crypt;
     }
+
+    /**
+     * @param $base64Data
+     * @return mixed
+     */
+    public static function removeBase64Metadata($base64Data){
+        $tabContent = explode(';base64,', $base64Data);
+        if (is_array($tabContent) && count($tabContent) == 2){
+            $imgEncode64 = $tabContent[1];
+        }
+        else {
+            $imgEncode64 = $base64Data;
+        }
+
+        return $imgEncode64;
+    }
 }

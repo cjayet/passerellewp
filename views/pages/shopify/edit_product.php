@@ -59,9 +59,11 @@ OptimizmeUtils::LoadBloc('header');
             <div class="col-md-12 h200">&nbsp;</div>
         </div>
 
-        <h3>IMG LIST</h3>
+        <h3>IMG LIST :</h3>
         <div id="image-list"></div>
 
+
+        <h3>IMG ENVOI :</h3>
         <form>
             <div class="row">
                 <div class="form-group col-md-8">
@@ -69,7 +71,21 @@ OptimizmeUtils::LoadBloc('header');
                     <input type="text" name="url" id="image_url" data-id="url" class="form-control" value="" required="" />
                 </div>
                 <div class="col-md-4">
-                    <button type="button" data-id="action" value="shopify_add_shopname" class="btn btn-default t25 push_cms" data-url="index.php?ajax=shopifyAddProductImage" data-after="shopifyRefreshProductImages">Envoyer</button>
+                    <button type="button" data-id="action" value="shopify_add_shopname" class="btn btn-default t25 push_cms" data-url="index.php?ajax=shopifyAddProductImageUrl" data-after="shopifyRefreshProductImages">Envoyer</button>
+                </div>
+            </div>
+        </form>
+
+
+        <form enctype="multipart/form-data">
+            <div class="row">
+                <div class="form-group col-md-8">
+                    <label for="url"> Upload image from computer</label>
+                    <input type="file" name="image_computer" id="image_computer" data-id="computer" class="form-control" value="" required="" />
+                    <input type="file" name="image_computer2" id="image_computer2" data-id="computer2" class="form-control" value="" required="" />
+                </div>
+                <div class="col-md-4">
+                    <button type="button" data-id="action" value="shopify_add_shopname" class="btn btn-default t25 push_cms" data-url="index.php?ajax=shopifyAddProductImageComputer" data-after="shopifyRefreshProductImages">Envoyer</button>
                 </div>
             </div>
         </form>

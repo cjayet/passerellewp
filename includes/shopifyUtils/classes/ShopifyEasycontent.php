@@ -329,6 +329,41 @@ class ShopifyEasycontent
 
     }
 
+    /**
+     * @param $dataOptimizme
+     * @return int|string
+     */
+    public function addProductImageComputer($dataOptimizme){
+
+        $shopify = $this->shopify;
+
+        if (is_array($dataOptimizme->files) && count($dataOptimizme->files)>0){
+            foreach ($dataOptimizme->files as $fileImage){
+                try {
+                    $args = array(
+                        "image" => array(
+                            "attachment" => OptimizmeUtils::removeBase64Metadata($fileImage->content),
+                            "filename" => $fileImage->name
+                        )
+                    );
+
+                    $rest = $shopify('POST', '/admin/products/'. $dataOptimizme->id_post .'/images.json', $args);
+                    if (!$rest['src']){
+                        OptimizmeUtils::nice($rest);
+                        return "Error adding image;";
+                    }
+                }
+                catch (Exception $e){
+                    return $e->getMessage();
+                }
+            }
+
+            // all ok
+            return 1;
+        }
+
+    }
+
 
     /**
      * @param $dataOptimizme
