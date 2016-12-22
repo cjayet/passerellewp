@@ -36,6 +36,12 @@ class ShopifyEasycontent
             );
             $this->shopify = $shopify;
         }
+
+        else {
+            // erreur connexion
+            echo json_encode( array('result' => 'Erreur', 'message' => 'Erreur de connexion à la boutique : is credentials in database ?'));
+            die;
+        }
     }
 
     /**
@@ -45,9 +51,25 @@ class ShopifyEasycontent
     public function getAccessTokenByShopName($shop){
         $sql = 'SELECT access_token FROM shopify_usersettings WHERE store_name="'. $shop .'" LIMIT 1';
         $db = new EasycontentDB();
-        foreach ($db->dbh->query($sql) as $row){
+
+        try {
+            /*
+            foreach ($db->dbh->query($sql) as $row){
+                return $row['access_token'];
+            }
+            */
+
+            $stmt = $db->dbh->prepare($sql);
+            $stmt->execute();
+            $row = $stmt->fetch();
             return $row['access_token'];
+
         }
+        catch (Exception $e){
+            return '';
+        }
+
+
         return '';
     }
 
@@ -156,8 +178,6 @@ class ShopifyEasycontent
 
 
         */
-
-
 
 
         $products = $shopify('GET', '/admin/products.json', array('published_status' => 'published'));

@@ -42,6 +42,7 @@ function shopifyLoadProducts(){
 
     // exécution ajax
     getAjaxResponse('index.php?ajax=shopifyGetProducts', json_data, function(msg) {
+        $('body').loading('stop');
 
         if (msg.result == 'success'){
             $('#shopify_select_list_products').empty();
@@ -57,8 +58,6 @@ function shopifyLoadProducts(){
                 $('#shopify_select_list_products').append(dataPosts);
 
 
-                $('body').loading('stop');
-
                 // show products list
                 $('#page_easycontenteditor_loadpage').slideDown();
 
@@ -67,7 +66,7 @@ function shopifyLoadProducts(){
             }
         }
         else {
-            sweetAlert('Erreur ajax');
+            sweetAlert('Erreur ajax : ' + msg.message);
         }
     })
 }
