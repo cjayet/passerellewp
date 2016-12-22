@@ -80,7 +80,7 @@ gulp.task('minifyjs-vendor', function () {
         //bower +'/tinymce/jquery.tinymce.min.js',
         //bower +'/tinymce/plugins/**/plugin.min.js',
         bower +'/jquery-loading/dist/jquery.loading.min.js',
-        bower +'/grid-editor/dist/jquery.grideditor.min.js',
+        bower +'/grid-editor/dist/jquery.grideditor.js',
         bower +'/jquery-tmpl/jquery.tmpl.min.js',
         bower +'/sweetalert/dist/sweetalert.min.js',
         bower +'/bootstrap-select/dist/js/bootstrap-select.js'
