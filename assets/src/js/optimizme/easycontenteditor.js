@@ -108,12 +108,21 @@ function easycontentGridInit(newContentGrid, keepContent){
     else                            var contenuInitial = '';
 
     // vide le contenu affichant la grid
-    $('#content-grid').html('<div id="easycontent-grid">'+contenuInitial+newContentGrid+'</div>');
+    var injectContect = contenuInitial+newContentGrid;
+
+    $('#content-grid').html('<div id="easycontent-grid">'+ injectContect +'</div>');
+
+    // add tag for grid editor (needed, crash if not here)
+    $('#content-grid .ge-content').each(function(){
+        if ( !($(this).attr('data-ge-content-type') == 'tinymce')){
+            $(this).attr('data-ge-content-type', 'tinymce');
+        }
+    })
 
     // init droppable
     initDraggableDroppable();
 
-    // grid editor
+    // grid editor - set
     $('#easycontent-grid').gridEditor({
         new_row_layouts: [[12], [6,6], [9,3], [3,9], [8,4], [4,8]],
         //new_row_layouts: [],
@@ -137,11 +146,8 @@ function easycontentGridInit(newContentGrid, keepContent){
         }
 
     });
-
-    // maj des listes d'images / liens
-    //refreshImagesListInPost();
-    //refreshLiensListInPost();
 }
+
 
 /**
  * Insert content in grid editor
@@ -541,6 +547,7 @@ function loadAllPostsPages(){
 function updateUrlField(msg){
     if (msg.url != ''  && msg.url !== undefined){
         $('#easycontent-url').val(msg.url);
+        $('#easycontent-cms-link').attr('href', msg.url);
         $('#easycontent-slug').val(msg.new_slug);
     }
 }
