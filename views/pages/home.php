@@ -32,6 +32,14 @@ OptimizmeUtils::LoadBloc('header');
                 <li><a href="<?php OptimizmeUtils::LinkToPage('shopify/install_config'); ?>">Installation</a></li>
             </ul>
         </div>
+
+        <div class="col-md-3">
+            <h2>Magento</h2>
+            <ul>
+                <li><a href="<?php OptimizmeUtils::LinkToPage('magento/edit_product'); ?>">Edit product</a></li>
+                <li><a href="<?php OptimizmeUtils::LinkToPage('magento/redirections'); ?>">Redirections</a></li>
+            </ul>
+        </div>
     </div>
 </div>
 

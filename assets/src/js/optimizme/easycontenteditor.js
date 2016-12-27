@@ -48,11 +48,11 @@ function loadGridEditor(){
                     $('#easycontent-cms-link').attr('href', msg.url);
 
                     if (msg.blog_public == 0){
-                        // moteurs de recherche bloquées dans les réglages de Wordpress
+                        // moteurs de recherche bloquées dans les réglages du CMS
                         setMetaRobotsIfSearchEngineDisabled(0);
                     }
                     else {
-                        // moteurs de recherche autorisés : choix possible
+                        // moteurs de recherche non bloqués : choix possible
                         $('#alert_no_search_engines').css('display', 'none');
 
                         if (msg.noindex == 1)           $('#easycontent-noindex').prop('checked', true);
@@ -68,9 +68,11 @@ function loadGridEditor(){
 
                     // set specific content
                     if ( $('#easycontent-short_description').length ){
+                        if (!msg.short_description)         msg.short_description = '';         // if 'null' set empty content
                         $('#easycontent-short_description').val(msg.short_description);
                         changeTinymceContent('easycontent-short_description', msg.short_description);
                     }
+
 
                     if ( $('#easycontent-meta-title').length ){
                         $('#easycontent-meta-title').val(msg.meta_title);

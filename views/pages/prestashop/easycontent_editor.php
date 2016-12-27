@@ -90,11 +90,13 @@ OptimizmeUtils::LoadBloc('header');
                 <div class="page-header">CONTENT</div><br />
 
                 <form target="_blank" action="" method="POST">
+                    <!--
                     <input type="hidden" id="preview_content" name="preview_content" value=""/>
                     <button type="button" class="btn btn-default preview_content">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                         Preview in Prestashop
                     </button>
+                    -->
 
                     <button type="button" id="btn_easycontent_optimiz_images" class="btn btn-default refresh_images" data-toggle="modal" data-target="#modalImgOptimiz">
                         <i class="fa fa-picture-o" aria-hidden="true"></i>

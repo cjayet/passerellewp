@@ -68,6 +68,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Magento <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="<?php OptimizmeUtils::LinkToPage('magento/edit_product') ?>">Edit produit</a></li>
+                            <li><a href="<?php OptimizmeUtils::LinkToPage('magento/redirections') ?>">Redirections</a></li>
                         </ul>
                     </li>
 
