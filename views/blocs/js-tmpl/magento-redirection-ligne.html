@@ -2,8 +2,8 @@
     {{each redirections}}
         <tr id="redirection-${id}" class="ligne_table_redirection">
             <td>${id}</td>
-            <td><a href="${path}" target="_blank">${path}</a></td>
-            <td><a href="${target}" target="_blank">${target}</a></td>
+            <td><a href="${request_path}" target="_blank">${request_path}</a></td>
+            <td><a href="${target_path}" target="_blank">${target_path}</a></td>
             <td>
                 <span class="glyphicon glyphicon-trash confirmAction" data-cms="magento" data-action="redirection_delete" data-id="${id}" aria-hidden="true"></span>
             </td>

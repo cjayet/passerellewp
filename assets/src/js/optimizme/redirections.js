@@ -34,7 +34,6 @@ function loadRedirectionsFromSite(){
             }
         })
 
-        $('body').loading('stop');
     }
 }
 
@@ -88,7 +87,7 @@ $(document).on('click', '.confirmAction', function(){
                     if (tabData['action'] == 'redirection_delete')      rowTr.remove();
                 }
                 else {
-                    sweetAlert("Oops...", "Error ajax", "error");
+                    sweetAlert("Oops...", "Error ajax: " + msg.message, "error");
                 }
 
             })
