@@ -45,7 +45,7 @@ function shopifyLoadProducts(){
         $('body').loading('stop');
 
         if (msg.result == 'success'){
-            $('#shopify_select_list_products').empty();
+            $('#shopify_shopify_select_list_elements').empty();
 
             if (msg.products.length > 0){
                 //$("#shopify-table-produit").tmpl(msg).appendTo("#table-products tbody");
@@ -55,7 +55,7 @@ function shopifyLoadProducts(){
                     dataPosts += '<option value="'+ post.id +'">'+ post.title +'</option>';
                 })
                 dataPosts += '</optgroup>';
-                $('#shopify_select_list_products').append(dataPosts);
+                $('#shopify_select_list_elements').append(dataPosts);
 
 
                 // show products list
@@ -79,7 +79,7 @@ function shopifyLoadProduct(){
     $('#container-shopify').css('display', 'none');
 
     // préparation requête ajax pour les images
-    var tabData = { shop_name: $('#url_cible').val(), id_product: $('#shopify_select_list_products').val() };
+    var tabData = { shop_name: $('#url_cible').val(), id_product: $('#shopify_select_list_elements').val() };
     var json_data = JSON.stringify(tabData, null, 2);
 
     $('body').loading();
@@ -119,7 +119,7 @@ function shopifyLoadProduct(){
 function shopifyUploadImage(type){
 
     // préparation requête ajax pour les images
-    var tabData = { shop_name: $('#url_cible').val(), id_product: $('#shopify_select_list_products').val() };
+    var tabData = { shop_name: $('#url_cible').val(), id_product: $('#shopify_select_list_elements').val() };
     var json_data = JSON.stringify(tabData, null, 2);
 
     $('body').loading();
@@ -149,7 +149,7 @@ function shopifyUploadImage(type){
 function shopifyRefreshProductImages(){
 
     // préparation requête ajax pour les images
-    var tabData = { shop_name: $('#url_cible').val(), id_product: $('#shopify_select_list_products').val() };
+    var tabData = { shop_name: $('#url_cible').val(), id_product: $('#shopify_select_list_elements').val() };
     var json_data = JSON.stringify(tabData, null, 2);
 
     $('#image-list').loading();
@@ -239,7 +239,7 @@ $(document).ready(function(){
         shopifyLoadProduct();
     })
 
-    $(document).on('change', '#shopify_select_list_products', function () {
+    $(document).on('change', '#shopify_select_list_elements', function () {
         shopifyLoadProduct();
     })
 

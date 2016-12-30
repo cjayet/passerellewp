@@ -53,22 +53,14 @@ class ShopifyEasycontent
         $db = new EasycontentDB();
 
         try {
-            /*
-            foreach ($db->dbh->query($sql) as $row){
-                return $row['access_token'];
-            }
-            */
-
             $stmt = $db->dbh->prepare($sql);
             $stmt->execute();
             $row = $stmt->fetch();
             return $row['access_token'];
-
         }
         catch (Exception $e){
             return '';
         }
-
 
         return '';
     }
@@ -79,107 +71,6 @@ class ShopifyEasycontent
     public function getAllProducts(){
 
         $shopify = $this->shopify;
-
-        /*$args = array(
-            "product" => array (
-                "title" => "Burton Custom Freestyle 151",
-                "body_html" => "test",
-                "vendor" => "Burton",
-                "product_type" => "Snowboard",
-                "metafield" => array(
-                    "key" => "new",
-                    "value" => "newvalue",
-                    "value_type" => "string",
-                    "namespace" => "global"
-                )
-            )
-        );
-
-        $products = $shopify('POST', '/admin/products.json', $args);
-        echo "fin";
-        die;
-        */
-
-
-        // update product
-        /*
-        $args = array(
-            'image' => array(
-                'id' => 19917573197,
-                'position' => 2,
-                'metafields' => array(
-                    "key" => "alt",
-                    "value" => 'TEST ALT',
-                    "value_type" => "string",
-                    "namespace" => "tags"
-                )
-            )
-        );
-
-        $image = $shopify('PUT', '/admin/products/8590696909/images/19917573197.json', $args);
-*/
-
-
-        /*
-        $args = array(
-            'metafield' => array(
-                'key' => 'alt',
-                'value' => 'NEW ALT',
-                'value_type' => 'string',
-                'namespace' => 'tags'
-            )
-        );
-        $shopify('POST', '/admin/products/8590696909/images/19917573197/metafields.json', $args);
-*/
-
-
-
-        /*
-        // product image
-        $args2 = array (
-            "image" =>  array(
-                "id" => 19917573197,
-                "position" => 2,
-                "metafields" => array(
-                     array(
-                        "key"=> "alt",
-                        "value"=> "PUSH3",
-                        "value_type"=> "string",
-                        "namespace"=> "tags"
-                    )
-                )
-
-            )
-        );
-
-        $t = $shopify('PUT', '/admin/products/8590696909/images/19917573197.json', $args2);
-*/
-
-        /*
-
-        $args3 = array(
-            "product" => array(
-                "title" => "Basket of Kittens ". time(),
-                "product_type"=> "Basket",
-                "images" => array(
-                    "position" => 1,
-                    "src" => "http://cdn.shopify.com/s/files/1/0572/9965/products/Basket-of-kittens.jpg",
-                    "metafields" => array(
-                        "namespace" => "tags",
-                        "key" => "alt",
-                        "value" => "basket of kittens",
-                        "value_type" => "string"
-                    )
-                )
-            )
-        );
-
-        $shopify('POST', '/admin/products.json ', $args3);
-
-
-        */
-
-
         $products = $shopify('GET', '/admin/products.json', array('published_status' => 'published'));
         return $products;
     }
@@ -279,8 +170,7 @@ class ShopifyEasycontent
 
 
     /**
-     * @param $idProduct
-     * @param $idImage
+     * @param $dataOptimizme
      */
     public function setProductImageAlt($dataOptimizme){
 

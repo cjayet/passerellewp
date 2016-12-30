@@ -23,7 +23,6 @@ $(document).ready(function(){
             $('body').loading();
 
             // préparation requête ajax
-            //var tabData = {url_cible: urlArticleCible};
             var tabData = {url_cible: 'test'};
             tabData['action'] = 'load_posts_pages';
             var json_data = JSON.stringify(tabData, null, 2);

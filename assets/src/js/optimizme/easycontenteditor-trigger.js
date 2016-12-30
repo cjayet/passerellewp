@@ -12,7 +12,7 @@ $(document).ready(function(){
        loadGridEditor();
    })
 
-   $(document).on('change', '#select_list_posts', function(){
+   $(document).on('change', '#select_list_elements', function(){
        loadGridEditor();
    })
 
@@ -22,6 +22,14 @@ $(document).ready(function(){
    $(document).on('click', '.load_arborescence', function(){
        loadAllPostsPages();
    })
+
+    $(document).on('click', '.load_categories', function(){
+        loadAllCategories();
+    })
+
+    $(document).on('change', '#select_list_categories', function(){
+        $('#btn-load-category').trigger('click');
+    })
 
 
 

@@ -52,6 +52,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Prestashop <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="<?php OptimizmeUtils::LinkToPage('prestashop/easycontent_editor') ?>">Easycontent Editor</a></li>
+                            <li><a href="<?php OptimizmeUtils::LinkToPage('prestashop/edit_category') ?>">Categories</a></li>
                         </ul>
                     </li>
 
@@ -69,6 +70,13 @@
                         <ul class="dropdown-menu">
                             <li><a href="<?php OptimizmeUtils::LinkToPage('magento/edit_product') ?>">Edit produit</a></li>
                             <li><a href="<?php OptimizmeUtils::LinkToPage('magento/redirections') ?>">Redirections</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Weebly <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php OptimizmeUtils::LinkToPage('weebly/edit_product') ?>">Edit produit</a></li>
                         </ul>
                     </li>
 

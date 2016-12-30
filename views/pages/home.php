@@ -41,6 +41,15 @@ OptimizmeUtils::LoadBloc('header');
             </ul>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-3">
+            <h2>Weebly</h2>
+            <ul>
+                <li><a href="<?php OptimizmeUtils::LinkToPage('weebly/edit_product'); ?>">Edit product</a></li>
+            </ul>
+        </div>
+
+    </div>
 </div>
 
 </body>

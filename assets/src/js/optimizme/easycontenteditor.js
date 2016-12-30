@@ -21,7 +21,7 @@ function loadGridEditor(){
         // préparation requête ajax
         var tabData = {url_cible: urlArticleCible};
         tabData['action'] = 'load_post_content';
-        tabData['id_post'] = $('#select_list_posts').val();
+        tabData['id_post'] = $('#select_list_elements').val();
         var json_data = JSON.stringify(tabData, null, 2);
 
         $('#container-easycontent').css('display', 'none');
@@ -476,21 +476,21 @@ function loadAllPostsPages(){
     // RECUPERATION LISTE DES PAGES
     ////////////////////////////////////////
 
-    var urlWordpressCible = $('#url_cible').val();
+    var urlCmsCible = $('#url_cible').val();
     $('#container-easycontent').css('display', 'none');
 
     // add loading to form
     $('body').loading();
 
     // préparation requête ajax
-    var tabData = {url_cible: urlWordpressCible};
+    var tabData = {url_cible: urlCmsCible};
     tabData['action'] = 'load_posts_pages';
     var json_data = JSON.stringify(tabData, null, 2);
 
     // vide le selecteur
-    $('#select_list_posts').empty();
+    $('#select_list_elements').empty();
 
-    getAjaxResponse(urlWordpressCible, json_data, function(msg){
+    getAjaxResponse(urlCmsCible, json_data, function(msg){
 
         $('body').loading('stop');
 
@@ -503,7 +503,7 @@ function loadAllPostsPages(){
                         dataPosts += '<option value="'+ post.ID +'">'+ post.post_title +' ['+ post.post_status +']</option>';
                     })
                     dataPosts += '</optgroup>';
-                    $('#select_list_posts').append(dataPosts);
+                    $('#select_list_elements').append(dataPosts);
                 }
             }
 
@@ -514,7 +514,7 @@ function loadAllPostsPages(){
                         dataPosts += '<option value="'+ page.ID +'">'+ page.post_title +' ['+ page.post_status +']</option>';
                     })
                     dataPosts += '</optgroup>';
-                    $('#select_list_posts').append(dataPosts);
+                    $('#select_list_elements').append(dataPosts);
                 }
             }
 
@@ -538,7 +538,59 @@ function loadAllPostsPages(){
         if (type == 'page')     $('#liste-pages').slideDown();
         else                    $('#liste-pages').slideUp();
     })
+}
 
+
+/**
+ *
+ */
+function loadAllCategories(){
+
+    ////////////////////////////////////////
+    // RECUPERATION LISTE DES CATEGORIES
+    ////////////////////////////////////////
+
+    var urlCmsCible = $('#url_cible').val();
+    $('#container-easycontent').css('display', 'none');
+
+    // add loading to form
+    $('body').loading();
+
+    // préparation requête ajax
+    var tabData = {url_cible: urlCmsCible};
+    tabData['action'] = 'load_categories';
+    var json_data = JSON.stringify(tabData, null, 2);
+
+    // vide le selecteur
+    $('#select_list_categories').empty();
+
+    getAjaxResponse(urlCmsCible, json_data, function(msg){
+
+        $('body').loading('stop');
+
+        if (msg.result == 'success'){
+
+            if (msg.categories){
+                if (msg.categories.length > 0){
+                    var dataPosts = ''
+                    $.each(msg.categories, function(idx, category){
+                        dataPosts += '<option value="'+ category.id +'">'+ category.name +'</option>';
+                    })
+                    $('#select_list_categories').append(dataPosts);
+                }
+            }
+
+            $('#page_easycontenteditor_loadpage').slideDown();
+
+            // refresh selectpicker des pages
+            $('.selectpicker').selectpicker('refresh');
+
+
+        }
+        else {
+            sweetAlert("Oops...", "Error in loadAllCategories", "error");
+        }
+    })
 }
 
 
@@ -551,6 +603,17 @@ function updateUrlField(msg){
         $('#easycontent-url').val(msg.url);
         $('#easycontent-cms-link').attr('href', msg.url);
         $('#easycontent-slug').val(msg.new_slug);
+    }
+}
+
+/**
+ * @param msg
+ */
+function afterLoadCategory(msg){
+    if (msg.result == 'success'){
+        $('#easycontent-category-name').val(msg.category.name);
+
+        $('#container-easycontent').slideDown();
     }
 }
 

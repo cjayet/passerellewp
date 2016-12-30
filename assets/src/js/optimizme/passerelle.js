@@ -31,8 +31,9 @@ $(document).ready(function () {
 
                 // tableau des données à envoyer
                 var tabData = {url_cible: urlArticleCible};
-                if ($('#select_list_posts').length) tabData['id_post'] = $('#select_list_posts').val();
-                else if ($('#shopify_select_list_products').length) tabData['id_post'] = $('#shopify_select_list_products').val();
+                if ($('#select_list_elements').length)                      tabData['id_post'] = $('#select_list_elements').val();
+                else if ($('#select_list_categories').length)               tabData['id_post'] = $('#select_list_categories').val();
+                else if ($('#shopify_select_list_elements').length)         tabData['id_post'] = $('#shopify_select_list_elements').val();
 
                 // valeurs présentes dans le formulaire
                 elements.each(function (){
