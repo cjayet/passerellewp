@@ -62,8 +62,10 @@ OptimizmeUtils::LoadBloc('header');
     (function($){
         $(document).ready(function(){
 
+            // on  load
             $('#btn_createpostpage_loadarborescence').trigger('click');
 
+            // on change
             $(document).on('change', '#url_cible', function(){
                 $('#btn_createpostpage_loadarborescence').trigger('click');
             })

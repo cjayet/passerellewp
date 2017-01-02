@@ -8,7 +8,8 @@ OptimizmeUtils::LoadBloc('header');
         <div class="col-md-12">
             <?php OptimizmeUtils::LoadBloc('magento/head_push'); ?>
             <form>
-                <button type="button" data-id="action" class="btn btn-primary load_arborescence">Load arbo</button>
+                <!-- <button type="button" data-id="action" class="btn btn-primary load_arborescence">Load arbo</button> -->
+                <button type="button" data-id="action" value="load_posts_pages" id="btn_load_arbo" class="btn btn-primary push_cms" data-after="afterLoadArborescence">Load arbo</button>
             </form>
             <hr /><br />
         </div>
@@ -146,7 +147,7 @@ OptimizmeUtils::LoadBloc('header');
             // load au chargement de la page
 
             $(document).on('change', '#url_cible', function(){
-                $('.load_arborescence').trigger('click');
+                $('#btn_load_arbo').trigger('click');
             })
 
         })

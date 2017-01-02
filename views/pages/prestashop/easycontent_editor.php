@@ -9,12 +9,16 @@ OptimizmeUtils::LoadBloc('header');
             <?php OptimizmeUtils::LoadBloc('prestashop/head_push'); ?>
 
             <form>
-                <button type="button" data-id="action" class="btn btn-primary load_arborescence">Load arbo</button>
+                <button type="button" data-id="action" value="load_posts_pages" id="btn_load_arbo" class="btn btn-primary push_cms" data-after="afterLoadArborescence">Load arbo</button>
             </form>
         </div>
     </div>
 
     <div class="row" id="page_easycontenteditor_loadpage">
+        <div class="col-md-12">
+            <select name="select_cms_lang" id="select_cms_lang" data-id="select_cms_lang" class="form-control"></select>
+        </div>
+
         <div class="col-md-12">
             <?php OptimizmeUtils::LoadBloc('easycontent/select_page_arborescence'); ?>
             <form id="form_load_grideditor">
@@ -146,7 +150,7 @@ OptimizmeUtils::LoadBloc('header');
             // load au chargement de la page
 
             $(document).on('change', '#url_cible', function(){
-                $('.load_arborescence').trigger('click');
+                $('#btn_load_arbo').trigger('click');
             })
 
         })

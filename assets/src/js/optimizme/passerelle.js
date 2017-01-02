@@ -35,6 +35,8 @@ $(document).ready(function () {
                 else if ($('#select_list_categories').length)               tabData['id_post'] = $('#select_list_categories').val();
                 else if ($('#shopify_select_list_elements').length)         tabData['id_post'] = $('#shopify_select_list_elements').val();
 
+                if ($('#select_cms_lang').length)                           tabData['id_lang'] = $('#select_cms_lang').val();
+
                 // valeurs présentes dans le formulaire
                 elements.each(function (){
                     if ($(this).attr('type') == 'radio' || $(this).attr('type') == 'checkbox') {
@@ -164,7 +166,9 @@ $(document).ready(function () {
                         }
 
                         // add message under form
-                        form.append('<div class="form-group result_push_cms"><div class="alert alert-' + msg.result + '">' + msg.message + '</div></div>');
+                        if ( typeof msg.message !== 'undefined'){
+                            form.append('<div class="form-group result_push_cms"><div class="alert alert-' + msg.result + '">' + msg.message + '</div></div>');
+                        }
                     })
                 }
             });

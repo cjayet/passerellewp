@@ -9,15 +9,22 @@ OptimizmeUtils::LoadBloc('header');
             <?php OptimizmeUtils::LoadBloc('prestashop/head_push'); ?>
 
             <form>
-                <button type="button" data-id="action" class="btn btn-primary load_categories">Load categories</button>
+                <button type="button" data-id="action" value="load_categories" class="btn btn-primary push_cms" data-after="afterLoadCategories">Load categories</button>
             </form>
         </div>
     </div>
 
+
     <div class="row" id="page_easycontenteditor_loadpage">
+
+        <div class="col-md-12">
+            <select name="select_cms_lang" id="select_cms_lang" data-id="select_cms_lang" class="form-control"></select>
+        </div>
+
         <div class="col-md-12">
             <?php OptimizmeUtils::LoadBloc('easycontent/select_categories'); ?>
             <form id="form_load_grideditor">
+
                 <button id="btn-load-category" type="button" data-id="action" value="load_category_content" class="btn btn-primary push_cms" data-after="afterLoadCategory">
                     Load category
                 </button>

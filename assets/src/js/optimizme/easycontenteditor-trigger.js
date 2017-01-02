@@ -19,9 +19,13 @@ $(document).ready(function(){
    /**
     * load arborescence
     */
-   $(document).on('click', '.load_arborescence', function(){
+   /*$(document).on('click', '.load_arborescence', function(){
        loadAllPostsPages();
-   })
+   })*/
+
+    $(document).on('change', '#select_cms_lang', function(){
+        $('#btn_load_arbo').trigger('click');
+    })
 
     $(document).on('click', '.load_categories', function(){
         loadAllCategories();

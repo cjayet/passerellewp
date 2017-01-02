@@ -22,6 +22,9 @@ function loadGridEditor(){
         var tabData = {url_cible: urlArticleCible};
         tabData['action'] = 'load_post_content';
         tabData['id_post'] = $('#select_list_elements').val();
+
+        if ($('#select_cms_lang').length)                           tabData['id_lang'] = $('#select_cms_lang').val();
+
         var json_data = JSON.stringify(tabData, null, 2);
 
         $('#container-easycontent').css('display', 'none');
@@ -366,7 +369,7 @@ function removeRowsPlaceholder(){
 function refreshImagesListInPost(){
 
     if (boolContentUpdatedAndNotSaved == true){
-        sweetAlert("Res", "NO REFRESH");
+        //sweetAlert("Res", "NO REFRESH");
     }
     else {
         // préparation requête ajax pour les images
@@ -468,68 +471,62 @@ function loadRandomDummyImage(){
 
 
 /**
- *
+ * @param msg
  */
-function loadAllPostsPages(){
+function afterLoadArborescence(msg){
+    if (msg.result == 'success'){
 
-    ////////////////////////////////////////
-    // RECUPERATION LISTE DES PAGES
-    ////////////////////////////////////////
+        // vide la liste
+        $('#select_list_elements').empty();
 
-    var urlCmsCible = $('#url_cible').val();
-    $('#container-easycontent').css('display', 'none');
-
-    // add loading to form
-    $('body').loading();
-
-    // préparation requête ajax
-    var tabData = {url_cible: urlCmsCible};
-    tabData['action'] = 'load_posts_pages';
-    var json_data = JSON.stringify(tabData, null, 2);
-
-    // vide le selecteur
-    $('#select_list_elements').empty();
-
-    getAjaxResponse(urlCmsCible, json_data, function(msg){
-
-        $('body').loading('stop');
-
-        if (msg.result == 'success'){
-
-            if (msg.arborescence.posts){
-                if (msg.arborescence.posts.length > 0){
-                    var dataPosts = '<optgroup label="Posts">'
-                    $.each(msg.arborescence.posts, function(idx, post){
-                        dataPosts += '<option value="'+ post.ID +'">'+ post.post_title +' ['+ post.post_status +']</option>';
-                    })
-                    dataPosts += '</optgroup>';
-                    $('#select_list_elements').append(dataPosts);
-                }
+        if (msg.arborescence.posts){
+            if (msg.arborescence.posts.length > 0){
+                var dataPosts = '<optgroup label="Posts">'
+                $.each(msg.arborescence.posts, function(idx, post){
+                    dataPosts += '<option value="'+ post.ID +'">'+ post.post_title +' ['+ post.post_status +']</option>';
+                })
+                dataPosts += '</optgroup>';
+                $('#select_list_elements').append(dataPosts);
             }
-
-            if (msg.arborescence.pages){
-                if (msg.arborescence.pages.length > 0){
-                    var dataPosts = '<optgroup label="Pages">'
-                    $.each(msg.arborescence.pages, function(idx, page){
-                        dataPosts += '<option value="'+ page.ID +'">'+ page.post_title +' ['+ page.post_status +']</option>';
-                    })
-                    dataPosts += '</optgroup>';
-                    $('#select_list_elements').append(dataPosts);
-                }
-            }
-
-
-            $('#page_easycontenteditor_loadpage').slideDown();
-
-            // refresh selectpicker des pages
-            $('.selectpicker').selectpicker('refresh');
-
-        }
-        else {
-            sweetAlert("Oops...", "Error in loadAllPostsPages", "error");
         }
 
-    })
+        if (msg.arborescence.pages){
+            if (msg.arborescence.pages.length > 0){
+                var dataPosts = '<optgroup label="Pages">'
+                $.each(msg.arborescence.pages, function(idx, page){
+                    dataPosts += '<option value="'+ page.ID +'">'+ page.post_title +' ['+ page.post_status +']</option>';
+                })
+                dataPosts += '</optgroup>';
+                $('#select_list_elements').append(dataPosts);
+            }
+        }
+
+
+        // select lang (if any)
+        if (typeof msg.langs !== 'undefined'){
+            if (msg.langs.length > 0 && $('#select_cms_lang').length){
+                var dataLangs = '';
+                $.each(msg.langs, function(idx, lang){
+                    dataLangs += '<option value="'+ lang.id_lang +'">'+ lang.name +'</option>';
+                })
+                $('#select_cms_lang').empty().append(dataLangs);
+            }
+        }
+
+        // hide detailed content
+        $('#container-easycontent').hide();
+
+        // toggle content choice
+        $('#page_easycontenteditor_loadpage').slideDown();
+
+        // refresh selectpicker des pages
+        $('.selectpicker').selectpicker('refresh');
+
+    }
+    else {
+        sweetAlert("Oops...", "Error in loadAllPostsPages", "error");
+    }
+
 
 
     // affiche ou non l'arborescence des pages (non pour post, oui pour page)
@@ -538,6 +535,7 @@ function loadAllPostsPages(){
         if (type == 'page')     $('#liste-pages').slideDown();
         else                    $('#liste-pages').slideUp();
     })
+
 }
 
 
@@ -568,28 +566,7 @@ function loadAllCategories(){
 
         $('body').loading('stop');
 
-        if (msg.result == 'success'){
 
-            if (msg.categories){
-                if (msg.categories.length > 0){
-                    var dataPosts = ''
-                    $.each(msg.categories, function(idx, category){
-                        dataPosts += '<option value="'+ category.id +'">'+ category.name +'</option>';
-                    })
-                    $('#select_list_categories').append(dataPosts);
-                }
-            }
-
-            $('#page_easycontenteditor_loadpage').slideDown();
-
-            // refresh selectpicker des pages
-            $('.selectpicker').selectpicker('refresh');
-
-
-        }
-        else {
-            sweetAlert("Oops...", "Error in loadAllCategories", "error");
-        }
     })
 }
 
@@ -606,13 +583,41 @@ function updateUrlField(msg){
     }
 }
 
+function afterLoadCategories(msg){
+    if (msg.result == 'success'){
+
+        // vide le selecteur
+        $('#select_list_categories').empty();
+
+        if (msg.categories){
+            if (msg.categories.length > 0){
+                var dataPosts = ''
+                $.each(msg.categories, function(idx, category){
+                    dataPosts += '<option value="'+ category.id +'">'+ category.name +'</option>';
+                })
+                $('#select_list_categories').append(dataPosts);
+            }
+        }
+
+        $('#page_easycontenteditor_loadpage').slideDown();
+
+        // refresh selectpicker des pages
+        $('.selectpicker').selectpicker('refresh');
+
+
+    }
+    else {
+        sweetAlert("Oops...", "Error in loadAllCategories", "error");
+    }
+}
+
+
 /**
  * @param msg
  */
 function afterLoadCategory(msg){
     if (msg.result == 'success'){
         $('#easycontent-category-name').val(msg.category.name);
-
         $('#container-easycontent').slideDown();
     }
 }

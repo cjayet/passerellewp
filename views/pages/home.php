@@ -21,6 +21,7 @@ OptimizmeUtils::LoadBloc('header');
             <h2>Prestashop</h2>
             <ul>
                 <li><a href="<?php OptimizmeUtils::LinkToPage('prestashop/easycontent_editor'); ?>">Easycontent editor</a></li>
+                <li><a href="<?php OptimizmeUtils::LinkToPage('prestashop/edit_category'); ?>">Categories</a></li>
             </ul>
         </div>
 

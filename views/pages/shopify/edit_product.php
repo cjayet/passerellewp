@@ -89,31 +89,15 @@ OptimizmeUtils::LoadBloc('header');
                 </div>
             </div>
         </form>
-
-    </div>
-
-
+    </div
 
     <div class="row">
         <div class="col-md-12 h200">&nbsp;</div>
     </div>
 
-
-
 </div>
 
 
-<script type="text/javascript">
-    (function($){
-        $(document).ready(function(){
-
-            $(document).on('change', '#url_cible', function(){
-                $('.load_arborescence').trigger('click');
-            })
-
-        })
-    })(jQuery)
-</script>
 
 </body>
 </html>

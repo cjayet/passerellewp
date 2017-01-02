@@ -19,7 +19,7 @@ function getAjaxResponse(urlArticleCible, json_data, callback){
         data: { data_optme: json_data },
         crossDomain: true,
 
-        success:    function(data) {
+        success: function(data) {
             callback(data);
         },
         error: function(xhr, status, error) {
