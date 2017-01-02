@@ -38,6 +38,7 @@ OptimizmeUtils::LoadBloc('header');
             <h2>Magento</h2>
             <ul>
                 <li><a href="<?php OptimizmeUtils::LinkToPage('magento/edit_product'); ?>">Edit product</a></li>
+                <li><a href="<?php OptimizmeUtils::LinkToPage('magento/edit_category'); ?>">Edit category</a></li>
                 <li><a href="<?php OptimizmeUtils::LinkToPage('magento/redirections'); ?>">Redirections</a></li>
             </ul>
         </div>

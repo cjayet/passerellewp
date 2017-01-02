@@ -599,6 +599,17 @@ function afterLoadCategories(msg){
             }
         }
 
+        // select lang (if any)
+        if (typeof msg.langs !== 'undefined'){
+            if (msg.langs.length > 0 && $('#select_cms_lang').length){
+                var dataLangs = '';
+                $.each(msg.langs, function(idx, lang){
+                    dataLangs += '<option value="'+ lang.id_lang +'">'+ lang.name +'</option>';
+                })
+                $('#select_cms_lang').empty().append(dataLangs);
+            }
+        }
+
         $('#page_easycontenteditor_loadpage').slideDown();
 
         // refresh selectpicker des pages
@@ -617,7 +628,14 @@ function afterLoadCategories(msg){
  */
 function afterLoadCategory(msg){
     if (msg.result == 'success'){
+
+        // no empty
+        if (!msg.category.description)         msg.category.description = '';         // if 'null' set empty content
+
         $('#easycontent-category-name').val(msg.category.name);
+        $('#easycontent-category-description').val(msg.category.description);
+        changeTinymceContent('easycontent-category-description', msg.category.description);
+
         $('#container-easycontent').slideDown();
     }
 }

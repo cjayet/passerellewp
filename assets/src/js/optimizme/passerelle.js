@@ -49,6 +49,10 @@ $(document).ready(function () {
                             tabData[$(this).attr('data-id')] = $(this).find(":selected").val();
                         }
                     }
+                    else if ($(this).attr('data-tinymce') == 1){
+                        var tinyMceField = getTinymceContent('easycontent-category-description');
+                        tabData[$(this).attr('data-id')] = tinyMceField;
+                    }
                     else if ($(this).attr('type') == 'file') {
 
                         // file upload

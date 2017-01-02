@@ -45,7 +45,7 @@ OptimizmeUtils::LoadBloc('header');
                         <input type="text" name="metadescription" id="product_metadescription" data-id="metadescription" class="form-control" value="" />
 
                         <label for="description">Description</label>
-                        <textarea name="description" id="product_description" class="form-control"></textarea>
+                        <textarea name="description" id="product_description" data-tinymce="1" class="form-control"></textarea>
                     </div>
                     <div class="col-md-12">
                         <button type="button" data-id="action" value="set_shopify_product_update" class="btn btn-primary push_cms" data-url="index.php?ajax=shopifySaveProduct">Envoyer</button>

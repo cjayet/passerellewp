@@ -1,9 +1,10 @@
 $(document).ready(function(){
 
     // chargement des tinyMCE
-    if ( $('#easycontent-short_description').length ){
-        loadTinyMCE('#easycontent-short_description');
+    if ( $('.loadTinyMCE').length ){
+        loadTinyMCE('.loadTinyMCE');
     }
+
 
    /**
     * load "GridEditor"

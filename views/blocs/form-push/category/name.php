@@ -1,4 +1,3 @@
-<?php /** COMMUN  **/ ?>
 <form>
     <div class="row">
         <div class="form-group col-md-8">
