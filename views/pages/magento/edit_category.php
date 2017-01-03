@@ -37,8 +37,14 @@ OptimizmeUtils::LoadBloc('header');
             <div class="col-md-12">
 
                 <?php
+                // PERMALINK
+                OptimizmeUtils::LoadBloc('form-push/post/permalink');
+
                  // TITRE
                 OptimizmeUtils::LoadBloc('form-push/category/name');
+
+                // TITRE
+                OptimizmeUtils::LoadBloc('form-push/category/slug');
 
                 // DESCRIPTION
                 OptimizmeUtils::LoadBloc('form-push/category/description');
