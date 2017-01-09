@@ -45,7 +45,7 @@ function shopifyLoadProducts(){
         $('body').loading('stop');
 
         if (msg.result == 'success'){
-            $('#shopify_shopify_select_list_elements').empty();
+            $('#shopify_select_list_elements').empty();
 
             if (msg.products.length > 0){
                 //$("#shopify-table-produit").tmpl(msg).appendTo("#table-products tbody");
@@ -97,8 +97,8 @@ function shopifyLoadProduct(){
             $('#product_description').val(msg.product.body_html);
 
             // set tinymce for description
-            if (msg.product.body_html == null)      msg.product.body_html = '';
-            changeTinymceContent('product_description', msg.product.body_html);
+            if (msg.product.body_html == null)          msg.product.body_html = '';
+            //changeTinymceContent('product_description', msg.product.body_html);
 
             $('body').loading('stop');
 
@@ -225,9 +225,11 @@ $(document).ready(function(){
 
 
     // chargement des tinyMCE
+    /*
     if ( $('#product_description').length ){
         loadTinyMCE('#product_description');
     }
+    */
 
     /** trigger : load all products on click **/
     $(document).on('click', '#shopify_load_products', function () {

@@ -1,0 +1,18 @@
+<script type="text/x-jquery-tmpl">
+
+    <div id="weebly_img_${id_image}" class="col-md-4 col-sm-4">
+        <form id="weebly_list_product_images">
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="${url_image}" alt="${alt_image}" width="100%" class="img-thumbnail" />
+                </div>
+                <div class="col-md-12">
+                    <button type="button" data-id="action" value="delete_product_image" class="btn btn-danger push_cms" data-url="index.php?ajax=weebly" data-after="weeblyRefreshProductImages" >Delete</button>
+                </div>
+                <input type="hidden" data-id="id_product" name="id_product" value="${id_product}" />
+                <input type="hidden" data-id="id_product_image" name="id_product_image" value="${id_product_image}" />
+            </div>
+        </form>
+    </div>
+
+</script>

@@ -40,6 +40,9 @@
 /** shopify **/
 #container-shopify { display: none; }
 
+/** weebly **/
+#container-weebly { display: none; }
+
 
 /** divers **/
 .h200 { height: 200px; }

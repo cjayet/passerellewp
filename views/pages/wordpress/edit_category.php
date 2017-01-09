@@ -6,7 +6,7 @@ OptimizmeUtils::LoadBloc('header');
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <?php OptimizmeUtils::LoadBloc('prestashop/head_push'); ?>
+            <?php OptimizmeUtils::LoadBloc('wordpress/head_push'); ?>
 
             <form>
                 <button type="button" data-id="action" value="load_categories" id="btn_load_arbo" class="btn btn-primary push_cms" data-after="afterLoadCategories">Load categories</button>
@@ -16,10 +16,6 @@ OptimizmeUtils::LoadBloc('header');
 
 
     <div class="row" id="page_easycontenteditor_loadpage">
-
-        <div class="col-md-12">
-            <select name="select_cms_lang" id="select_cms_lang" data-id="select_cms_lang" class="form-control"></select>
-        </div>
 
         <div class="col-md-12">
             <?php OptimizmeUtils::LoadBloc('easycontent/select_categories'); ?>

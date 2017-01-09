@@ -10,6 +10,7 @@ OptimizmeUtils::LoadBloc('header');
             <h2>Wordpress</h2>
             <ul>
                 <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/easycontent_editor'); ?>">Easycontent editor</a></li>
+                <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/edit_category'); ?>">Categories</a></li>
                 <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/install_config'); ?>">Install plugin</a></li>
                 <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/redirections'); ?>">Redirections</a></li>
                 <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/create_post'); ?>">Create post / page</a></li>
@@ -38,7 +39,7 @@ OptimizmeUtils::LoadBloc('header');
             <h2>Magento</h2>
             <ul>
                 <li><a href="<?php OptimizmeUtils::LinkToPage('magento/edit_product'); ?>">Edit product</a></li>
-                <li><a href="<?php OptimizmeUtils::LinkToPage('magento/edit_category'); ?>">Edit category</a></li>
+                <li><a href="<?php OptimizmeUtils::LinkToPage('magento/edit_category'); ?>">Categories</a></li>
                 <li><a href="<?php OptimizmeUtils::LinkToPage('magento/redirections'); ?>">Redirections</a></li>
             </ul>
         </div>

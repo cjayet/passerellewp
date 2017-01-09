@@ -45,7 +45,7 @@ OptimizmeUtils::LoadBloc('header');
                         <input type="text" name="metadescription" id="product_metadescription" data-id="metadescription" class="form-control" value="" />
 
                         <label for="description">Description</label>
-                        <textarea name="description" id="product_description" data-tinymce="1" class="form-control"></textarea>
+                        <textarea name="product_description" id="product_description" data-id="product_description" data-tinymce="1" class="form-control loadTinyMCE"></textarea>
                     </div>
                     <div class="col-md-12">
                         <button type="button" data-id="action" value="set_shopify_product_update" class="btn btn-primary push_cms" data-url="index.php?ajax=shopifySaveProduct">Envoyer</button>
@@ -71,7 +71,7 @@ OptimizmeUtils::LoadBloc('header');
                     <input type="text" name="url" id="image_url" data-id="url" class="form-control" value="" required="" />
                 </div>
                 <div class="col-md-4">
-                    <button type="button" data-id="action" value="shopify_add_shopname" class="btn btn-default t25 push_cms" data-url="index.php?ajax=shopifyAddProductImageUrl" data-after="shopifyRefreshProductImages">Envoyer</button>
+                    <button type="button" data-id="action" value="" class="btn btn-default t25 push_cms" data-url="index.php?ajax=shopifyAddProductImageUrl" data-after="shopifyRefreshProductImages">Envoyer</button>
                 </div>
             </div>
         </form>
@@ -85,7 +85,7 @@ OptimizmeUtils::LoadBloc('header');
                     <input type="file" name="image_computer2" id="image_computer2" data-id="computer2" class="form-control" value="" required="" />
                 </div>
                 <div class="col-md-4">
-                    <button type="button" data-id="action" value="shopify_add_shopname" class="btn btn-default t25 push_cms" data-url="index.php?ajax=shopifyAddProductImageComputer" data-after="shopifyRefreshProductImages">Envoyer</button>
+                    <button type="button" data-id="action" value="" class="btn btn-default t25 push_cms" data-url="index.php?ajax=shopifyAddProductImageComputer" data-after="shopifyRefreshProductImages">Envoyer</button>
                 </div>
             </div>
         </form>

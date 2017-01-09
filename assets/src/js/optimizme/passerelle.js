@@ -13,11 +13,19 @@ $(document).ready(function () {
         var form = $(this).closest('form');
         var allInputProcessed = false;
         var nbFilesUploadProcessing = 0;
+        var shopname = '';
 
-        // où envoyer les data (racine du site)
+        // où envoyer les data (racine du cms cible, ou fichier ajax de la passerelle ?)
         var dataUrl = btnClick.attr('data-url');
-        if (dataUrl !== undefined && dataUrl != '')     var urlArticleCible = dataUrl;
-        else                                            var urlArticleCible = $('#url_cible').val();
+        if (dataUrl !== undefined && dataUrl != ''){
+            // ajax passerelle
+            var urlArticleCible = dataUrl;
+            shopname = $('#url_cible').val();
+        }
+        else {
+            // cms
+            var urlArticleCible = $('#url_cible').val();
+        }
 
         console.log('push_cms TO ' + urlArticleCible);
 
@@ -34,8 +42,14 @@ $(document).ready(function () {
                 if ($('#select_list_elements').length)                      tabData['id_post'] = $('#select_list_elements').val();
                 else if ($('#select_list_categories').length)               tabData['id_post'] = $('#select_list_categories').val();
                 else if ($('#shopify_select_list_elements').length)         tabData['id_post'] = $('#shopify_select_list_elements').val();
+                else if ($('#weebly_select_list_elements').length)          tabData['id_post'] = $('#weebly_select_list_elements').val();
 
+                // shopname: pour les cms qu'on requête via api (shopify, weebly...)
+                if (shopname != '')                                         tabData['shop_name'] = shopname;
+
+                // langue (prestashop)
                 if ($('#select_cms_lang').length)                           tabData['id_lang'] = $('#select_cms_lang').val();
+
 
                 // valeurs présentes dans le formulaire
                 elements.each(function (){
@@ -50,7 +64,7 @@ $(document).ready(function () {
                         }
                     }
                     else if ($(this).attr('data-tinymce') == 1){
-                        var tinyMceField = getTinymceContent('easycontent-category-description');
+                        var tinyMceField = getTinymceContent( $(this).attr('id') );
                         tabData[$(this).attr('data-id')] = tinyMceField;
                     }
                     else if ($(this).attr('type') == 'file') {
@@ -102,10 +116,12 @@ $(document).ready(function () {
                         }
                         else if ($(this).attr('data-id') == 'action' && $(this).val() == 'set_shopify_product_update') {
                             tabData['shop_name'] = $('#url_cible').val();
-                            tabData['new_description'] = getTinymceContent('product_description');
+                            tabData['product_description'] = getTinymceContent('product_description');
                         }
-                        else if ($(this).attr('data-id') == 'action' && $(this).val() == 'shopify_add_shopname') {
+                        else if ($(this).attr('data-id') == 'action' && $(this).val() == 'set_weebly_product_update') {
+                            tabData['function'] = 'patch_product'
                             tabData['shop_name'] = $('#url_cible').val();
+                            tabData['product_description'] = getTinymceContent('product_description');
                         }
                     }
 

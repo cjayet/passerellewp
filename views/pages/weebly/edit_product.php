@@ -34,21 +34,20 @@ OptimizmeUtils::LoadBloc('header');
                         <label for="name">Title</label>
                         <input type="text" name="name" id="product_name" data-id="name" class="form-control" value="" required="" />
 
-                        <label for="metatitle">Slug</label>
-                        <input type="text" name="handle" id="product_handle" data-id="handle" class="form-control" value="" required="" />
-                        <input type="hidden" name="current_handle" id="product_current_handle" data-id="current_handle" class="form-control" value="<?php echo $produit['handle'] ?>" />
-
-                        <label for="metatitle">Meta title</label>
-                        <input type="text" name="metatitle" id="product_metatitle" data-id="metatitle" class="form-control" value="" />
-
-                        <label for="metadescription">Meta Description</label>
-                        <input type="text" name="metadescription" id="product_metadescription" data-id="metadescription" class="form-control" value="" />
+                        <label for="metatitle">URL</label>
+                        <input type="text" name="handle" id="product_url" data-id="url" class="form-control" value="" disabled="" />
 
                         <label for="description">Description</label>
-                        <textarea name="description" id="product_description" class="form-control"></textarea>
+                        <textarea name="product_description" id="product_description" data-id="product_description" data-tinymce="1" class="form-control loadTinyMCE"></textarea>
+
+                        <?php
+                        // PUBLISH
+                        OptimizmeUtils::LoadBloc('form-push/post/publish');
+                        ?>
+
                     </div>
                     <div class="col-md-12">
-                        <button type="button" data-id="action" value="set_weebly_product_update" class="btn btn-primary push_cms" data-url="index.php?ajax=weeblySaveProduct">Envoyer</button>
+                        <button type="button" data-id="action" value="set_weebly_product_update" class="btn btn-primary push_cms" data-url="index.php?ajax=weebly">Envoyer</button>
                     </div>
                 </div>
             </form>
@@ -59,37 +58,27 @@ OptimizmeUtils::LoadBloc('header');
             <div class="col-md-12 h200">&nbsp;</div>
         </div>
 
-        <h3>IMG LIST :</h3>
-        <div id="image-list"></div>
+        <div class="row">
+            <h3>IMG LIST :</h3>
+            <div id="image-list"></div>
+        </div>
 
+        <div class="row">
 
-        <h3>IMG ENVOI :</h3>
-        <form>
-            <div class="row">
-                <div class="form-group col-md-8">
-                    <label for="url"> Upload image from URL</label>
-                    <input type="text" name="url" id="image_url" data-id="url" class="form-control" value="" required="" />
+            <h3>IMG ENVOI :</h3>
+            <form>
+                <div class="row">
+                    <div class="form-group col-md-8">
+                        <label for="url"> Upload image from URL</label>
+                        <input type="text" name="url" id="image_url" data-id="url" class="form-control" value="" required="" />
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" data-id="action" value="add_product_image_url" class="btn btn-default t25 push_cms" data-url="index.php?ajax=weebly" data-after="weeblyRefreshProductImages">Envoyer</button>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <button type="button" data-id="action" value="weebly_add_shopname" class="btn btn-default t25 push_cms" data-url="index.php?ajax=weeblyAddProductImageUrl" data-after="weeblyRefreshProductImages">Envoyer</button>
-                </div>
-            </div>
-        </form>
+            </form>
 
-
-        <form enctype="multipart/form-data">
-            <div class="row">
-                <div class="form-group col-md-8">
-                    <label for="url"> Upload image from computer</label>
-                    <input type="file" name="image_computer" id="image_computer" data-id="computer" class="form-control" value="" required="" />
-                    <input type="file" name="image_computer2" id="image_computer2" data-id="computer2" class="form-control" value="" required="" />
-                </div>
-                <div class="col-md-4">
-                    <button type="button" data-id="action" value="weebly_add_shopname" class="btn btn-default t25 push_cms" data-url="index.php?ajax=weeblyAddProductImageComputer" data-after="weeblyRefreshProductImages">Envoyer</button>
-                </div>
-            </div>
-        </form>
-
+        </div>
     </div>
 
 

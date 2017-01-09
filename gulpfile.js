@@ -54,6 +54,7 @@ gulp.task('minifyjs', function () {
         sourceJS +'/create_post_page.js',
         sourceJS +'/site_options.js',
         sourceJS +'/shopify.js',
+        sourceJS +'/weebly.js',
     ])
         .pipe(concat('optimizme.js'))
         .pipe(minify({

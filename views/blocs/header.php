@@ -19,7 +19,7 @@
 
     <!-- optimiz.me -->
     <link rel="stylesheet" type="text/css" href="./assets/dist/css/optimizme.min.css" />
-    <script src="./assets/dist/js/optimizme.min.js" ></script>
+    <script src="./assets/dist/js/optimizme-debug.min.js" ></script>
 </head>
 <body>
 
@@ -41,6 +41,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Wordpress <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/easycontent_editor') ?>">Easycontent Editor</a></li>
+                            <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/edit_category') ?>">Categories</a></li>
                             <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/install_config') ?>">Install WP plugin</a></li>
                             <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/redirections') ?>">Redirections</a></li>
                             <li><a href="<?php OptimizmeUtils::LinkToPage('wordpress/create_post') ?>">Create post/page</a></li>

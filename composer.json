@@ -1,0 +1,21 @@
+{
+    "name": "cjayet/passerellewp",
+    "type": "Passerelle CMS",
+    "description": "Passerelle d'envoi vers les principaux CMS",
+    "keywords": ["php", "cms"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "cjayet",
+            "homepage": "https://optimiz.me",
+            "role": "Company"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "firebase/php-jwt": "^3.0",
+        "phpish/http": "dev-master",
+        "phpish/shopify": "dev-master",
+        "weebly/weebly_client": "dev-master"
+    }
+}

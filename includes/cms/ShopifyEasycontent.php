@@ -135,7 +135,7 @@ class ShopifyEasycontent
                 'title' => $data->name,
                 'metafields_global_title_tag' => $data->metatitle,
                 'metafields_global_description_tag' => $data->metadescription,
-                'body_html' => preg_replace( "/\r|\n/", "", ($data->new_description)),
+                'body_html' => preg_replace( "/\r|\n/", "", ($data->product_description)),
                 'handle' => $data->handle
             )
         );

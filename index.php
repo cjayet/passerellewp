@@ -13,13 +13,13 @@ $_SESSION['id_optimizme_user'] = 3; // TODO vraie gestion de session utilisateur
 require_once ('includes/constantes.php');
 require_once ('includes/functions.php');
 require_once ('includes/database.php');
-require 'includes/shopifyUtils/vendor/autoload.php';
+require_once ('vendor/autoload.php');
 
 
 /**
  * Load all required files
  */
-$tabFoldersAutoload = array('includes/shopifyUtils/vendor', 'includes/shopifyUtils/classes');
+$tabFoldersAutoload = array('includes/cms');
 foreach ($tabFoldersAutoload as $folder){
     foreach (glob(dirname(__FILE__) ."/". $folder ."/*.php") as $filename){
         require_once($filename);
