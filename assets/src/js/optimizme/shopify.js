@@ -4,16 +4,23 @@
 function shopifyLoadAllRedirections(){
 
     // préparation requête ajax pour les images
-    var tabData = { shop_name: $('#url_cible').val() };
+    var tabData = {
+        shop_name: $('#url_cible').val(),
+        action: 'get_redirections'
+    };
     var json_data = JSON.stringify(tabData, null, 2);
 
     $('body').loading();
 
     // exécution ajax
-    getAjaxResponse('index.php?ajax=shopifyGetRedirections', json_data, function(msg) {
+    getAjaxResponse('index.php?ajax=shopify', json_data, function(msg) {
         $('body').loading('stop');
 
         if (msg.result == 'success'){
+
+            // remove all lines
+            removeNodeEverywhere('.ligne_table_redirection');
+
             if (msg.redirections.length > 0)
             {
                 // ajout de la liste des redirections
@@ -35,13 +42,16 @@ function shopifyLoadProducts(){
     $('#container-shopify').css('display', 'none');
 
     // préparation requête ajax pour les images
-    var tabData = { shop_name: $('#url_cible').val() };
+    var tabData = {
+        shop_name: $('#url_cible').val(),
+        action: "get_products"
+    };
     var json_data = JSON.stringify(tabData, null, 2);
 
     $('body').loading();
 
     // exécution ajax
-    getAjaxResponse('index.php?ajax=shopifyGetProducts', json_data, function(msg) {
+    getAjaxResponse('index.php?ajax=shopify', json_data, function(msg) {
         $('body').loading('stop');
 
         if (msg.result == 'success'){
@@ -79,13 +89,17 @@ function shopifyLoadProduct(){
     $('#container-shopify').css('display', 'none');
 
     // préparation requête ajax pour les images
-    var tabData = { shop_name: $('#url_cible').val(), id_product: $('#shopify_select_list_elements').val() };
+    var tabData = {
+        shop_name: $('#url_cible').val(),
+        id_product: $('#shopify_select_list_elements').val(),
+        action: 'get_product'
+    };
     var json_data = JSON.stringify(tabData, null, 2);
 
     $('body').loading();
 
     // exécution ajax
-    getAjaxResponse('index.php?ajax=shopifyGetProduct', json_data, function(msg) {
+    getAjaxResponse('index.php?ajax=shopify', json_data, function(msg) {
         if (msg.result == 'success'){
 
             // set values
@@ -98,7 +112,7 @@ function shopifyLoadProduct(){
 
             // set tinymce for description
             if (msg.product.body_html == null)          msg.product.body_html = '';
-            //changeTinymceContent('product_description', msg.product.body_html);
+            changeTinymceContent('product_description', msg.product.body_html);
 
             $('body').loading('stop');
 
@@ -112,36 +126,6 @@ function shopifyLoadProduct(){
 }
 
 
-/**
- * Add image to shopify
- * @param type : url/computer
- */
-function shopifyUploadImage(type){
-
-    // préparation requête ajax pour les images
-    var tabData = { shop_name: $('#url_cible').val(), id_product: $('#shopify_select_list_elements').val() };
-    var json_data = JSON.stringify(tabData, null, 2);
-
-    $('body').loading();
-
-    // exécution ajax
-    if (type == 'url')          var ajaxScript = 'shopifyAddProductImageUrl';
-    else                        var ajaxScript = 'shopifyAddProductImageComputer';
-
-    getAjaxResponse('index.php?ajax='+ajaxScript, json_data, function(msg) {
-        $('body').loading('stop');
-
-        if (msg.result == 'success'){
-            shopifyRefreshProductImages();
-        }
-        else {
-            sweetAlert("Oops...", "Error Adding product image", "error");
-        }
-    })
-
-}
-
-
 
 /**
  *
@@ -149,13 +133,17 @@ function shopifyUploadImage(type){
 function shopifyRefreshProductImages(){
 
     // préparation requête ajax pour les images
-    var tabData = { shop_name: $('#url_cible').val(), id_product: $('#shopify_select_list_elements').val() };
+    var tabData = {
+        shop_name: $('#url_cible').val(),
+        id_product: $('#shopify_select_list_elements').val(),
+        action: 'get_product'   // TODO à optimiser ?
+    };
     var json_data = JSON.stringify(tabData, null, 2);
 
     $('#image-list').loading();
 
     // exécution ajax
-    getAjaxResponse('index.php?ajax=shopifyGetProduct', json_data, function(msg) {
+    getAjaxResponse('index.php?ajax=shopify', json_data, function(msg) {
         if (msg.result == 'success'){
 
             // load la liste des images
@@ -184,32 +172,6 @@ function shopifyRefreshProductImages(){
 }
 
 
-/**
- * @param idProductImage
- */
-function shopifyDeleteProductImage(idProductImage){
-
-    // préparation requête ajax pour les images
-    var tabData = { shop_name: $('#url_cible').val(), id_product_image: idProductImage };
-    var json_data = JSON.stringify(tabData, null, 2);
-
-    $('body').loading();
-
-    // exécution ajax
-    getAjaxResponse('index.php?ajax=shopifyDeleteProductImage', json_data, function(msg) {
-        $('body').loading('stop');
-
-        if (msg.result == 'success'){
-            shopifyRefreshProductImages();
-        }
-        else {
-            sweetAlert("Oops...", "Error deleting product image", "error");
-        }
-    })
-}
-
-
-
 
 $(document).ready(function(){
 
@@ -223,13 +185,6 @@ $(document).ready(function(){
     })
 
 
-
-    // chargement des tinyMCE
-    /*
-    if ( $('#product_description').length ){
-        loadTinyMCE('#product_description');
-    }
-    */
 
     /** trigger : load all products on click **/
     $(document).on('click', '#shopify_load_products', function () {
@@ -248,21 +203,5 @@ $(document).ready(function(){
     $(document).on('click', '#shopify_load_redirections', function(){
         shopifyLoadAllRedirections();
     })
-
-    $(document).on('click', '#btn_shopify_add_image_url', function(){
-        shopifyUploadImage('url');
-    })
-
-    $(document).on('click', '#btn_shopify_add_image_computer', function(){
-        shopifyUploadImage('computer');
-    })
-
-    $(document).on('click', '.btn_shopify_delete_product_image', function(){
-        var idProductImage = $(this).attr('data-id-product-image');
-        shopifyDeleteProductImage(idProductImage);
-    })
-
-
-
 
 })

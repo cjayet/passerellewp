@@ -14,8 +14,8 @@
     "require": {
         "php": ">=5.4.0",
         "firebase/php-jwt": "^3.0",
-        "phpish/http": "dev-master",
-        "phpish/shopify": "dev-master",
+        "sandeepshetty/wcurl": "dev-master",
+        "sandeepshetty/shopify_api": "dev-master",
         "weebly/weebly_client": "dev-master"
     }
 }

@@ -48,7 +48,7 @@ OptimizmeUtils::LoadBloc('header');
                         <textarea name="product_description" id="product_description" data-id="product_description" data-tinymce="1" class="form-control loadTinyMCE"></textarea>
                     </div>
                     <div class="col-md-12">
-                        <button type="button" data-id="action" value="set_shopify_product_update" class="btn btn-primary push_cms" data-url="index.php?ajax=shopifySaveProduct">Envoyer</button>
+                        <button type="button" data-id="action" value="update_product" class="btn btn-primary push_cms" data-url="index.php?ajax=shopify">Envoyer</button>
                     </div>
                 </div>
             </form>
@@ -59,36 +59,48 @@ OptimizmeUtils::LoadBloc('header');
             <div class="col-md-12 h200">&nbsp;</div>
         </div>
 
-        <h3>IMG LIST :</h3>
-        <div id="image-list"></div>
+        <div class="row">
+            <h3>IMG LIST :</h3>
+            <div id="image-list"></div>
+        </div>
 
 
-        <h3>IMG ENVOI :</h3>
-        <form>
-            <div class="row">
-                <div class="form-group col-md-8">
-                    <label for="url"> Upload image from URL</label>
-                    <input type="text" name="url" id="image_url" data-id="url" class="form-control" value="" required="" />
+        <div class="row">
+            <h3>IMG ENVOI :</h3>
+            <p>
+                Exemples :
+                <ul>
+                    <li>http://www.azlegal.com/wp-content/uploads/sites/22/2014/09/corporate_law.jpg</li>
+                    <li>http://files.globallc.webnode.com/200000017-c5bb9c6b5f/Corporate_Image.jpg</li>
+                    <li>http://sncevent.com/wp-content/uploads/2016/10/Corporate-Training.jpg</li>
+                </ul>
+            </p>
+            <form>
+                <div class="row">
+                    <div class="form-group col-md-8">
+                        <label for="url"> Upload image from URL</label>
+                        <input type="text" name="url" id="image_url" data-id="url" class="form-control" value="" required="" />
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" data-id="action" value="add_product_image_url" class="btn btn-default t25 push_cms" data-url="index.php?ajax=shopify" data-after="shopifyRefreshProductImages">Envoyer</button>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <button type="button" data-id="action" value="" class="btn btn-default t25 push_cms" data-url="index.php?ajax=shopifyAddProductImageUrl" data-after="shopifyRefreshProductImages">Envoyer</button>
-                </div>
-            </div>
-        </form>
+            </form>
 
 
-        <form enctype="multipart/form-data">
-            <div class="row">
-                <div class="form-group col-md-8">
-                    <label for="url"> Upload image from computer</label>
-                    <input type="file" name="image_computer" id="image_computer" data-id="computer" class="form-control" value="" required="" />
-                    <input type="file" name="image_computer2" id="image_computer2" data-id="computer2" class="form-control" value="" required="" />
+            <form enctype="multipart/form-data">
+                <div class="row">
+                    <div class="form-group col-md-8">
+                        <label for="url"> Upload image from computer</label>
+                        <input type="file" name="image_computer" id="image_computer" data-id="computer" class="form-control" value="" required="" />
+                        <input type="file" name="image_computer2" id="image_computer2" data-id="computer2" class="form-control" value="" required="" />
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" data-id="action" value="add_product_image_computer" class="btn btn-default t25 push_cms" data-url="index.php?ajax=shopify" data-after="shopifyRefreshProductImages">Envoyer</button>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <button type="button" data-id="action" value="" class="btn btn-default t25 push_cms" data-url="index.php?ajax=shopifyAddProductImageComputer" data-after="shopifyRefreshProductImages">Envoyer</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div
 
     <div class="row">

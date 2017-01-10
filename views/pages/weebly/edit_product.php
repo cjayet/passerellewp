@@ -47,7 +47,7 @@ OptimizmeUtils::LoadBloc('header');
 
                     </div>
                     <div class="col-md-12">
-                        <button type="button" data-id="action" value="set_weebly_product_update" class="btn btn-primary push_cms" data-url="index.php?ajax=weebly">Envoyer</button>
+                        <button type="button" data-id="action" value="update_product" class="btn btn-primary push_cms" data-url="index.php?ajax=weebly">Envoyer</button>
                     </div>
                 </div>
             </form>
@@ -66,6 +66,14 @@ OptimizmeUtils::LoadBloc('header');
         <div class="row">
 
             <h3>IMG ENVOI :</h3>
+            <p>
+                Exemples :
+                <ul>
+                    <li>http://www.azlegal.com/wp-content/uploads/sites/22/2014/09/corporate_law.jpg</li>
+                    <li>http://files.globallc.webnode.com/200000017-c5bb9c6b5f/Corporate_Image.jpg</li>
+                    <li>http://sncevent.com/wp-content/uploads/2016/10/Corporate-Training.jpg</li>
+                </ul>
+            </p>
             <form>
                 <div class="row">
                     <div class="form-group col-md-8">

@@ -104,6 +104,7 @@ $(document).ready(function () {
                     else {
                         // autres input
                         tabData[$(this).attr('data-id')] = $(this).val();
+                        console.log( 'log action: ' + $(this).attr('data-id') + ' => ' + $(this).val());
 
                         // cas particuliers
                         if ($(this).attr('data-id') == 'action' && $(this).val() == 'set_post_content') {
@@ -118,8 +119,7 @@ $(document).ready(function () {
                             tabData['shop_name'] = $('#url_cible').val();
                             tabData['product_description'] = getTinymceContent('product_description');
                         }
-                        else if ($(this).attr('data-id') == 'action' && $(this).val() == 'set_weebly_product_update') {
-                            tabData['function'] = 'patch_product'
+                        else if ($(this).attr('data-id') == 'action' && $(this).val() == 'update_product') {
                             tabData['shop_name'] = $('#url_cible').val();
                             tabData['product_description'] = getTinymceContent('product_description');
                         }
@@ -197,7 +197,5 @@ $(document).ready(function () {
             // error
             sweetAlert("Oops...", "No URL to perform ajax!", "error");
         }
-
     });
-
 })

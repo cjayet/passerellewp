@@ -21,7 +21,7 @@ if (isset($dataOptimizme->action) && $dataOptimizme->action != ''){
     switch ($dataOptimizme->action){
         case 'get_products':            $weebly->getProducts(); break;
         case 'get_product':             $weebly->getProduct($dataOptimizme); break;
-        case 'patch_product':           $weebly->patchProduct($dataOptimizme); break;
+        case 'update_product':           $weebly->patchProduct($dataOptimizme); break;
         case 'get_product_images':      $weebly->getProductImages($dataOptimizme); break;
         case 'delete_product_image':    $weebly->deleteProductImage($dataOptimizme); break;
         case 'add_product_image_url':   $weebly->addProductImageFromUrl($dataOptimizme); break;

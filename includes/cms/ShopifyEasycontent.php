@@ -11,17 +11,28 @@ class ShopifyEasycontent
 {
     public $appSettings;
     public $shopify;
+    public $response;
+    public $message;
 
+    /**
+     * ShopifyEasycontent constructor.
+     * @param string $shopName
+     */
     public function __construct($shopName=''){
+        $this->message = '';
+        $this->response = array();
+
         $this->loadAppData();
         if ($shopName!= '')         $this->loadShopConnection($shopName);
     }
 
+    /**
+     * load app data for shopify
+     */
     public function loadAppData(){
         $db = new EasycontentDB();
         $this->appSettings = $db->getOneRow('SELECT * FROM shopify_appsettings WHERE id="1"');
     }
-
 
     /**
      * @param $shopName
@@ -61,7 +72,6 @@ class ShopifyEasycontent
         catch (Exception $e){
             return '';
         }
-
         return '';
     }
 
@@ -71,55 +81,74 @@ class ShopifyEasycontent
     public function getAllProducts(){
 
         $shopify = $this->shopify;
-        $products = $shopify('GET', '/admin/products.json', array('published_status' => 'published'));
-        return $products;
+        try {
+            $this->response['products'] = $shopify('GET', '/admin/products.json', array('published_status' => 'published'));
+        }
+        catch (Exception $e){
+            $this->message = 'Error get products: '. $e->getMessage();
+        }
+
     }
 
     /**
-     * @param $idProduct
-     * @return mixed
+     * @param $data
      */
-    public function getProduct($idProduct){
+    public function getProduct($data){
         $shopify = $this->shopify;
-        $product = $shopify('GET', '/admin/products/'. $idProduct .'.json');
-        if (is_array($product['images']) && count($product['images'])>0){
-            for ($i=0; $i<count($product['images']);$i++){
 
-                // charge metafields de cette image
-                $metafields = $shopify('GET', '/admin/metafields.json?metafield[owner_id]='. $product['images'][$i]['id'] .'&metafield[owner_resource]=product_image');
-                //OptimizmeUtils::nice($metafields);
-                if (is_array($metafields) && count($metafields)>0){
-                    foreach ($metafields as $metafieldBoucle){
-                        $product['images'][$i]['metafield_'. $metafieldBoucle['key']] = $metafieldBoucle['value'];
-                        $product['images'][$i]['metafield_'. $metafieldBoucle['key'].'_id'] = $metafieldBoucle['id'];
+        try {
+            $product = $shopify('GET', '/admin/products/'. $data->id_product .'.json');
+
+            if (is_array($product['images']) && count($product['images'])>0){
+                for ($i=0; $i<count($product['images']);$i++){
+
+                    // charge metafields de cette image
+                    $metafields = $shopify('GET', '/admin/metafields.json?metafield[owner_id]='. $product['images'][$i]['id'] .'&metafield[owner_resource]=product_image');
+                    //OptimizmeUtils::nice($metafields);
+                    if (is_array($metafields) && count($metafields)>0){
+                        foreach ($metafields as $metafieldBoucle){
+                            $product['images'][$i]['metafield_'. $metafieldBoucle['key']] = $metafieldBoucle['value'];
+                            $product['images'][$i]['metafield_'. $metafieldBoucle['key'].'_id'] = $metafieldBoucle['id'];
+                        }
+                    }
+
+                    // ajoute le champ "alt" dans l'image si rien n'est défini
+                    if ( !isset($product['images'][$i]['metafield_alt']) ){
+                        $product['images'][$i]['metafield_alt'] = '';
+                        $product['images'][$i]['metafield_alt_id'] = '';
                     }
                 }
-
-                // ajoute le champ "alt" dans l'image si rien n'est défini
-                if ( !isset($product['images'][$i]['metafield_alt']) ){
-                    $product['images'][$i]['metafield_alt'] = '';
-                    $product['images'][$i]['metafield_alt_id'] = '';
-                }
             }
+
+            $this->response['product'] = $product;
+
         }
-        return $product;
+        catch (Exception $e){
+            $this->message = 'Error get product: '. $e->getMessage();
+        }
     }
 
     /**
-     * @param $idProduct
-     * @return array
+     * @param $data
      */
-    public function getProductMetas($idProduct){
+    public function getProductMetas($data){
         $shopify = $this->shopify;
-        $metaProduct = $shopify('GET', '/admin/products/'. $idProduct .'/metafields.json');
-        $productMeta = array('meta_title' => '', 'meta_description' => '');
-        if (is_array($metaProduct) && count($metaProduct)>0){
-            foreach ($metaProduct as $metaBoucle){
-                if ($metaBoucle['key'] == 'description_tag')        $productMeta['meta_description'] = $metaBoucle['value'];
-                if ($metaBoucle['key'] == 'title_tag')              $productMeta['meta_title'] = $metaBoucle['value'];
+
+        try {
+            $metaProduct = $shopify('GET', '/admin/products/'. $data->id_product .'/metafields.json');
+            $productMeta = array('meta_title' => '', 'meta_description' => '');
+            if (is_array($metaProduct) && count($metaProduct)>0){
+                foreach ($metaProduct as $metaBoucle){
+                    if ($metaBoucle['key'] == 'description_tag')        $productMeta['meta_description'] = $metaBoucle['value'];
+                    if ($metaBoucle['key'] == 'title_tag')              $productMeta['meta_title'] = $metaBoucle['value'];
+                }
             }
+            $this->response['metas'] = $productMeta;
         }
-        return $productMeta;
+        catch (Exception $e){
+            $this->message = 'Error get product meta: '. $e->getMessage();
+        }
+
     }
 
     /**
@@ -139,14 +168,25 @@ class ShopifyEasycontent
                 'handle' => $data->handle
             )
         );
-        $product = $shopify('PUT', '/admin/products/'. $data->id_post .'.json', $args);
 
+        try {
+            $product = $shopify('PUT', '/admin/products/'. $data->id_post .'.json', $args);
 
-        // creation d'une redirection (si url a changé)
-        if ( isset($data->handle) && $data->handle != '' && isset($data->current_handle) && $data->current_handle != $data->handle){
-            // handles différents: ajour d'une redirection
-            $argsRedirect = array('redirect' => array('path' => '/products/'. $data->current_handle, 'target' => '/products/'. $data->handle));
-            $redirection = $shopify('POST', '/admin/redirects.json', $argsRedirect);
+            if ( isset($data->handle) && $data->handle != '' && isset($data->current_handle) && $data->current_handle != $data->handle){
+                // handles différents: ajour d'une redirection
+                $argsRedirect = array('redirect' => array('path' => '/products/'. $data->current_handle, 'target' => '/products/'. $data->handle));
+                $product = $shopify('POST', '/admin/redirects.json', $argsRedirect);
+                $this->message = 'Product saved and redirection added';
+            }
+            else {
+                $this->message = 'Product saved';
+            }
+
+            $this->response['product'] = $product;
+
+        }
+        catch (Exception $e){
+            $this->message = 'Error save product: '. $e->getMessage();
         }
     }
 
@@ -155,19 +195,31 @@ class ShopifyEasycontent
      */
     public function getAllRedirections(){
         $shopify = $this->shopify;
-        $redirections = $shopify('GET', '/admin/redirects.json');
-        return $redirections;
-    }
 
+        try {
+            $redirections = $shopify('GET', '/admin/redirects.json');
+            $this->response['redirections'] = $redirections;
+        }
+        catch (Exception $e){
+            $this->message = 'Error get all redirection: '. $e->getMessage();
+        }
+
+    }
 
     /**
      * @param $idRedirection
      */
-    public function deleteRedirection($idRedirection){
+    public function deleteRedirection($data){
         $shopify = $this->shopify;
-        $res = $shopify('DELETE', '/admin/redirects/'. $idRedirection .'.json');
+        try {
+            $shopify('DELETE', '/admin/redirects/'. $data->id_redirection .'.json');
+            $this->response['delete'] = 1;
+            $this->message = 'Redirect deleted';
+        }
+        catch (Exception $e){
+            $this->message = 'Error delete redirection: '. $e->getMessage();
+        }
     }
-
 
     /**
      * @param $dataOptimizme
@@ -195,13 +247,19 @@ class ShopifyEasycontent
                 )
             )
         );
-        $shopify('PUT', '/admin/products/'. $dataOptimizme->id_post .'/images/'. $dataOptimizme->id_image .'.json', $args);
-    }
 
+        try {
+            $image = $shopify('PUT', '/admin/products/'. $dataOptimizme->id_post .'/images/'. $dataOptimizme->id_image .'.json', $args);
+            $this->response['image'] = $image;
+            $this->message = 'Image Alt updated';
+        }
+        catch (Exception $e){
+            $this->message = 'Error set product image alt';
+        }
+    }
 
     /**
      * @param $dataOptimizme
-     * @return int|string
      */
     public function addProductImage($dataOptimizme){
 
@@ -210,38 +268,27 @@ class ShopifyEasycontent
         try {
             $args = array(
                 "image" => array(
-                    //"src" => "http:\/\/example.com\/rails_logo.gif"
-                    //"src" => "http:\/\/www.w3schools.com\/css\/img_fjords.jpg",
-                    "src" => $dataOptimizme->url,
-                    "metafields" => array(
-                        0 => array(
-                            "key"=> "alt",
-                            "value"=> $dataOptimizme->image_alt,
-                            "value_type"=> "string",
-                            "namespace"=> "tags"
-                        )
-                    )
+                    "src" => $dataOptimizme->url
                 )
             );
 
             $rest = $shopify('POST', '/admin/products/'. $dataOptimizme->id_post .'/images.json', $args);
             if ($rest['src']){
-                return 1;
+                $this->response['image'] = $rest;
+                $this->message = 'Image added';
             }
             else {
-                return "Error";
+                $this->message = 'Error, no source for image';
             }
 
         }
         catch (Exception $e){
-            return $e->getMessage();
+            $this->message = 'Error add product image from url: '. $e->getMessage();
         }
-
     }
 
     /**
      * @param $dataOptimizme
-     * @return int|string
      */
     public function addProductImageComputer($dataOptimizme){
 
@@ -259,34 +306,32 @@ class ShopifyEasycontent
 
                     $rest = $shopify('POST', '/admin/products/'. $dataOptimizme->id_post .'/images.json', $args);
                     if (!$rest['src']){
-                        OptimizmeUtils::nice($rest);
-                        return "Error adding image;";
+                        $this->message = 'Error adding image;';
                     }
                 }
                 catch (Exception $e){
-                    return $e->getMessage();
+                    $this->message = 'Error add product image form computer: '. $e->getMessage();
                 }
             }
 
             // all ok
-            return 1;
+            $this->response['add'] = 1;
+            $this->message = 'Image(s) added';
         }
-
     }
-
 
     /**
      * @param $dataOptimizme
-     * @return int
      */
     public function deleteProductImage($dataOptimizme){
         $shopify = $this->shopify;
         try {
             $shopify('DELETE', '/admin/products/' . $dataOptimizme->id_post . '/images/' . $dataOptimizme->id_image . '.json');
-            return 1;
+            $this->response['delete'] = 1;
+            $this->message = 'Product image deleted';
         }
         catch (Exception $e){
-            return $e->getMessage();
+            $this->message = "Error delete product image: ". $e->getMessage();
         }
     }
 }

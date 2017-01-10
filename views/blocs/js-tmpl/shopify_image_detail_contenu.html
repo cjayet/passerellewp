@@ -1,23 +1,26 @@
 <script type="text/x-jquery-tmpl">
 
     <div id="shopify_img_${id_image}" class="col-md-4 col-sm-4">
-        <form id="shopify_list_product_images">
-            <div class="row">
-                <div class="col-md-12">
-                    <img src="${url_image}" alt="${alt_image}" width="100%" class="img-thumbnail" />
-                </div>
-                <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <img src="${url_image}" alt="${alt_image}" width="100%" class="img-thumbnail" />
+            </div>
+            <div class="col-md-12">
+                <form>
                     <label>ALT :</label>
                     <input class="form-control" type="text" data-id="alt_image" id="alt_image" name="alt_image" value="${alt_image}" placeholder="Alt de l'image" />
-                </div>
-                <div class="col-md-12">
-                    <button type="button" data-id="action" value="" class="btn btn-default push_cms" data-url="index.php?ajax=shopifySetImageAltProduct" data-after="shopifyRefreshProductImages" >Mettre à jour</button>
-                    <button type="button" data-id="action" value="" class="btn btn-danger push_cms" data-url="index.php?ajax=shopifyDeleteProductImage" data-after="shopifyRefreshProductImages" >Delete</button>
-                </div>
-                <input type="hidden" data-id="id_image" name="id_image" value="${id_image}" />
-                <input type="hidden" data-id="id_metafield_alt" name="id_metafield_alt" value="${id_metafield_alt}" />
+                    <button type="button" data-id="action" value="update_product_image_alt" class="btn btn-default push_cms" data-url="index.php?ajax=shopify" data-after="shopifyRefreshProductImages" >Mettre à jour</button>
+                    <input type="hidden" data-id="id_image" name="id_image" value="${id_image}" />
+                    <input type="hidden" data-id="id_metafield_alt" name="id_metafield_alt" value="${id_metafield_alt}" />
+                </form>
             </div>
-        </form>
+            <div class="col-md-12">
+                <form>
+                    <button type="button" data-id="action" value="delete_product_image" class="btn btn-danger push_cms" data-url="index.php?ajax=shopify" data-after="shopifyRefreshProductImages" >Delete</button>
+                    <input type="hidden" data-id="id_image" name="id_image" value="${id_image}" />
+                    <input type="hidden" data-id="id_metafield_alt" name="id_metafield_alt" value="${id_metafield_alt}" />
+                </form>
+            </div>
+        </div>
     </div>
-
 </script>

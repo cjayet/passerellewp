@@ -8,26 +8,34 @@
  */
 class WeeblyEasycontent
 {
-
     public $appSettings;
     public $userSettings;
     public $weebly;
     public $response;
     public $message;
 
+    /**
+     * WeeblyEasycontent constructor.
+     * @param string $siteId
+     */
     public function __construct($siteId=''){
         $this->message = '';
         $this->response = array();
+
         $this->loadAppData();
         if ($siteId!= '')         $this->loadShopConnection($siteId);
     }
 
+    /**
+     * load app settings
+     */
     public function loadAppData(){
         $db = new EasycontentDB();
         $this->appSettings = $db->getOneRow('SELECT * FROM weebly_appsettings WHERE id="1"');
     }
 
     /**
+     * load client settings
      * @param $siteId
      */
     public function loadShopConnection($siteId){
@@ -50,7 +58,6 @@ class WeeblyEasycontent
 
     }
 
-
     /**
      * @param $shop
      * @return string
@@ -72,16 +79,21 @@ class WeeblyEasycontent
 
     }
 
-
     /**
      * get products list
      */
     public function getProducts(){
         // get products list from site
         $endpoint = '/user/sites/'. $this->userSettings->site_id .'/store/products';
-        $this->response['products'] = $this->weebly->get($endpoint);
-    }
 
+        try {
+            $this->response['products'] = $this->weebly->get($endpoint);
+        }
+        catch (Exception $e){
+            $this->message = 'Error get products: '. $e->getMessage();
+        }
+
+    }
 
     /**
      * get product detail
@@ -90,7 +102,13 @@ class WeeblyEasycontent
     public function getProduct($data){
         // get detail product
         $endpoint = '/user/sites/'. $this->userSettings->site_id .'/store/products/'. $data->id_product;
-        $this->response['product'] = $this->weebly->get($endpoint);
+
+        try {
+            $this->response['product'] = $this->weebly->get($endpoint);
+        }
+        catch (Exception $e){
+            $this->message = 'Error get product: '. $e->getMessage();
+        }
     }
 
     /**
@@ -119,9 +137,14 @@ class WeeblyEasycontent
      */
     public function getProductImages($data){
         $endpoint = '/user/sites/'. $this->userSettings->site_id .'/store/products/'. $data->id_product .'/images';
-        $this->response['product_images'] = $this->weebly->get($endpoint);
-    }
 
+        try {
+            $this->response['product_images'] = $this->weebly->get($endpoint);
+        }
+        catch (Exception $e){
+            $this->message = 'Error get products: '. $e->getMessage();
+        }
+    }
 
     /**
      * @param $data
@@ -138,11 +161,13 @@ class WeeblyEasycontent
         }
     }
 
-
+    /**
+     * @param $data
+     */
     public function addProductImageFromUrl($data){
 
         $parameters = array('img_url' => $data->url);
-        $endpoint = '/user/sites/'. $this->userSettings->site_id .'/store/products/'. $data->id_product .'/images/'. $data->id_product_image;
+        $endpoint = '/user/sites/'. $this->userSettings->site_id .'/store/products/'. $data->id_post .'/images';
 
         try {
             $this->response['product_image'] = $this->weebly->post($endpoint, $parameters);
