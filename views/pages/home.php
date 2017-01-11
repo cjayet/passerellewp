@@ -49,6 +49,8 @@ OptimizmeUtils::LoadBloc('header');
             <h2>Weebly</h2>
             <ul>
                 <li><a href="<?php OptimizmeUtils::LinkToPage('weebly/edit_product'); ?>">Edit product</a></li>
+                <li><a href="<?php OptimizmeUtils::LinkToPage('weebly/edit_category'); ?>">Categories</a></li>
+                <li><a href="<?php OptimizmeUtils::LinkToPage('weebly/create_category'); ?>">New Category</a></li>
             </ul>
         </div>
 

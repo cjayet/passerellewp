@@ -115,7 +115,7 @@ class WeeblyEasycontent
      * Update existing product
      * @param $data
      */
-    public function patchProduct($data){
+    public function setProduct($data){
         $parameters = array(
             'name' => $data->name,
             'short_description' => $data->product_description
@@ -175,6 +175,166 @@ class WeeblyEasycontent
         }
         catch (Exception $e){
             $this->message = 'Error adding image: '. $e->getMessage();
+        }
+    }
+
+    /**
+     * Get all categories
+     */
+    public function getCategories(){
+        $endpoint = '/user/sites/'. $this->userSettings->site_id .'/store/categories';
+
+        try {
+            $categories = $this->weebly->get($endpoint);
+            $tabCategories = array();
+            if (is_array($categories) && count($categories)>0){
+                foreach ($categories as $categorie){
+                    array_push($tabCategories, array(
+                        'id' => $categorie->category_id,
+                        'name' => $categorie->name
+                    ));
+                }
+            }
+
+            $this->response['categories'] = $tabCategories;
+        }
+        catch (Exception $e){
+            $this->message = 'Error loading categories: '. $e->getMessage();
+        }
+    }
+
+    /**
+     * Add a new category
+     * @param $data
+     */
+    public function addCategory($data){
+
+        $parameters = array(
+            'name' => $data->name,
+            'seo_page_title' => $data->meta_title,
+            'seo_page_description' => $data->meta_description,
+            );
+
+        // set products ?
+        if (isset($data->product_id) && count($data->product_id)>0){
+            $parameters['product_ids'] = $data->product_id;
+        }
+
+        $endpoint = '/user/sites/'. $this->userSettings->site_id .'/store/categories';
+        try {
+            $resUpload = $this->weebly->post($endpoint, $parameters);
+
+            if ( isset($resUpload->error)) {
+                $this->message = 'Error adding category : code '. $resUpload->error->code . ' : ' . $resUpload->error->message;
+            }
+            else {
+                // ok
+                $this->message = 'Category added';
+                $this->response['category'] = $resUpload;
+            }
+        }
+        catch (Exception $e){
+            $this->message = 'Error adding category: '. $e->getMessage();
+        }
+    }
+
+    /**
+     * Get category details
+     */
+    public function getCategory($data){
+        $endpoint = '/user/sites/'. $this->userSettings->site_id .'/store/categories/'. $data->id_post;
+
+        try {
+            $category = $this->weebly->get($endpoint);
+
+            // category image set ?
+            if (isset($category->images[0]->url) && $category->images[0]->url != '')    $category_image_url = $category->images[0]->url;
+            else                                                                        $category_image_url = '';
+
+            $tabCategory = array(
+                'id' => $category->category_id,
+                'name' => $category->name,
+                'url' => $category->url,
+                'image_url' => $category_image_url,
+                'seo_title' => $category->seo_page_title,
+                'seo_description' => $category->seo_page_description,
+                'product_ids' => $category->product_ids
+            );
+            $this->response['category'] = $tabCategory;
+        }
+        catch (Exception $e){
+            $this->message = 'Error loading categories: '. $e->getMessage();
+        }
+    }
+
+    /**
+     * @param $data
+     */
+    public function setCategory($data){
+        if ($data->action == 'set_category_metatitle'){
+            $key = 'seo_page_title';
+            $value = 'meta_title';
+
+            if (!isset($data->$value))      $data->$value = '';
+        }
+        elseif ($data->action == 'set_category_metadescription'){
+            $key = 'seo_page_description';
+            $value = 'meta_description';
+        }
+        elseif ($data->action == 'set_category_name'){
+            $key = 'name';
+            $value = 'new_name';
+        }
+        elseif ($data->action == 'set_category_products'){
+            $key = 'product_ids';
+            $value = 'product_id';
+
+            if (!isset($data->$value))      $data->$value = array();
+        }
+        else {
+            $key = '';
+        }
+
+        if ($key != ''){
+
+            $parameters = array($key => $data->$value);
+            $endpoint = '/user/sites/'. $this->userSettings->site_id .'/store/categories/'. $data->id_post;
+            try {
+                $this->response['category'] = $this->weebly->patch($endpoint, $parameters);
+                $this->message = 'Category updated';
+            }
+            catch (Exception $e){
+                $this->message = 'Error patch category: '. $e->getMessage();
+            }
+        }
+        else {
+            $this->message = 'Error no action defined';
+        }
+    }
+
+    /**
+     * @param $data
+     */
+    public function setCategoryImageFromUrl($data){
+
+        $parameters = array(
+            'img_url' => trim($data->url)
+        );
+        $endpoint = '/user/sites/'. $this->userSettings->site_id .'/store/categories/'. $data->id_post .'/images';
+
+        try {
+            $resUpload = $this->weebly->post($endpoint, $parameters);
+            if ($resUpload->error){
+                $this->message = 'Error adding image: code '. $resUpload->error->code . ' : ' . $resUpload->error->message;
+            }
+            else {
+                $this->response['category_image'] = $resUpload;
+                $this->message = 'Image added';
+            }
+
+        }
+        catch (Exception $e){
+            $this->message = 'Error adding category image: '. $e->getMessage();
         }
     }
 

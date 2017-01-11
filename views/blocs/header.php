@@ -79,6 +79,8 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Weebly <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="<?php OptimizmeUtils::LinkToPage('weebly/edit_product') ?>">Edit produit</a></li>
+                            <li><a href="<?php OptimizmeUtils::LinkToPage('weebly/edit_category') ?>">Categories</a></li>
+                            <li><a href="<?php OptimizmeUtils::LinkToPage('weebly/create_category') ?>">New Category</a></li>
                         </ul>
                     </li>
 

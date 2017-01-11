@@ -19,17 +19,28 @@ if (isset($dataOptimizme->action) && $dataOptimizme->action != ''){
     ////////////////////////////
 
     switch ($dataOptimizme->action){
-        case 'get_products':            $weebly->getProducts(); break;
-        case 'get_product':             $weebly->getProduct($dataOptimizme); break;
-        case 'update_product':           $weebly->patchProduct($dataOptimizme); break;
-        case 'get_product_images':      $weebly->getProductImages($dataOptimizme); break;
-        case 'delete_product_image':    $weebly->deleteProductImage($dataOptimizme); break;
-        case 'add_product_image_url':   $weebly->addProductImageFromUrl($dataOptimizme); break;
+        case 'get_products':                    $weebly->getProducts(); break;
+        case 'get_product':                     $weebly->getProduct($dataOptimizme); break;
+        case 'update_product':                  $weebly->setProduct($dataOptimizme); break;
+        case 'get_product_images':              $weebly->getProductImages($dataOptimizme); break;
+        case 'delete_product_image':            $weebly->deleteProductImage($dataOptimizme); break;
+        case 'add_product_image_url':           $weebly->addProductImageFromUrl($dataOptimizme); break;
 
-        //case 'add_product_image_computer':   $weebly->($dataOptimizme); break;
-        //case 'delete_product_image':   $weebly->($dataOptimizme); break;
+        case 'get_categories':                  $weebly->getCategories(); break;
+        case 'get_categories_products':         $weebly->getCategories();
+                                                $weebly->getProducts();
+                                                break;
+        case 'get_category':                    $weebly->getCategory($dataOptimizme);
+                                                $weebly->getProducts();
+                                                break;
+        case 'add_category':                    $weebly->addCategory($dataOptimizme); break;
+        case 'add_category_image_url':          $weebly->setCategoryImageFromUrl($dataOptimizme); break;
+        case 'set_category_name':
+        case 'set_category_metatitle':
+        case 'set_category_products':
+        case 'set_category_metadescription':    $weebly->setCategory($dataOptimizme); break;
 
-        default :               $error = 'no_action';
+        default :                               $error = 'no_action';
     }
 
 
@@ -49,6 +60,9 @@ if (isset($dataOptimizme->action) && $dataOptimizme->action != ''){
         // all ok: send
         echo json_encode($tabRetour);
 
+    }
+    elseif ($weebly->message != ''){
+        $error = $weebly->message;
     }
     else {
         $error = 'no_response';

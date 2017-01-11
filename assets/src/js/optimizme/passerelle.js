@@ -53,9 +53,22 @@ $(document).ready(function () {
 
                 // valeurs présentes dans le formulaire
                 elements.each(function (){
-                    if ($(this).attr('type') == 'radio' || $(this).attr('type') == 'checkbox') {
+
+                    //console.log('ELEMENT: ' + $(this).attr('type') +' - '+ $(this).attr('name'))
+
+                    if ($(this).attr('type') == 'radio') {
                         if ($(this).prop('checked')) {
                             tabData[$(this).attr('data-id')] = $(this).val();
+                        }
+                    }
+                    else if ($(this).attr('type') == 'checkbox') {
+                        if ($(this).prop('checked')) {
+                            var ind = $(this).attr('data-id');
+
+                            if (! Array.isArray( tabData[ind] )){
+                                tabData[ind] = [];
+                            }
+                            tabData[ind].push($(this).val());
                         }
                     }
                     else if ($(this).attr('type') == 'select') {
@@ -104,7 +117,7 @@ $(document).ready(function () {
                     else {
                         // autres input
                         tabData[$(this).attr('data-id')] = $(this).val();
-                        console.log( 'log action: ' + $(this).attr('data-id') + ' => ' + $(this).val());
+                        //console.log( 'log action: ' + $(this).attr('data-id') + ' => ' + $(this).val());
 
                         // cas particuliers
                         if ($(this).attr('data-id') == 'action' && $(this).val() == 'set_post_content') {
