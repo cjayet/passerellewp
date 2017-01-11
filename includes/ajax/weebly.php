@@ -25,6 +25,7 @@ if (isset($dataOptimizme->action) && $dataOptimizme->action != ''){
         case 'get_product_images':              $weebly->getProductImages($dataOptimizme); break;
         case 'delete_product_image':            $weebly->deleteProductImage($dataOptimizme); break;
         case 'add_product_image_url':           $weebly->addProductImageFromUrl($dataOptimizme); break;
+        case 'add_product':                     $weebly->addProduct($dataOptimizme); break;
 
         case 'get_categories':                  $weebly->getCategories(); break;
         case 'get_categories_products':         $weebly->getCategories();

@@ -179,6 +179,42 @@ class WeeblyEasycontent
     }
 
     /**
+     * Add a new product in weebly
+     * Acceptable fields: (site_id, name, short_description, skus, options, images)
+     * @param $data
+     */
+    public function addProduct($data){
+
+        // required params
+        $parameters = array(
+            'name' => $data->name,
+            'skus' => array(array(
+                'price' => $data->price,
+                'product_type' => $data->type
+            )),
+            'short_description' => $data->description,
+            //'images' => array(array('url' => 'http://www.azlegal.com/wp-content/uploads/sites/22/2014/09/corporate_law.jpg'))
+        );
+
+        $endpoint = '/user/sites/'. $this->userSettings->site_id .'/store/products';
+        try {
+            $resUpload = $this->weebly->post($endpoint, $parameters);
+
+            if ( isset($resUpload->error)) {
+                $this->message = 'Error adding product : code '. $resUpload->error->code . ' : ' . $resUpload->error->message;
+            }
+            else {
+                // ok
+                $this->message = 'product added';
+                $this->response['product'] = $resUpload;
+            }
+        }
+        catch (Exception $e){
+            $this->message = 'Error adding product: '. $e->getMessage();
+        }
+    }
+
+    /**
      * Get all categories
      */
     public function getCategories(){
