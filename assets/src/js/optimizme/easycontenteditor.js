@@ -613,7 +613,7 @@ function afterLoadCategories(msg){
         }
 
 
-        // select products (if any)
+        // select products (if any) - weebly
         if (typeof msg.products !== 'undefined'){
             if (msg.products.length > 0 && $('#checkbox_products').length){
                 var dataproducts = '';

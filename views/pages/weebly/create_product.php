@@ -3,12 +3,12 @@
 OptimizmeUtils::LoadBloc('header');
 ?>
 
-<div class="container">
+<div id="page-weebly-createproduct" class="container">
     <div class="row">
         <div class="col-md-12">
             <?php OptimizmeUtils::LoadBloc('weebly/head_push'); ?>
             <form>
-                <button type="button" data-id="action" value="get_categories" id="btn_load_arbo" class="btn btn-primary push_cms" data-url="index.php?ajax=weebly" data-after="afterLoadCategories">Load categories</button>
+                <button type="button" data-id="action" value="check_product_create" id="btn_load_arbo" class="btn btn-primary push_cms" data-url="index.php?ajax=weebly" data-after="afterCheckProductCreateWeebly">Begin creation</button>
             </form>
         </div>
     </div>
@@ -27,7 +27,7 @@ OptimizmeUtils::LoadBloc('header');
 
                     <div class="form-group">
                         <label for="product_price">Price *</label>
-                        <input type="text" name="product_price" id="product_price" data-id="price" class="form-control" placeholder="Price" />
+                        <input type="text" name="product_price" id="product_price" data-id="price" class="form-control" placeholder="Price" required="required" />
                     </div>
 
                     <div class="form-group">

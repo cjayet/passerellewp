@@ -28,30 +28,25 @@ OptimizmeUtils::LoadBloc('header');
         <div class="col-md-12">
 
             <h3>Produit : </h3>
-            <form method="post" action="">
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <label for="name">Title</label>
-                        <input type="text" name="name" id="product_name" data-id="name" class="form-control" value="" required="" />
+            <div class="row">
+                <div class="form-group col-md-12">
 
-                        <label for="metatitle">URL</label>
-                        <input type="text" name="handle" id="product_url" data-id="url" class="form-control" value="" disabled="" />
+                    <label for="metatitle">URL</label>
+                    <input type="text" name="handle" id="product_url" data-id="url" class="form-control" value="" disabled="" />
 
-                        <label for="description">Description</label>
-                        <textarea name="product_description" id="product_description" data-id="product_description" data-tinymce="1" class="form-control loadTinyMCE"></textarea>
+                    <?php
+                    // TITRE
+                    OptimizmeUtils::LoadBloc('weebly/product/name');
 
-                        <?php
-                        // PUBLISH
-                        OptimizmeUtils::LoadBloc('form-push/post/publish');
-                        ?>
+                    // SHORT DESCRIPTION
+                    OptimizmeUtils::LoadBloc('weebly/product/short_description');
 
-                    </div>
-                    <div class="col-md-12">
-                        <button type="button" data-id="action" value="update_product" class="btn btn-primary push_cms" data-url="index.php?ajax=weebly">Envoyer</button>
-                    </div>
+                    // PUBLISH
+                    OptimizmeUtils::LoadBloc('weebly/product/publish');
+                    ?>
+
                 </div>
-            </form>
-
+            </div>
         </div>
 
         <div class="row">

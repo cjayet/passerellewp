@@ -19,14 +19,23 @@ if (isset($dataOptimizme->action) && $dataOptimizme->action != ''){
     ////////////////////////////
 
     switch ($dataOptimizme->action){
+
+        // site
+        case 'get_site':                        $weebly->getSite(); break;
+        case 'check_product_create':            $weebly->canCreateProduct(); break;
+
+        // products
         case 'get_products':                    $weebly->getProducts(); break;
         case 'get_product':                     $weebly->getProduct($dataOptimizme); break;
-        case 'update_product':                  $weebly->setProduct($dataOptimizme); break;
+        case 'set_product_name':
+        case 'set_product_shortdescription':
+        case 'set_product_publish':             $weebly->setProduct($dataOptimizme); break;
         case 'get_product_images':              $weebly->getProductImages($dataOptimizme); break;
         case 'delete_product_image':            $weebly->deleteProductImage($dataOptimizme); break;
         case 'add_product_image_url':           $weebly->addProductImageFromUrl($dataOptimizme); break;
         case 'add_product':                     $weebly->addProduct($dataOptimizme); break;
 
+        // categories
         case 'get_categories':                  $weebly->getCategories(); break;
         case 'get_categories_products':         $weebly->getCategories();
                                                 $weebly->getProducts();
@@ -39,8 +48,10 @@ if (isset($dataOptimizme->action) && $dataOptimizme->action != ''){
         case 'set_category_name':
         case 'set_category_metatitle':
         case 'set_category_products':
-        case 'set_category_metadescription':    $weebly->setCategory($dataOptimizme); break;
+        case 'set_category_metadescription':
+                                                $weebly->setCategory($dataOptimizme); break;
 
+        // nothing found
         default :                               $error = 'no_action';
     }
 

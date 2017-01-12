@@ -82,6 +82,7 @@
                             <li><a href="<?php OptimizmeUtils::LinkToPage('weebly/create_product') ?>">New produit</a></li>
                             <li><a href="<?php OptimizmeUtils::LinkToPage('weebly/edit_category') ?>">Categories</a></li>
                             <li><a href="<?php OptimizmeUtils::LinkToPage('weebly/create_category') ?>">New Category</a></li>
+                            <li><a href="<?php OptimizmeUtils::LinkToPage('weebly/install') ?>">Install</a></li>
                         </ul>
                     </li>
 

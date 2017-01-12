@@ -77,7 +77,7 @@ function weeblyLoadProducts(){
 }
 
 /**
- *
+ *  Load product detail
  */
 function weeblyLoadProduct(){
 
@@ -101,6 +101,9 @@ function weeblyLoadProduct(){
             $('#product_name').val(msg.product.name);
             $('#product_url').val(msg.product.url);
             $('#product_description').val(msg.product.short_description);
+
+            if (msg.product.published == true)          $('#easycontent-publish').prop('checked', true);
+            else                                        $('#easycontent-publish').prop('checked', false);
 
             // set tinymce for description
             if (msg.product.short_description == null)      msg.product.short_description = '';
@@ -153,7 +156,7 @@ function weeblyUploadImage(type){
 
 
 /**
- *
+ *  Get image list
  */
 function weeblyRefreshProductImages(){
 
@@ -226,6 +229,15 @@ function weeblyDeleteProductImage(idProductImage){
     })
 }
 
+
+function afterCheckProductCreateWeebly(msg){
+    if (msg.canAddProduct){
+        $('#page_easycontenteditor_loadpage').slideDown();
+    }
+    else {
+        $('#page_easycontenteditor_loadpage').css('display', 'none');
+    }
+}
 
 
 $(document).ready(function(){

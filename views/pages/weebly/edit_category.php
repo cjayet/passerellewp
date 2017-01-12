@@ -41,16 +41,16 @@ OptimizmeUtils::LoadBloc('header');
                 OptimizmeUtils::LoadBloc('form-push/post/permalink');
 
                 // TITRE
-                OptimizmeUtils::LoadBloc('weebly/name');
+                OptimizmeUtils::LoadBloc('weebly/category/name');
 
                 // titre seo
-                OptimizmeUtils::LoadBloc('weebly/category_meta_title');
+                OptimizmeUtils::LoadBloc('weebly/category/meta_title');
 
                 // DESCRIPTION
-                OptimizmeUtils::LoadBloc('weebly/category_meta_description');
+                OptimizmeUtils::LoadBloc('weebly/category/meta_description');
 
                 // PRODUITS ASSOCIES
-                OptimizmeUtils::LoadBloc('weebly/category_products_associated');
+                OptimizmeUtils::LoadBloc('weebly/category/products_associated');
                 ?>
 
             </div>

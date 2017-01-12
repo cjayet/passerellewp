@@ -80,6 +80,65 @@ class WeeblyEasycontent
     }
 
     /**
+     * @param $data
+     */
+    public function getSite($data){
+        // get site infos
+        $endpoint = '/user/sites/'. $this->userSettings->site_id;
+        try {
+            $this->response['site'] = $this->weebly->get($endpoint);
+        }
+        catch (Exception $e){
+            $this->message = 'Error get site: '. $e->getMessage();
+        }
+    }
+
+    /**
+     * Check if the subscribed Weebly plan
+     */
+    public function canCreateProduct(){
+        // get site infos
+        $endpoint = '/user/sites/'. $this->userSettings->site_id;
+        try {
+            $site = $this->weebly->get($endpoint);
+
+            if ($site->plan_level == 0){
+                // no product allowed
+                $this->response['canAddProduct'] = 0;
+                $this->message = "You can't add product in a free Weebly plan, please upgrade your plan.";
+            }
+            else {
+                // product allowed: how many left
+                if ($site->plan_level >= 15){
+                    $this->message = "You can create unlimited products";
+                    $this->response['canAddProduct'] = 1;
+                }
+                else {
+                    // limited: how many products created
+                    $endpoint = '/user/sites/'. $this->userSettings->site_id .'/store/products/count';
+                    $nbProductsCreated = $this->weebly->get($endpoint);
+
+                    if ($site->plan_level == 5 || $site->plan_level == 10){
+                        if ($site->plan_level == 5)     $productsLeft = 10 - $nbProductsCreated->count;     // starter: limited to 10 products
+                        else                            $productsLeft = 25 - $nbProductsCreated->count;     // pro: limited to 25 products
+                        $this->message = $nbProductsCreated->count . ' product(s) created, '. $productsLeft . ' product(s) left in your plan';
+
+                        if ($productsLeft != '' && $productsLeft > 0)       $this->response['canAddProduct'] = 1;
+                        else                                                $this->response['canAddProduct'] = 0;
+                    }
+                    else {
+                        $this->message = 'No plan match...';
+                    }
+                }
+            }
+        }
+        catch (Exception $e){
+            $this->message = 'Error canCreateProduct: '. $e->getMessage();
+        }
+    }
+
+
+    /**
      * get products list
      */
     public function getProducts(){
@@ -113,21 +172,55 @@ class WeeblyEasycontent
 
     /**
      * Update existing product
+     * Acceptable fields: (site_id, site_product_id, name, short_description, published)
      * @param $data
      */
     public function setProduct($data){
-        $parameters = array(
-            'name' => $data->name,
-            'short_description' => $data->product_description
-        );
 
-        $endpoint = '/user/sites/'. $this->userSettings->site_id .'/store/products/'. $data->id_post;
-        try {
-            $this->response['product'] = $this->weebly->patch($endpoint, $parameters);
-            $this->message = 'Product updated';
+        if ($data->action == 'set_product_name'){
+            $key = 'name';
+            $value = 'product_name';
+
+            if (!isset($data->$value))      $data->$value = '';
         }
-        catch (Exception $e){
-            $this->message = 'Error patchProduct: '. $e->getMessage();
+        elseif ($data->action == 'set_product_shortdescription'){
+            $key = 'short_description';
+            $value = 'product_description';
+        }
+        elseif ($data->action == 'set_product_publish'){
+            $key = 'published';
+            $value = 'product_is_publish';
+
+            if (!isset($data->$value))      $data->$value = array(0);
+
+            // weebly need a boolean
+            if (is_array($data->$value) && count($data->$value)>0){
+                $firstElement = array_pop($data->$value);
+                if ($firstElement == 1)         $data->$value = true;
+                else                            $data->$value = false;
+            }
+            else {
+                // not processing correctly: no action to do...
+                $key = '';
+            }
+        }
+        else {
+            $key = '';
+        }
+
+        if ($key != '') {
+            $parameters = array($key => $data->$value);
+            //OptimizmeUtils::nice($parameters); die;
+            $endpoint = '/user/sites/' . $this->userSettings->site_id . '/store/products/' . $data->id_post;
+            try {
+                $this->response['product'] = $this->weebly->patch($endpoint, $parameters);
+                $this->message = 'Product updated';
+            } catch (Exception $e) {
+                $this->message = 'Error patchProduct: ' . $e->getMessage();
+            }
+        }
+        else {
+            $this->message = 'Error, no action defined';
         }
     }
 
@@ -193,7 +286,6 @@ class WeeblyEasycontent
                 'product_type' => $data->type
             )),
             'short_description' => $data->description,
-            //'images' => array(array('url' => 'http://www.azlegal.com/wp-content/uploads/sites/22/2014/09/corporate_law.jpg'))
         );
 
         $endpoint = '/user/sites/'. $this->userSettings->site_id .'/store/products';
@@ -241,6 +333,7 @@ class WeeblyEasycontent
 
     /**
      * Add a new category
+     * Acceptable fields: (site_id, name, page_title, page_description, product_ids, parent_category_id)
      * @param $data
      */
     public function addCategory($data){
