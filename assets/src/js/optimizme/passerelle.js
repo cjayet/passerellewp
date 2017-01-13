@@ -54,8 +54,7 @@ $(document).ready(function () {
                 // valeurs présentes dans le formulaire
                 elements.each(function (){
 
-                    console.log('ELEMENT: ' + $(this).attr('type') +' - '+ $(this).attr('name'));
-
+                    //console.log('ELEMENT: ' + $(this).attr('type') +' - '+ $(this).attr('name'));
                     if ($(this).attr('type') == 'radio') {
                         if ($(this).prop('checked')) {
                             tabData[$(this).attr('data-id')] = $(this).val();

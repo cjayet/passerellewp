@@ -54,6 +54,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="<?php OptimizmeUtils::LinkToPage('prestashop/easycontent_editor') ?>">Easycontent Editor</a></li>
                             <li><a href="<?php OptimizmeUtils::LinkToPage('prestashop/edit_category') ?>">Categories</a></li>
+                            <li><a href="<?php OptimizmeUtils::LinkToPage('prestashop/redirections') ?>">Redirections</a></li>
                         </ul>
                     </li>
 

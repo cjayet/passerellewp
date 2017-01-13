@@ -606,7 +606,7 @@ function afterLoadCategories(msg){
 
                 var dataLangs = '';
                 $.each(msg.langs, function(idx, lang){
-                    dataLangs += '<input type="'+ lang.id_lang +'">'+ lang.name +'</input>';
+                    dataLangs += '<option value="'+ lang.id_lang +'">'+ lang.name +'</option>';
                 })
                 $('#select_cms_lang').empty().append(dataLangs);
             }
@@ -628,7 +628,6 @@ function afterLoadCategories(msg){
 
         // refresh selectpicker des pages
         $('.selectpicker').selectpicker('refresh');
-
 
     }
     else {

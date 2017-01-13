@@ -16,7 +16,6 @@ OptimizmeUtils::LoadBloc('header');
 
 
     <div class="row" id="page_easycontenteditor_loadpage">
-
         <div class="col-md-12">
             <select name="select_cms_lang" id="select_cms_lang" data-id="select_cms_lang" class="form-control"></select>
         </div>
@@ -24,7 +23,6 @@ OptimizmeUtils::LoadBloc('header');
         <div class="col-md-12">
             <?php OptimizmeUtils::LoadBloc('easycontent/select_categories'); ?>
             <form id="form_load_grideditor">
-
                 <button id="btn-load-category" type="button" data-id="action" value="load_category_content" class="btn btn-primary push_cms" data-after="afterLoadCategory">
                     Load category
                 </button>
@@ -52,6 +50,12 @@ OptimizmeUtils::LoadBloc('header');
 
                 // DESCRIPTION
                 OptimizmeUtils::LoadBloc('form-push/category/description');
+
+                // META TITLE
+                OptimizmeUtils::LoadBloc('form-push/category/meta_title');
+
+                // META DESCRIPTION
+                OptimizmeUtils::LoadBloc('form-push/category/meta_description');
                 ?>
             </div>
         </div>

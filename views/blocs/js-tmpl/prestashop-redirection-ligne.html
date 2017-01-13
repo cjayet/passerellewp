@@ -1,0 +1,14 @@
+<script id="redirection-table-ligne" type="text/x-jquery-tmpl">
+    {{each redirections}}
+        <tr id="redirection-${id}" class="ligne_table_redirection {{if is_disabled == "1"}}danger{{else}}success{{/if}}">
+            <td>${id}</td>
+            <td><a href="${url_base}" target="_blank">${url_base}</a></td>
+            <td><a href="${url_redirect}" target="_blank">${url_redirect}</a></td>
+            <td>
+                <span class="glyphicon glyphicon-ok confirmAction" data-cms="prestashop" data-action="redirection_enable" data-id="${id}" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-remove confirmAction" data-cms="prestashop" data-action="redirection_disable" data-id="${id}" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-trash confirmAction" data-cms="prestashop" data-action="redirection_delete" data-id="${id}" aria-hidden="true"></span>
+            </td>
+        </tr>
+    {{/each}}
+</script>
