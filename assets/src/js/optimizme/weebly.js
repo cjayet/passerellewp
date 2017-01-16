@@ -1,36 +1,4 @@
 /**
- *  Load all redirections
- */
-function weeblyLoadAllRedirections(){
-
-    // préparation requête ajax pour les images
-    var tabData = {
-        shop_name: $('#url_cible').val(),
-        action: 'get_redirections'
-    };
-    var json_data = JSON.stringify(tabData, null, 2);
-
-    $('body').loading();
-
-    // exécution ajax
-    getAjaxResponse('index.php?ajax=weebly', json_data, function(msg) {
-        $('body').loading('stop');
-
-        if (msg.result == 'success'){
-            if (msg.redirections.length > 0)
-            {
-                // ajout de la liste des redirections
-                $("#redirection-table-ligne").tmpl(msg).appendTo("#table-redirections tbody");
-            }
-        }
-        else {
-            sweetAlert("Oops...", "Error loading redirections", "error");
-        }
-    })
-}
-
-
-/**
  * Load products lists
  */
 function weeblyLoadProducts(){
@@ -42,12 +10,11 @@ function weeblyLoadProducts(){
         shop_name: $('#url_cible').val(),
         action: 'get_products'
     };
-    var json_data = JSON.stringify(tabData, null, 2);
 
     $('body').loading();
 
     // exécution ajax
-    getAjaxResponse('index.php?ajax=weebly', json_data, function(msg) {
+    getAjaxResponse('index.php?ajax=weebly', tabData, function(msg) {
         $('body').loading('stop');
 
         if (msg.result == 'success'){
@@ -89,12 +56,11 @@ function weeblyLoadProduct(){
         id_product: $('#weebly_select_list_elements').val(),
         action: 'get_product'
     };
-    var json_data = JSON.stringify(tabData, null, 2);
 
     $('body').loading();
 
     // exécution ajax
-    getAjaxResponse('index.php?ajax=weebly', json_data, function(msg) {
+    getAjaxResponse('index.php?ajax=weebly', tabData, function(msg) {
         if (msg.result == 'success'){
 
             // set values
@@ -136,12 +102,11 @@ function weeblyUploadImage(type){
         id_product: $('#weebly_select_list_elements').val(),
         action: typeSendImage
     };
-    var json_data = JSON.stringify(tabData, null, 2);
 
     $('body').loading();
 
     // exécution ajax
-    getAjaxResponse('index.php?ajax=weebly', json_data, function(msg) {
+    getAjaxResponse('index.php?ajax=weebly', tabData, function(msg) {
         $('body').loading('stop');
 
         if (msg.result == 'success'){
@@ -168,12 +133,11 @@ function weeblyRefreshProductImages(){
         id_product: id_product,
         action: 'get_product_images'
     };
-    var json_data = JSON.stringify(tabData, null, 2);
 
     $('#image-list').loading();
 
     // exécution ajax
-    getAjaxResponse('index.php?ajax=weebly', json_data, function(msg) {
+    getAjaxResponse('index.php?ajax=weebly', tabData, function(msg) {
         if (msg.result == 'success'){
 
             // load la liste des images
@@ -212,12 +176,11 @@ function weeblyDeleteProductImage(idProductImage){
         id_product_image: idProductImage,
         action: 'delete_product_image'
     };
-    var json_data = JSON.stringify(tabData, null, 2);
 
     $('body').loading();
 
     // exécution ajax
-    getAjaxResponse('index.php?ajax=weebly', json_data, function(msg) {
+    getAjaxResponse('index.php?ajax=weebly', tabData, function(msg) {
         $('body').loading('stop');
 
         if (msg.result == 'success'){
@@ -229,7 +192,9 @@ function weeblyDeleteProductImage(idProductImage){
     })
 }
 
-
+/**
+ * @param msg
+ */
 function afterCheckProductCreateWeebly(msg){
     if (msg.canAddProduct){
         $('#page_easycontenteditor_loadpage').slideDown();
@@ -266,7 +231,7 @@ $(document).ready(function(){
     })
 
     $(document).on('click', '#weebly_load_redirections', function(){
-        weeblyLoadAllRedirections();
+        loadAllRedirectionsApi('weebly');
     })
 
     $(document).on('click', '#btn_weebly_add_image_url', function(){
@@ -281,5 +246,4 @@ $(document).ready(function(){
         var idProductImage = $(this).attr('data-id-product-image');
         weeblyDeleteProductImage(idProductImage);
     })
-
 })

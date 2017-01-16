@@ -13,12 +13,11 @@ $(document).ready(function(){
             // préparation requête ajax
             var tabData = {url_cible: urlArticleCible};
             tabData['action'] = 'load_site_options';
-            var json_data = JSON.stringify(tabData, null, 2);
 
             $('body').loading();
 
             // exécution ajax
-            getAjaxResponse(urlArticleCible, json_data, function(msg){
+            getAjaxResponse(urlArticleCible, tabData, function(msg){
 
                 if (msg.result == 'success'){
                     $('#easycontent_site_title').val(msg.site_title);

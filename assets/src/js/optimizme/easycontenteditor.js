@@ -25,8 +25,6 @@ function loadGridEditor(){
 
         if ($('#select_cms_lang').length)                           tabData['id_lang'] = $('#select_cms_lang').val();
 
-        var json_data = JSON.stringify(tabData, null, 2);
-
         $('#container-easycontent').css('display', 'none');
 
         if (tabData['id_post'] != ''){
@@ -34,7 +32,7 @@ function loadGridEditor(){
             $('body').loading();
 
             // exécution ajax
-            getAjaxResponse(urlArticleCible, json_data, function(msg){
+            getAjaxResponse(urlArticleCible, tabData, function(msg){
 
                 $('body').loading('stop');
 
@@ -267,6 +265,7 @@ function easycontentToolbarAction(){
         getAjaxResponse('index.php?ajax=getLoremIpsum', $(this).attr('data-select'), function(msg) {
             if(msg.result == 'success'){
                 sweetAlert("Res", msg.lorem);
+
                 // TODO ajouter le contenu en dessous et pouvoir l'injecter dans le grid editor
                 //$('#toolbar-easycontent-')
             }
@@ -381,10 +380,8 @@ function refreshImagesListInPost(){
             var tabData = {};
         }
 
-        var json_data = JSON.stringify(tabData, null, 2);
-
         // exécution ajax
-        getAjaxResponse('index.php?ajax=getImagesInGridEditor', json_data, function(msg) {
+        getAjaxResponse('index.php?ajax=getImagesInGridEditor', tabData, function(msg) {
             $('#image-list').empty();
             if (msg.result == 'success')
             {
@@ -419,10 +416,9 @@ function refreshLiensListInPost(){
     // préparation requête ajax pour les images
     var contenuEditor = $('#easycontent-grid').gridEditor('getHtml');
     var tabData = {grideditor_content: contenuEditor};
-    var json_data = JSON.stringify(tabData, null, 2);
 
     // exécution ajax
-    getAjaxResponse('index.php?ajax=getLiensInGridEditor', json_data, function(msg) {
+    getAjaxResponse('index.php?ajax=getLiensInGridEditor', tabData, function(msg) {
         $('#href-list').empty();
         if (msg.result == 'success')
         {
@@ -535,12 +531,11 @@ function afterLoadArborescence(msg){
         if (type == 'page')     $('#liste-pages').slideDown();
         else                    $('#liste-pages').slideUp();
     })
-
 }
 
 
 /**
- *
+ *  Get all categories from CMS
  */
 function loadAllCategories(){
 
@@ -557,16 +552,12 @@ function loadAllCategories(){
     // préparation requête ajax
     var tabData = {url_cible: urlCmsCible};
     tabData['action'] = 'load_categories';
-    var json_data = JSON.stringify(tabData, null, 2);
 
     // vide le selecteur
     $('#select_list_categories').empty();
 
-    getAjaxResponse(urlCmsCible, json_data, function(msg){
-
+    getAjaxResponse(urlCmsCible, tabData, function(msg){
         $('body').loading('stop');
-
-
     })
 }
 

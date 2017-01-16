@@ -1,15 +1,34 @@
 /**
  * load ajax - generic
  * @param urlArticleCible : where to post ajax
- * @param json_data : parameters
+ * @param json_data : parameters (array)
  * @param callback
  */
-function getAjaxResponse(urlArticleCible, json_data, callback){
+function getAjaxResponse(urlArticleCible, tabData, callback){
 
     // remove all notice blocks
     removeNodeEverywhere('.result_push_cms');
 
+    // convert tab to string
+    json_data = JSON.stringify(tabData, null, 2);
+
+    //////////////////////////
+    // JWS encoding ?
+    // not for Shopify/Weebly
+    // JSON WEB Signature
+    //////////////////////////
+
+    if (tabData['shop_name'] == undefined){
+        console.log('Encoding to JWT...');
+        var oHeader = {alg: "HS256", typ: "JWT"};
+        var sHeader = JSON.stringify(oHeader);
+        var json_data = KJUR.jws.JWS.sign("HS256", sHeader, json_data, "123456789");        // TODO changer la clé de façon dynamique
+    }
+
+    //////////////////////////
     // ajax request
+    //////////////////////////
+
     $.ajax({
         method: "POST",
         url: urlArticleCible,
@@ -17,7 +36,7 @@ function getAjaxResponse(urlArticleCible, json_data, callback){
         dataType: "json",
         enctype: 'multipart/form-data',
         data: { data_optme: json_data },
-        crossDomain: true,
+        //crossDomain: true,
 
         success: function(data) {
             callback(data);

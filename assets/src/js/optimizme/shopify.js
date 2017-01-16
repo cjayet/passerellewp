@@ -1,40 +1,4 @@
 /**
- *  Load all redirections
- */
-function shopifyLoadAllRedirections(){
-
-    // préparation requête ajax pour les images
-    var tabData = {
-        shop_name: $('#url_cible').val(),
-        action: 'get_redirections'
-    };
-    var json_data = JSON.stringify(tabData, null, 2);
-
-    $('body').loading();
-
-    // exécution ajax
-    getAjaxResponse('index.php?ajax=shopify', json_data, function(msg) {
-        $('body').loading('stop');
-
-        if (msg.result == 'success'){
-
-            // remove all lines
-            removeNodeEverywhere('.ligne_table_redirection');
-
-            if (msg.redirections.length > 0)
-            {
-                // ajout de la liste des redirections
-                $("#redirection-table-ligne").tmpl(msg).appendTo("#table-redirections tbody");
-            }
-        }
-        else {
-            sweetAlert("Oops...", "Error loading redirections", "error");
-        }
-    })
-}
-
-
-/**
  * Load products lists
  */
 function shopifyLoadProducts(){
@@ -46,12 +10,11 @@ function shopifyLoadProducts(){
         shop_name: $('#url_cible').val(),
         action: "get_products"
     };
-    var json_data = JSON.stringify(tabData, null, 2);
 
     $('body').loading();
 
     // exécution ajax
-    getAjaxResponse('index.php?ajax=shopify', json_data, function(msg) {
+    getAjaxResponse('index.php?ajax=shopify', tabData, function(msg) {
         $('body').loading('stop');
 
         if (msg.result == 'success'){
@@ -94,12 +57,11 @@ function shopifyLoadProduct(){
         id_product: $('#shopify_select_list_elements').val(),
         action: 'get_product'
     };
-    var json_data = JSON.stringify(tabData, null, 2);
 
     $('body').loading();
 
     // exécution ajax
-    getAjaxResponse('index.php?ajax=shopify', json_data, function(msg) {
+    getAjaxResponse('index.php?ajax=shopify', tabData, function(msg) {
         if (msg.result == 'success'){
 
             // set values
@@ -138,12 +100,11 @@ function shopifyRefreshProductImages(){
         id_product: $('#shopify_select_list_elements').val(),
         action: 'get_product'   // TODO à optimiser ?
     };
-    var json_data = JSON.stringify(tabData, null, 2);
 
     $('#image-list').loading();
 
     // exécution ajax
-    getAjaxResponse('index.php?ajax=shopify', json_data, function(msg) {
+    getAjaxResponse('index.php?ajax=shopify', tabData, function(msg) {
         if (msg.result == 'success'){
 
             // load la liste des images
@@ -201,7 +162,6 @@ $(document).ready(function(){
     })
 
     $(document).on('click', '#shopify_load_redirections', function(){
-        shopifyLoadAllRedirections();
+        loadAllRedirectionsApi('shopify');
     })
-
 })

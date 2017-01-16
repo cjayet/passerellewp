@@ -14,8 +14,10 @@
     <link rel="stylesheet" type="text/css" href="./assets/dist/css/vendor.min.css" />
     <script src="./assets/dist/js/vendor-debug.min.js" ></script>
 
+    <!-- other non compressed scripts -->
     <script src="./bower_components/tinymce/tinymce.min.js" ></script>
     <script src="./bower_components/tinymce/jquery.tinymce.min.js" ></script>
+    <script src="./bower_components/kjur-jsrsasign/jsrsasign-latest-all-min.js" ></script>
 
     <!-- optimiz.me -->
     <link rel="stylesheet" type="text/css" href="./assets/dist/css/optimizme.min.css" />

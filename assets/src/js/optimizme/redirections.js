@@ -17,10 +17,9 @@ function loadRedirectionsFromSite(){
         // préparation requête ajax
         var tabData = {url_cible: urlArticleCible};
         tabData['action'] = 'load_redirections';
-        var json_data = JSON.stringify(tabData, null, 2);
 
         // exécution ajax
-        getAjaxResponse(urlArticleCible, json_data, function(msg){
+        getAjaxResponse(urlArticleCible, tabData, function(msg){
             $('body').loading('stop');
             if (msg.result == 'success'){
                 if (msg.redirections.length > 0)
@@ -37,6 +36,40 @@ function loadRedirectionsFromSite(){
     }
 }
 
+
+/**
+ * Load all redirections for online CMS
+ * @param cms : shopify/weebly
+ */
+function loadAllRedirectionsApi(cms){
+    // préparation requête ajax pour les images
+    var tabData = {
+        shop_name: $('#url_cible').val(),
+        action: 'get_redirections'
+    };
+
+    $('body').loading();
+
+    // exécution ajax
+    getAjaxResponse('index.php?ajax='+ cms, tabData, function(msg) {
+        $('body').loading('stop');
+
+        if (msg.result == 'success'){
+
+            // remove all lines
+            removeNodeEverywhere('.ligne_table_redirection');
+
+            if (msg.redirections.length > 0)
+            {
+                // ajout de la liste des redirections
+                $("#redirection-table-ligne").tmpl(msg).appendTo("#table-redirections tbody");
+            }
+        }
+        else {
+            sweetAlert("Oops...", "Error loading redirections", "error");
+        }
+    })
+}
 
 
 /**
@@ -69,14 +102,12 @@ $(document).on('click', '.confirmAction', function(){
 
             // specifique
             var cms = btnClick.attr('data-cms');
-            if (cms !== undefined && cms == 'shopify'){
+            if (cms !== undefined && cms == ''){
                 tabData['shop_name'] = $('#url_cible').val();
             }
 
-            var json_data = JSON.stringify(tabData, null, 2);
-
             // exécution ajax
-            getAjaxResponse(urlArticleCible, json_data, function(msg){
+            getAjaxResponse(urlArticleCible, tabData, function(msg){
 
                 if (msg.result == 'success'){
                     // additionnal action to do

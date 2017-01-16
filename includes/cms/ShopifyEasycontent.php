@@ -42,9 +42,11 @@ class ShopifyEasycontent
 
         $token = $this->getAccessTokenByShopName($shopName);
         if ($token != ''){
+
             $shopify = shopify_api\client(
                 $shopName, $token, $this->appSettings->api_key, $this->appSettings->shared_secret
             );
+
             $this->shopify = $shopify;
         }
 
@@ -69,9 +71,13 @@ class ShopifyEasycontent
             $row = $stmt->fetch();
             return $row['access_token'];
         }
+        catch (sandeepshetty\shopify_api\ApiException $e){
+            echo "ici"; die;
+        }
         catch (Exception $e){
             return '';
         }
+        echo "ici2"; die;
         return '';
     }
 

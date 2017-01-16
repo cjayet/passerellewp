@@ -19,7 +19,7 @@ $(document).ready(function () {
         var dataUrl = btnClick.attr('data-url');
         if (dataUrl !== undefined && dataUrl != ''){
             // ajax passerelle
-            var urlArticleCible = dataUrl;
+            var urlArticleCible = dataUrl;v
             shopname = $('#url_cible').val();
         }
         else {
@@ -160,8 +160,8 @@ $(document).ready(function () {
                     if (allInputProcessed == true && nbFilesUploadProcessing == 0){
 
                         // all is ok : data to JSON and send ajax
-                        var json_data = JSON.stringify(tabData, null, 2);
-                        sendAjax(json_data);
+                        //var json_data = JSON.stringify(tabData, null, 2);
+                        sendAjax(tabData);
                     }
                 }
 
@@ -174,7 +174,10 @@ $(document).ready(function () {
                 function sendAjax(json_data){
                     console.log('Now fire ajax!')
 
-                    // exécution ajax
+                    ///////////////////
+                    // execute ajax
+                    ///////////////////
+
                     getAjaxResponse(urlArticleCible, json_data, function (msg) {
 
                         // stop loading

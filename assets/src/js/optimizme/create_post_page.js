@@ -25,9 +25,8 @@ $(document).ready(function(){
             // préparation requête ajax
             var tabData = {url_cible: 'test'};
             tabData['action'] = 'load_posts_pages';
-            var json_data = JSON.stringify(tabData, null, 2);
 
-            getAjaxResponse(urlArticleCible, json_data, function(msg){
+            getAjaxResponse(urlArticleCible, tabData, function(msg){
                 $('body').loading('stop');
 
                 if (msg.result == 'success'){

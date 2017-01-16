@@ -17,12 +17,6 @@ $(document).ready(function(){
        loadGridEditor();
    })
 
-   /**
-    * load arborescence
-    */
-   /*$(document).on('click', '.load_arborescence', function(){
-       loadAllPostsPages();
-   })*/
 
     $(document).on('change', '#select_cms_lang', function(){
         $('#btn_load_arbo').trigger('click');
