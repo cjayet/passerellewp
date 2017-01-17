@@ -9,11 +9,19 @@
 session_start();
 $_SESSION['id_optimizme_user'] = 3; // TODO vraie gestion de session utilisateur
 
+// composer
+require_once ('vendor/autoload.php');
+
+// error handling
+$whoops = new \Whoops\Run;
+$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops->register();
+
 // load
 require_once ('includes/constantes.php');
 require_once ('includes/functions.php');
 require_once ('includes/database.php');
-require_once ('vendor/autoload.php');
+
 
 
 /**
@@ -35,5 +43,5 @@ elseif (isset($_GET['page']) && $_GET['page'] != ''){
     OptimizmeUtils::LoadPage($_GET['page']);
 }
 else {
-    OptimizmeUtils::LoadPage('home');
+    OptimizmeUtils::LoadPage('common/home');
 }

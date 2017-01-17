@@ -14,7 +14,7 @@ class OptimizmeUtils {
      */
     public static function LoadPage($p){
         if ( isset($p) && $p != '')     $pageLoad = $p;
-        else                            $pageLoad = 'home';
+        else                            $pageLoad = 'common/home';
 
         include ('views/pages/'. $p. '.php');
     }
@@ -33,8 +33,10 @@ class OptimizmeUtils {
      * Lien vers une page donnée
      * @param $p
      */
-    public static function LinkToPage($p){
-        echo 'index.php?page='. $p;
+    public static function LinkToPage($p=''){
+        $url = 'index.php';
+        if ($p != '')       $url .= '?page='. $p;
+        echo $url;
     }
 
     public static function ExecuteAjax($action){

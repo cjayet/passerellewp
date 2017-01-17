@@ -98,5 +98,7 @@ if (!empty($_GET['shop']))
 
         }
     }
-
+}
+else {
+    echo '--';
 }

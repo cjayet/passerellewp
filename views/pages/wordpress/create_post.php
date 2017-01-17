@@ -8,7 +8,8 @@ OptimizmeUtils::LoadBloc('header');
         <div class="col-md-9">
             <?php OptimizmeUtils::LoadBloc('wordpress/head_push'); ?>
             <form>
-                <button type="button" data-id="action" id="btn_createpostpage_loadarborescence" class="btn btn-primary">Reload pages</button>
+                <!-- <button type="button" data-id="action" id="btn_createpostpage_loadarborescence" class="btn btn-primary">Reload pages</button> -->
+                <button type="button" data-id="action" id="btn_createpostpage_loadarborescence" class="btn btn-primary push_cms" data-after="after">Reload pages</button>
                 <div id="easycontent-url" value="" />
             </form>
             <hr /><br />

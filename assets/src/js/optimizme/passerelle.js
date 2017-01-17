@@ -115,26 +115,30 @@ $(document).ready(function () {
                     }
                     else {
                         // autres input
-                        tabData[$(this).attr('data-id')] = $(this).val();
                         //console.log( 'log action: ' + $(this).attr('data-id') + ' => ' + $(this).val());
+                        if ($(this).attr('data-id') != undefined)
+                        {
+                            tabData[$(this).attr('data-id')] = $(this).val();
 
-                        // cas particuliers
-                        if ($(this).attr('data-id') == 'action' && $(this).val() == 'set_post_content') {
-                            // contenu : on rajoute le contenu de grid editor
-                            tabData['new_content'] = $('#easycontent-grid').gridEditor('getHtml');
+                            // cas particuliers: add some informations
+                            if ($(this).attr('data-id') == 'action' && $(this).val() == 'set_post_content') {
+                                // contenu : on rajoute le contenu de grid editor
+                                tabData['new_content'] = $('#easycontent-grid').gridEditor('getHtml');
+                            }
+                            else if ($(this).attr('data-id') == 'action' && $(this).val() == 'set_post_shortdescription') {
+                                var newContent = getTinymceContent('easycontent-short_description');
+                                tabData['new_short_description'] = newContent;
+                            }
+                            else if ($(this).attr('data-id') == 'action' && $(this).val() == 'set_shopify_product_update') {
+                                tabData['shop_name'] = $('#url_cible').val();
+                                tabData['product_description'] = getTinymceContent('product_description');
+                            }
+                            else if ($(this).attr('data-id') == 'action' && $(this).val() == 'update_product') {
+                                tabData['shop_name'] = $('#url_cible').val();
+                                tabData['product_description'] = getTinymceContent('product_description');
+                            }
                         }
-                        else if ($(this).attr('data-id') == 'action' && $(this).val() == 'set_post_shortdescription') {
-                            var newContent = getTinymceContent('easycontent-short_description');
-                            tabData['new_short_description'] = newContent;
-                        }
-                        else if ($(this).attr('data-id') == 'action' && $(this).val() == 'set_shopify_product_update') {
-                            tabData['shop_name'] = $('#url_cible').val();
-                            tabData['product_description'] = getTinymceContent('product_description');
-                        }
-                        else if ($(this).attr('data-id') == 'action' && $(this).val() == 'update_product') {
-                            tabData['shop_name'] = $('#url_cible').val();
-                            tabData['product_description'] = getTinymceContent('product_description');
-                        }
+
                     }
 
                     allInputProcessed = true;

@@ -34,7 +34,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<?php OptimizmeUtils::LinkToPage('home') ?>">Passerelle</a>
+                <a class="navbar-brand" href="<?php OptimizmeUtils::LinkToPage() ?>">Passerelle</a>
             </div>
 
             <div id="navbar" class="navbar-collapse collapse">
@@ -87,6 +87,9 @@
                             <li><a href="<?php OptimizmeUtils::LinkToPage('weebly/create_category') ?>">New Category</a></li>
                             <li><a href="<?php OptimizmeUtils::LinkToPage('weebly/install') ?>">Install</a></li>
                         </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="<?php OptimizmeUtils::LinkToPage('common/register_cms') ?>" class="dropdown-toggle" role="button" >Register CMS</a>
                     </li>
 
                 </ul>

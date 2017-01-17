@@ -71,13 +71,9 @@ class ShopifyEasycontent
             $row = $stmt->fetch();
             return $row['access_token'];
         }
-        catch (sandeepshetty\shopify_api\ApiException $e){
-            echo "ici"; die;
-        }
         catch (Exception $e){
             return '';
         }
-        echo "ici2"; die;
         return '';
     }
 
@@ -93,7 +89,6 @@ class ShopifyEasycontent
         catch (Exception $e){
             $this->message = 'Error get products: '. $e->getMessage();
         }
-
     }
 
     /**

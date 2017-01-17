@@ -36,7 +36,7 @@ OptimizmeUtils::LoadBloc('header');
 
                         <label for="metatitle">Slug</label>
                         <input type="text" name="handle" id="product_handle" data-id="handle" class="form-control" value="" required="" />
-                        <input type="hidden" name="current_handle" id="product_current_handle" data-id="current_handle" class="form-control" value="<?php echo $produit['handle'] ?>" />
+                        <input type="hidden" name="current_handle" id="product_current_handle" data-id="current_handle" class="form-control" value="" />
 
                         <label for="metatitle">Meta title</label>
                         <input type="text" name="metatitle" id="product_metatitle" data-id="metatitle" class="form-control" value="" />

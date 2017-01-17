@@ -264,10 +264,7 @@ function easycontentToolbarAction(){
 
         getAjaxResponse('index.php?ajax=getLoremIpsum', $(this).attr('data-select'), function(msg) {
             if(msg.result == 'success'){
-                sweetAlert("Res", msg.lorem);
-
                 // TODO ajouter le contenu en dessous et pouvoir l'injecter dans le grid editor
-                //$('#toolbar-easycontent-')
             }
         })
     }
