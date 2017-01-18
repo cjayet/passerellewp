@@ -7,7 +7,7 @@
 
     <select name="" id="url_cible" class="form-control">
         <optgroup label="Veuillez choisir un site">
-            <option value="http://magento212.dev/passerelle/">http://magento212.dev/</option>
+            <option value="http://magento212.dev/passerelle/">http://magento212.dev/passerelle/</option>
         </optgroup>
     </select>
 </div>

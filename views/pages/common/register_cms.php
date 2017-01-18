@@ -13,7 +13,7 @@ OptimizmeUtils::LoadBloc('header');
 
                 <div class="form-group">
                     <label for="login">Login</label>
-                    <input type="text" class="form-control" name="login" data-id="login" placeholder="login" value="" />
+                    <input type="text" class="form-control" name="login" data-id="login" placeholder="login" value="c.jayet@optimiz.me" />
                 </div>
 
                 <div class="form-group">
@@ -23,7 +23,9 @@ OptimizmeUtils::LoadBloc('header');
 
                 <div class="form-group">
                     <label for="url_backoffice">URL site</label>
-                    <input type="text" class="form-control" id="url_cible" name="url_backoffice" placeholder="URL site" value="http://localhost/wordpress/" required />
+                    <!-- <input type="text" class="form-control" id="url_cible" name="url_backoffice" placeholder="URL site" value="http://localhost/prestashop/prestashop1.7/" required /> -->
+                    <!-- <input type="text" class="form-control" id="url_cible" name="url_backoffice" placeholder="URL site" value="http://localhost/prestashop/prestashop1.7/" required /> -->
+                    <input type="text" class="form-control" id="url_cible" name="url_backoffice" placeholder="URL site" value="http://magento212.dev/passerelle/" required />
                 </div>
 
                 <input type="hidden" data-id="jwt_disable" name="jwt_disable" value="1" />
