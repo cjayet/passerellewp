@@ -36,7 +36,7 @@ if ($error != ''){
     echo json_encode(
         array(
             'result' => 'danger',
-            'message' => 'Error doing Ajax for Shopify: '. $error
+            'message' => 'Error doing Ajax for CMS: '. $error
         )
     );
 }

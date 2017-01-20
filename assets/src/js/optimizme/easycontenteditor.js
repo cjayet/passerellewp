@@ -180,9 +180,15 @@ function dropAction(element, action, url){
         generateContent = '<img src="'+ urlImage +'" alt="" style="max-width:100%; height:auto;" />';
         injectDropContent(element, generateContent);
     }
+
+    // no JWT because internal ajax
+    var tabData = [];
+    tabData['jwt_disable'] = 1;
+    //tabData['data'] =  $(this).attr('data-select');
+
     if (action == 'content'){
         generateContent = '';
-        getAjaxResponse('index.php?ajax=getLoremIpsum', $(this).attr('data-select'), function(msg) {
+        getAjaxResponse('index.php?ajax=getLoremIpsum', tabData, function(msg) {
             if(msg.result == 'success'){
                 generateContent = msg.lorem;
                 injectDropContent(element, generateContent);
@@ -208,7 +214,6 @@ function injectDropContent(element, generateContent){
 
     // remet l'éditeur
     easycontentGridInit('', true);
-
 }
 
 
@@ -262,7 +267,11 @@ function easycontentToolbarAction(){
     else if (action == 'search'){
         // get content and inject in suggest
 
-        getAjaxResponse('index.php?ajax=getLoremIpsum', $(this).attr('data-select'), function(msg) {
+        // no JWT because internal ajax
+        var tabData = [];
+        tabData['jwt_disable'] = 1;
+
+        getAjaxResponse('index.php?ajax=getLoremIpsum', tabData, function(msg) {
             if(msg.result == 'success'){
                 // TODO ajouter le contenu en dessous et pouvoir l'injecter dans le grid editor
             }
@@ -377,6 +386,9 @@ function refreshImagesListInPost(){
             var tabData = {};
         }
 
+        // no JWT because internal ajax
+        tabData['jwt_disable'] = 1;
+
         // exécution ajax
         getAjaxResponse('index.php?ajax=getImagesInGridEditor', tabData, function(msg) {
             $('#image-list').empty();
@@ -414,6 +426,9 @@ function refreshLiensListInPost(){
     var contenuEditor = $('#easycontent-grid').gridEditor('getHtml');
     var tabData = {grideditor_content: contenuEditor};
 
+    // no JWT because internal ajax
+    tabData['jwt_disable'] = 1;
+
     // exécution ajax
     getAjaxResponse('index.php?ajax=getLiensInGridEditor', tabData, function(msg) {
         $('#href-list').empty();
@@ -446,7 +461,12 @@ function refreshLiensListInPost(){
  * Load random dummy image
  */
 function loadRandomDummyImage(){
-    getAjaxResponse('index.php?ajax=getRandomDummyImage', $(this).attr('data-select'), function(msg) {
+
+    // no JWT because internal ajax
+    var tabData = [];
+    tabData['jwt_disable'] = 1;
+
+    getAjaxResponse('index.php?ajax=getRandomDummyImage', tabData, function(msg) {
         if (msg.result == 'success'){
 
             $('#draggable-random-images').empty();

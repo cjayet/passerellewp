@@ -19,6 +19,7 @@ function getAjaxResponse(urlArticleCible, tabData, callback){
     // JSON WEB Signature
     ////////////////////////////////////////////////////
 
+
     if (tabData['shop_name'] == undefined && tabData['jwt_disable'] != 1){
 
         var keyJWT = 'LJk7mew4dpxqPN1ISOdyWYjyKu7ceXVxRJjDNiIEuQ2DZ3UrABTp4sazg8zLaH2C';        // TODO changer la clé de façon dynamique selon le CMS
@@ -32,7 +33,6 @@ function getAjaxResponse(urlArticleCible, tabData, callback){
     // ajax request
     //////////////////////////
 
-
     $.ajax({
         method: "POST",
         url: urlArticleCible,
@@ -41,7 +41,6 @@ function getAjaxResponse(urlArticleCible, tabData, callback){
         enctype: 'multipart/form-data',
         data: { data_optme: json_data },
         //crossDomain: true,
-        //jsonpCallback: "callbackAjax",
 
         success: function(data) {
             callback(data);
@@ -60,28 +59,6 @@ function getAjaxResponse(urlArticleCible, tabData, callback){
             }
         }
     });
-
-
-
-    /*
-    $.ajax({
-        method: "POST",
-        url: urlArticleCible,
-        cache: false,
-        dataType: "jsonp",
-        enctype: 'multipart/form-data',
-        data: { data_optme: json_data },
-        crossDomain: true,
-        jsonpCallback: "callbackAjax"
-    });
-    */
-
-
-    /**
-    var aaa = { data_optme: json_data };
-    $.getJSON(urlArticleCible, function(aaa) {
-        callback(data);
-    })*/
 }
 
 

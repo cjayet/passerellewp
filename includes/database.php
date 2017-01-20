@@ -72,10 +72,14 @@ class EasycontentDB {
      */
     protected function getSiteByDomain($domain){
         if (isset($domain) && $domain != ''){
-            $sql = 'SELECT * 
-                    FROM cms_usersettings
-                    WHERE site_domain="'. $domain .'"';
-            return $this->getOneRow($sql);
+
+            $stmt = $this->dbh->prepare('SELECT * 
+                                            FROM cms_usersettings
+                                            WHERE site_domain= :site_domain');
+            $stmt->bindParam(':site_domain', $domain, PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt->fetchObject();
+
         }
         return '';
     }
@@ -85,15 +89,22 @@ class EasycontentDB {
      * @param $data
      */
     protected function addCmsToEasyContent($data){
-        $sql = 'INSERT INTO cms_usersettings (site_domain, cms, access_token, created_at, updated_at)
-              VALUES (
-                "'. $data->site_domain .'",
-                "'. $data->cms .'",
-                "'. $data->jws_token .'",
-                "'. date('Y-m-d H:i:s') .'",
-                "'. date('Y-m-d H:i:s') .'"     
-            )';
-        $this->executeSql($sql);
+
+        $currentDate = date('Y-m-d H:i:s');
+        $stmt = $this->dbh->prepare('INSERT INTO cms_usersettings (site_domain, cms, access_token, created_at, updated_at)
+                                      VALUES (:site_domain, :cms, :access_token, :created_at, :updated_at)');
+        $stmt->bindParam(':site_domain', $data->site_domain, PDO::PARAM_STR);
+        $stmt->bindParam(':cms', $data->cms, PDO::PARAM_STR);
+        $stmt->bindParam(':access_token', $data->jws_token, PDO::PARAM_STR);
+        $stmt->bindParam(':created_at', $currentDate, PDO::PARAM_STR);
+        $stmt->bindParam(':updated_at', $currentDate, PDO::PARAM_STR);
+
+        try {
+            $stmt->execute();
+        }
+        catch (Exception $e){
+            echo "Error in addCmsToEasyContent: ". $e->getMessage();
+        }
     }
 
     /**
@@ -101,9 +112,21 @@ class EasycontentDB {
      * @param $token
      */
     protected function updateEasyContentCmsToken($idSite, $token){
-        $sql = 'UPDATE cms_usersettings
-                        SET access_token = "'. $token .'"
-                        WHERE id="'. $idSite .'"';
-        $this->executeSql($sql);
+        $currentDate = date('Y-m-d H:i:s');
+        $stmt = $this->dbh->prepare('UPDATE cms_usersettings
+                                        SET access_token = :token,
+                                            updated_at = :updated_at
+                                        WHERE id= :idSite');
+        $stmt->bindParam(':token', $token, PDO::PARAM_STR);
+        $stmt->bindParam(':updated_at', $currentDate, PDO::PARAM_STR);
+        $stmt->bindParam(':idSite', $idSite, PDO::PARAM_STR);
+
+        try {
+            $stmt->execute();
+        }
+        catch (Exception $e){
+            echo "ERROR updateEasyContentCmsToken: ". $e->getMessage();
+        }
+
     }
 }

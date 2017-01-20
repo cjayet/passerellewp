@@ -10,7 +10,7 @@
 
     <select name="" id="url_cible" class="form-control">
         <optgroup label="Veuillez choisir un site">
-            <option value="http://localhost/wordpress/">http://localhost/wordpress/</option>
+            <option value="http://wordpress4_6.dev/">hhttp://wordpress4_6.dev/</option>
             <option value="http://localhost/wordpress2/">http://localhost/wordpress2/</option>
             <option value="http://localhost/wordpress2/site2/">http://localhost/wordpress2/site2/</option>
             <option value="http://localhost/wordpress2/site3/">http://localhost/wordpress2/site3/</option>
